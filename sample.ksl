@@ -1,0 +1,16 @@
+rule setup
+    if 1=1
+    then car is nothing .
+
+rule my_rule
+    if car is nothing
+    then ask what_car .
+
+question what_car
+    What kind of car do you have? ;
+    input car ;
+    because Enter the manufacturer of your car .
+
+rule output
+    if what_car is not nothing
+    then write('Your car is ' - what_car) .
