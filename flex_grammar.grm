@@ -1,0 +1,6 @@
+"Name"      = 'Flex'
+"Author"    = 'Thomas Cowell'
+"About"     = 'Grammar EBNF for Flex ES language'
+
+
+"Start Symbol" = <Value>
