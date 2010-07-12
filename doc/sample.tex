@@ -1,10 +1,15 @@
-\documentclass{report}
+\documentclass[10pt]{report}
 \usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage{natbib}
+
+\bibpunct{[}{]}{,}{a}{,}{,}
 
 \begin{document}
 
 \title{Developing an Interpreter for the Expert Systems Language, Flex}
-\author{05017742 - Thomas Cowell}
+\author{05017742 - Thomas Cowell\\
+		\texttt{05017742@glam.ac.uk}}
 
 \maketitle
 
@@ -13,23 +18,53 @@ The aim of this project is to create a simple interpreter for the language Flex.
 non-technical users.
 \end{abstract}
 
-\section{Inroduction}\label{sec:introduction}
-Expert Systems try to answer a problem based on a series of questions.  They try to mimic the role of experts in a certain field, for example, doctors may use an expert system to try and diagnose what a patient has based on the answers that the patient provides.\\\\
-Flex is an expert systems language that tries to use as much plain English as possible.
+\pagestyle{plain}
+\pagenumbering{alph}
+
+\tableofcontents
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+\chapter{Introduction}
+
+\section[Why This Project?]{Why This Project?}\label{sec:why_this_project}
+Before this paper begins, it is worth noting the motivation behind this project.  During particular modules on the masters course, students were using a particular piece of software that allowed them to run Flex programs.  Whilst it achieved results, it was felt that the debugging features were sub-par and were often inaccurate, whilst giving no helpful messages for a beginner to use to correct their mistakes.
+
+\chapter{Research}
+\section[Research]{Research}\label{sec:intro_to_research}
+Before any implementation can begin, research needs to be conducted in order to gain better knowledge about expert systems, the Flex language and various toolkits for developing interpreters.
 
 \section{Expert Systems}\label{sec:expert_systems}
-Write your subsection text here.
-
-\subsection{WinProlog}\label{subsec:winprolog}
-About WinProlog
+In the modern world where information is highly valuable and where time is of the esence, many experts have turned to computing to help provide answers for them that may otherwise take a while to reach through their own expertese.  Expert Systems provide an easier way for professionals to reach conclusions through a series of questions, usually linking to a knowledge base.  For example, a doctor may use an expert system to reach a diagnosis that may not be readily obvious.  The system would ask a question, where the doctor would answer, and then the expert system would continue asking more questions, based on the previous answers, until a conclusion is reached.
+\\*
+\\*
+Expert system development entials the conversion of information about a bounded problem domain into knowledge, which is then represented in a format suitable for computer manipulation.  The created depository of knowledge, known as the knowledge base, can then by used by various deductive reasoning techniques to derive solutions \citep{expertsystems98}.
+\\*
+\\*
+From this, it is obvious that the usefulness of the expert system is only as good as the underlying data - the knowledge base.  Using the doctors example from the previous paragraph, the system would be of no use if the knowledge base was minimal, whilst in the reverse situation, it would be extremely useful to have a large knowledge base.
 
 \subsection{Flex}\label{subsec:flex}
-About flex
+The 'Flex Tutorial' describes Flex as "Flex is a software system specifically designed to aid the development and delivery of Expert Systems."
+\\*
+\\*
+To appreciate both the power and limitations of Expert System approaches to reaching expert conclusions, it is necessary to construct and experiment with expert systems.  In this module, the Flex Expert System Shell will be used.  Flex describes knowledge in terms of \textit{production rules} (that is, \textit{if-then} statements), which has proved the most popular approach to encapsulation expert knowledge.  Such rules, despite appearing simple, enable relatively complex connections to be made between individual pieces of 'knowledge', thereby solving apparently difficult problems.\citep{flexsystems09}.
+
+\chapter{Technical Research}
+This chapter will cover the research into the technical research involved into the implementation process.
+\section{Lexical Analysis}\label{sec:lexical_analysis}
+Flex and Bison are tools for building programs that handle structured input.  They were originally tools for building compilers, but they have proven to be useful in many other areas.\citep{flexandbison09}.
+\\*
+\\*
+Lexical analysis is the process of taking an input, and splitting it up into meaningful parts, or \textit{tokens}.  For instance, \texttt{answer = 5 + 4;} would be split into six tokens: \textit{answer, equals, five, plus, four} and \textit{semi-colon}.  From this, the parser can work out that \texttt{5 + 4} is an expression, in which the answer is assigned (\textt{=}) to \texttt{answer}.  By using this approach, it makes it easier to analyse and input sources that will be interpreted.
 
 
-\section{Conclusion}
+\chapter{Conclusion}
 I conclude that the project was poo.
 
-\end{document}\bibliography{untitled}
+\bibliographystyle{plainnat}
+\bibliography{sample}
+\end{document}
+
 
 

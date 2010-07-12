@@ -1,17 +1,17 @@
 /* Flex tokens */
 %%
-"rule"		{ printf("RULE\n"); }
+"rule"		{ printf("RULE: "); }
 "if"		{ printf("IF\n"); }
 "is"		{ printf("IS\n"); }
 "the"		{ printf("THE\n"); }
 "then"		{ printf("THEN\n"); }
-"question"	{ printf("QUESTION\n"); }
+"question"	{ printf("QUESTION: "); }
 "ask "		{ printf("ASK\n"); }
 "group"		{ printf("GROUP\n"); }
 "unknown"	{ printf("UNKNOWN\n"); }
 "and"		{ printf("AND\n"); }
 "."		{ printf("END\n"); }
-\n		{ printf("NEWLINE\n"); }
+\n		{ }
 [ \t]		{ }
 [a-zA-Z]*";"	{ printf("QUESTION: %s\n", yytext); }
 [a-zA-Z_]+	{ printf("%s\n", yytext); }
@@ -29,5 +29,5 @@ char **argv;
     }
 
     yylex();
-    printf("\n\t-- FILE READ --");
+    printf("\n\t-- FILE READ --\n");
 }

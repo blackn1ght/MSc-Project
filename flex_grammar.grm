@@ -4,3 +4,13 @@
 
 
 "Start Symbol" = <Value>
+
+! -- Comments ------------------------------------------
+
+Comment Line = '%'
+Comment Start = '/*'
+Commend End = '*/'
+
+! -- Literals ------------------------------------------
+
+
