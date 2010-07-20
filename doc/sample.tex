@@ -56,8 +56,17 @@ This chapter will cover the research into the technical research involved into t
 Flex and Bison are tools for building programs that handle structured input.  They were originally tools for building compilers, but they have proven to be useful in many other areas.\citep{flexandbison09}.
 \\*
 \\*
-Lexical analysis is the process of taking an input, and splitting it up into meaningful parts, or \textit{tokens}.  For instance, \texttt{answer = 5 + 4;} would be split into six tokens: \textit{answer, equals, five, plus, four} and \textit{semi-colon}.  From this, the parser can work out that \texttt{5 + 4} is an expression, in which the answer is assigned (\textt{=}) to \texttt{answer}.  By using this approach, it makes it easier to analyse and input sources that will be interpreted.
-
+Lexical analysis is the process of taking an input, and splitting it up into meaningful parts, or \textit{tokens}.  For instance, \texttt{answer = 5 + 4;} would be split into six tokens: \textit{answer, equals, five, plus, four} and \textit{semi-colon}.  From this, the parser can work out that \texttt{5 + 4} is an expression, in which the answer is assigned (\texttt{=}) to \texttt{answer}.  By using this approach, it makes it easier to analyse and input sources that will be interpreted.
+\section{Parsing}\label{sec:parsing}
+What is parsing? derp derp
+\subsection{Top-Down Parsing}\label{subsec:top_down_parsing}
+Parses input string of tokens by tracing out the steps of the leftmost derivation.  Called top down because the implied traversal of the parse tree is a preorder traversal and thus occurs from the root to the leaves (think BST's).
+\\*
+\\*
+Two Types: Backtracing parsers \& predictive parsers.
+Predictive attempts to predict the next construction in the input string using one or more lookahead tokens, while a background parser will try different possibilities for a parse of the input, backing up an arbitrary amount in the input if one possiblity fails.  Backtracing is more powerful, but slower than predictive - useful point to make when running an interpreter.\citep{compilerconstruction97}
+\subsection{Bottom-Up Parsing}\label{subsec:bottom_up_parsing}
+Bottom up parsing is parsing that goes from bottom to up.
 
 \chapter{Conclusion}
 I conclude that the project was poo.
