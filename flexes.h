@@ -32,10 +32,40 @@ struct symlist {
 struct symlist *newsymlist(struct symbol *sym, struct symlist *next);
 void symlistfree(struct symlist *sl);
 
+/* Node Types
+ * r : Rule
+ * q : Question
+ * i : if statement
+ * = : assignment
+ * e : expression
+ */
+
 struct ast {
 	int nodetype;
 	struct ast *l;
 	struct ast *r;
+};
+
+struct flow {
+	int nodetype;		/* If */
+	struct ast *cond;	/* The condition */
+	struct ast *tl;		/* Then branch */
+};
+
+struct call {
+	int nodetype;		/* Question or Rule */
+	struct symbol *s;	/* Name, code block */
+};
+
+struct assign {
+	int nodetype;		/* Assignment (becomes) */
+	struct symbol *s;
+	struct ast *v;		/* value */
+};
+
+struct numval {
+	int nodetype;		/* Number */
+	double number;
 };
 
 /* Build an AST */
@@ -44,6 +74,8 @@ struct ast *newcmp(int cmptype, struct ast *l, struct ast *r);
 struct ast *newasgn(struct symbol *s, struct ast *v);
 struct ast *newnum(double d);
 struct ast *newflow(int nodetype, struct ast *cond, struct ast *l);
+
+struct ast *newrule(int nodetype, struct ast *id);
 
 /* Evaulate an AST */
 double eval(struct ast *);

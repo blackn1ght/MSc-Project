@@ -71,6 +71,11 @@ block : stmts TDOT
 func_decl : RULE ident block { $$ = new NFunctionDeclaration(*$1, *$2, *$4, *$6); delete $4; }
           ;
 
+rule_decl : RULE ident block { $$ = NRuleDeclaration(*$1, *$2, *$4, *$6); delete $4; }
+	  ;
+
+question_decl : QUESETION ident
+
 ident : TIDENTIFIER { $$ = new NIdentifier(*$1); delete $1; }
       ;
 
@@ -78,13 +83,26 @@ numeric : TINTEGER { $$ = new TInteger(atol($1->c_str())); delete $1; }
         | TDOUBLE { $$ = new NDouble(atof($1->c_str())); delete $1; }
 	;
 
-expr : ident
+expr : ident IS UNKNOWN
+     | ident IS ident
+     | ident BECOMES ident
+     | ident comparison iden
+     ;
 
+if-stmt : IF ident IS UNKNOWN
+	| IF ident IS ident
+
+words : letter letter
+      ;
 
 rule: RULE identifier rule_contents "." { $$ = newast('R', $1, $3); }
 ;
 
 question: "question " identifier question_contents ("." | ";")
+
+comparison : TCEQ | TCNE | TCLT | TCLE | TCGT | TCGE
+	   : TPLUS | TMINUS | TMUL | TDIV
+	   ;
 
 letter: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J"
       | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T"

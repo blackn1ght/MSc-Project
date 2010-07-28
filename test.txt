@@ -1,0 +1,6 @@
+write('hello')
+write('hello world')
+house becomes 'false'
+help
+'Thomas'
+% This is a comment
