@@ -15,22 +15,35 @@ extern "C" int yywrap() { }
 ^%			; /* Comment, ignore */
 "."			return TOKEN(TSTOP);
 ";"			return TOKEN(TQEND);
-"^question"		return TOKEN(TQUESTION);
-"^rule"			return TOKEN(TRULE);
-"^input"		return TOKEN(TINPUT);
-"^if"			return TOKEN(TIF);
-"and"			return TOKEN(TAND);
-"then"			return TOKEN(TTHEN);
-"is"			return TOKEN(TIS);
-"="			return TOKEN(TEQUALS);
-">"			return TOKEN(TMT);
-"<"			return TOKEN(TLT);
-">="			return TOKEN(TME);
-"<="			return TOKEN(TLE);
+
+/* Functions */
+"^question"		{ yylval.fn = F_question; return TOKEN(TQUESTION); }
+"^rule"			  { yylval.fn = F_rule; return TOKEN(TRULE); }
+"^action"     { yylval.fn = F_action; return TOKEN(TACTION); }
+
+/* Keywords */
+"^input"		  return TOKEN(TINPUT);
+"^if"			    return TOKEN(TIF);
+"and"			    return TOKEN(TAND);
+"then"			  return TOKEN(TTHEN);
+"is"			    return TOKEN(TIS);
+"not"         return TOKEN(TNOT);
+"do"			    return TOKEN(TDO);
+"ask"			    return TOKEN(TASK);
+"because"		  return TOKEN(TBECAUSE);
+
+/* Comparison */
+"="			  { yylval.fn = 1; return TOKEN(CMP); }
+">"			  { yylval.fn = 2; return TOKEN(CMP); }
+"<"			  { yylval.fn = 3; return TOKEN(CMP); }
+">="			{ yylval.fn = 4; return TOKEN(CMP); }
+"<="			{ yylval.fn = 5; return TOKEN(CMP); }
+
+/* Assignment */
 "becomes"		return TOKEN(TBECOMES);
-"do"			return TOKEN(TDO);
-"ask"			return TOKEN(TASK);
-"because"		return TOKEN(TBECAUSE);
+
+
+
 "("			return TOKEN(TLPAREN);
 ")"			return TOKEN(TRPAREN);
 [0-9]+\.[0-9]*		SAVE_TOKEN; return TDOUBLE;

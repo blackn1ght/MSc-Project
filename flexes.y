@@ -22,11 +22,14 @@
    Need to define the node type they represent.
 */
 
+%token <d> NUMBER
+%token <fn> FUNC
+
 %token <string> TIDENTIFIER TINTEGER TDOUBLE
 %token <token> TCEQ TCNE TCLT TCLE TCGT TCGE TEQUAL
 %token <token> TCOMMA TDOT TSCOLON
 %token <token> TPLUS TMINUS TMUL TDIV
-%token <token> IF THEN IS BECOMES AND OR
+%token <token> IF THEN IS BECOMES AND OR NOT
 %token <token> RULE QUESTION ACTION
 %token <token> DO ASK BECAUSE INPUT
 %token <token> NL

@@ -10,6 +10,13 @@
 extern int yylineno;
 void yyerror(char *s, ...);
 
+enum func {
+  F_rule = 1,
+  F_action,
+  F_question
+};
+  
+
 struct symbol {		/* variable name */
 	char *name;
 	double value;
