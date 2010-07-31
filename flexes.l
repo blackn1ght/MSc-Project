@@ -16,12 +16,11 @@ extern "C" int yywrap() { }
 "."			return TOKEN(TSTOP);
 ";"			return TOKEN(TQEND);
 
-/* Functions */
+
 "^question"		{ yylval.fn = F_question; return TOKEN(TQUESTION); }
 "^rule"			  { yylval.fn = F_rule; return TOKEN(TRULE); }
 "^action"     { yylval.fn = F_action; return TOKEN(TACTION); }
 
-/* Keywords */
 "^input"		  return TOKEN(TINPUT);
 "^if"			    return TOKEN(TIF);
 "and"			    return TOKEN(TAND);
@@ -32,25 +31,21 @@ extern "C" int yywrap() { }
 "ask"			    return TOKEN(TASK);
 "because"		  return TOKEN(TBECAUSE);
 
-/* Comparison */
-"="			  { yylval.fn = 1; return TOKEN(CMP); }
-">"			  { yylval.fn = 2; return TOKEN(CMP); }
-"<"			  { yylval.fn = 3; return TOKEN(CMP); }
-">="			{ yylval.fn = 4; return TOKEN(CMP); }
-"<="			{ yylval.fn = 5; return TOKEN(CMP); }
+"="			      { yylval.fn = 1; return TOKEN(CMP); }
+">"			      { yylval.fn = 2; return TOKEN(CMP); }
+"<"			      { yylval.fn = 3; return TOKEN(CMP); }
+">="			    { yylval.fn = 4; return TOKEN(CMP); }
+"<="			    { yylval.fn = 5; return TOKEN(CMP); }
 
-/* Assignment */
-"becomes"		return TOKEN(TBECOMES);
+"becomes"		  return TOKEN(TBECOMES);
 
-
-
-"("			return TOKEN(TLPAREN);
-")"			return TOKEN(TRPAREN);
+"("			      return TOKEN(TLPAREN);
+")"			      return TOKEN(TRPAREN);
 [0-9]+\.[0-9]*		SAVE_TOKEN; return TDOUBLE;
-[0-9]+			SAVE_TOKEN; return TINTEGER;
+[0-9]+			  SAVE_TOKEN; return TINTEGER;
 [a-zA-Z_][a-zA-Z0-9_]*	SAVE_TOKEN; return TIDENTIFIER;
-/* Need to write something here that recognises a sentence */
-.			printf("Unknown token!\n"); yyterminate();
+
+.			        printf("Unknown token!\n"); yyterminate();
 %%
 
 main(argc, argv)

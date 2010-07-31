@@ -5,6 +5,17 @@
  * flexes.h
  * Header file for the Abstract Syntax Trees (AST)'s
  *
+ * + - * /
+ * 0 - 7 comparison ops
+ * L expression or statement list
+ * I IF statement
+ * N symbol ref
+ * B assignment (becomes)
+ * S list of symbols
+ * C rule/question/action
+ * P input
+ * U because (question optional answer)
+ * D do (do something)
  */
 
 extern int yylineno;
@@ -19,9 +30,10 @@ enum func {
 
 struct symbol {		/* variable name */
 	char *name;
-	double value;
+	double d_value;
+	char *c_value;
 	struct ast *func;	/* stmt for the function */
-	struct symlist *syms	/* list of dummy args */
+	struct symlist *syms;	/* list of dummy args */
 };
 
 /* symtable of fixed size */
@@ -53,21 +65,25 @@ struct ast {
 	struct ast *r;
 };
 
-struct flow {
-	int nodetype;		/* If */
+struct flow {     /* If - the if-then in flex has no else clause.*/
+	int nodetype;
 	struct ast *cond;	/* The condition */
 	struct ast *tl;		/* Then branch */
 };
 
-struct call {
+struct quest {
+  int nodetype;   /* Question */
+  struct symbol *q;
+
+struct call {     /* Stores a question, rule or action */
 	int nodetype;		/* Question or Rule */
 	struct symbol *s;	/* Name, code block */
 };
 
 struct assign {
 	int nodetype;		/* Assignment (becomes) */
-	struct symbol *s;
-	struct ast *v;		/* value */
+	struct symbol *s1
+	struct symbol *s2;
 };
 
 struct numval {
@@ -78,9 +94,10 @@ struct numval {
 /* Build an AST */
 struct ast *newast(int nodetype, struct ast *l, struct ast *r);
 struct ast *newcmp(int cmptype, struct ast *l, struct ast *r);
-struct ast *newasgn(struct symbol *s, struct ast *v);
+struct ast *newassign(struct symbol *s1, struct symbol *s2);
 struct ast *newnum(double d);
 struct ast *newflow(int nodetype, struct ast *cond, struct ast *l);
+struct ast *newcall(int nodetype, struct ast *s);
 
 struct ast *newrule(int nodetype, struct ast *id);
 
