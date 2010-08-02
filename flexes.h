@@ -20,14 +20,7 @@
 
 extern int yylineno;
 void yyerror(char *s, ...);
-
-enum func {
-  F_rule = 1,
-  F_action,
-  F_question
-};
   
-
 struct symbol {		/* variable name */
 	char *name;
 	double d_value;
@@ -59,6 +52,12 @@ void symlistfree(struct symlist *sl);
  * e : expression
  */
 
+enum func {
+  F_rule = 1,
+  F_action,
+  F_question
+};
+
 struct ast {
 	int nodetype;
 	struct ast *l;
@@ -74,15 +73,16 @@ struct flow {     /* If - the if-then in flex has no else clause.*/
 struct quest {
   int nodetype;   /* Question */
   struct symbol *q;
+};
 
-struct call {     /* Stores a question, rule or action */
+struct ucall {     /* Stores a question, rule or action */
 	int nodetype;		/* Question or Rule */
 	struct symbol *s;	/* Name, code block */
 };
 
 struct assign {
 	int nodetype;		/* Assignment (becomes) */
-	struct symbol *s1
+	struct symbol *s1;
 	struct symbol *s2;
 };
 
@@ -99,10 +99,14 @@ struct ast *newnum(double d);
 struct ast *newflow(int nodetype, struct ast *cond, struct ast *l);
 struct ast *newcall(int nodetype, struct ast *s);
 
-struct ast *newrule(int nodetype, struct ast *id);
+struct ast *newquestion(int nodetype, struct symbol *name, struct symlist *syms, struct ast *stmts);
+struct ast *newrule(int nodetype, struct symbol *name, struct symlist *syms, struct ast *stmts);
 
 /* Evaulate an AST */
 double eval(struct ast *);
 
 /* Delete and free up memory from an AST */
 void treefree(struct ast *);
+
+extern int yylineno;
+void yyerror(char *s, ...);

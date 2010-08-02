@@ -12,20 +12,21 @@
   int fn;    
 }
 
-%token <fn> RULE ACTION QUESTION
+%token <fn> TRULE TACTION TQUESTION
 %token <d> TINTEGER TDOUBLE
 %token <s> TIDENTIFIER
-%token <sl> symlist
 
-%token TCOMMA TDOT TSCOLON
+
+%token TCOMMA TDOT TSCOLON TSTOP TQEND
 %token TPLUS TMINUS TMUL TDIV
-%token IF THEN IS BECOMES AND OR NOT
-%token RULE QUESTION ACTION
-%token DO ASK BECAUSE INPUT
+%token TIF TTHEN TIS TBECOMES TAND TOR TNOT
+%token TDO TASK TBECAUSE TINPUT
+%token TLPAREN TRPAREN
 %token NL
 %token UNKNOWN
 
 %type <a> program rule ident
+%type <sl> symlist
 
 %nonassoc <fn> CMP
 
@@ -40,7 +41,7 @@ program : rule { $$ = newast('p', $1, NULL); }
 	      ;
 
 
-rule : RULE ident { $$ = newcall('r', $2); }
+rule : TRULE ident symlist { $$ = newrule('r', $2, $3, NULL); }
      ;
 
 /*
@@ -66,7 +67,11 @@ question_decl : QUESETION ident { }
               ;
 */
 ident : TIDENTIFIER { }
-      ;
+
+
+symlist : TIDENTIFIER               { $$ = newsymlist($1, NULL); }
+        | TIDENTIFIER ', ' symlist  { $$ = newsymlist($1, $3); }
+        ;
 /*
 numeric : TINTEGER { }
         | TDOUBLE { }

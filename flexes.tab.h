@@ -39,34 +39,37 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     NUMBER = 258,
-     FUNC = 259,
-     TINTEGER = 260,
-     TDOUBLE = 261,
-     TIDENTIFIER = 262,
-     TCOMMA = 263,
-     TDOT = 264,
-     TSCOLON = 265,
-     TPLUS = 266,
-     TMINUS = 267,
-     TMUL = 268,
-     TDIV = 269,
-     IF = 270,
-     THEN = 271,
-     IS = 272,
-     BECOMES = 273,
-     AND = 274,
-     OR = 275,
-     NOT = 276,
-     RULE = 277,
-     QUESTION = 278,
-     ACTION = 279,
-     DO = 280,
-     ASK = 281,
-     BECAUSE = 282,
-     INPUT = 283,
-     NL = 284,
-     UNKNOWN = 285
+     TRULE = 258,
+     TACTION = 259,
+     TQUESTION = 260,
+     TINTEGER = 261,
+     TDOUBLE = 262,
+     TIDENTIFIER = 263,
+     TCOMMA = 264,
+     TDOT = 265,
+     TSCOLON = 266,
+     TSTOP = 267,
+     TQEND = 268,
+     TPLUS = 269,
+     TMINUS = 270,
+     TMUL = 271,
+     TDIV = 272,
+     TIF = 273,
+     TTHEN = 274,
+     TIS = 275,
+     TBECOMES = 276,
+     TAND = 277,
+     TOR = 278,
+     TNOT = 279,
+     TDO = 280,
+     TASK = 281,
+     TBECAUSE = 282,
+     TINPUT = 283,
+     TLPAREN = 284,
+     TRPAREN = 285,
+     NL = 286,
+     UNKNOWN = 287,
+     CMP = 288
    };
 #endif
 
@@ -88,7 +91,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 92 "flexes.tab.h"
+#line 95 "flexes.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

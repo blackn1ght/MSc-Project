@@ -96,7 +96,7 @@ newcmp(int cmptype, struct ast *l, struct *r)
 struct ast *
 newcall(struct symbol *s, struct astl *l)
 {
-  struct call *a malloc(sizeof(struct call));
+  struct ucall *a malloc(sizeof(struct ucall));
   
   if (!a) {
     yyerror("Out of memory.");

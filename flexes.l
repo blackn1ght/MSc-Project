@@ -1,49 +1,48 @@
 /* Flex tokens */
 %option noyywrap nodefault yylineno
 %{
-# include <string>
+# include <string.h>
 # include "flexes.h"
-# include "flexhes.tab.h"
-# include "parser.hpp"
+# include "flexes.tab.h"
+/*# include "parser.hpp"*/
 # define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 # define TOKEN(t) (yylval.token = t)
-extern "C" int yywrap() { }
 %}
 
 %%
 [ \t\n]+			; /* Whitespace, ignore */
 ^%			; /* Comment, ignore */
-"."			return TOKEN(TSTOP);
-";"			return TOKEN(TQEND);
+"."			{ return TSTOP; }
+";"			{ return TQEND; }
 
 
-"^question"		{ yylval.fn = F_question; return TOKEN(TQUESTION); }
-"^rule"			  { yylval.fn = F_rule; return TOKEN(TRULE); }
-"^action"     { yylval.fn = F_action; return TOKEN(TACTION); }
+"^question"		{ yylval.fn = F_question; return TQUESTION; }
+"^rule"			  { yylval.fn = F_rule; return TRULE; }
+"^action"     { yylval.fn = F_action; return TACTION; }
 
-"^input"		  return TOKEN(TINPUT);
-"^if"			    return TOKEN(TIF);
-"and"			    return TOKEN(TAND);
-"then"			  return TOKEN(TTHEN);
-"is"			    return TOKEN(TIS);
-"not"         return TOKEN(TNOT);
-"do"			    return TOKEN(TDO);
-"ask"			    return TOKEN(TASK);
-"because"		  return TOKEN(TBECAUSE);
+"^input"		  { return TINPUT; }
+"^if"			    { return TIF; }
+"and"			    { return TAND; }
+"then"			  { return TTHEN; }
+"is"			    { return TIS; }
+"not"         { return TNOT; }
+"do"			    { return TDO; }
+"ask"			    { return TASK; }
+"because"		  { return TBECAUSE; }
 
-"="			      { yylval.fn = 1; return TOKEN(CMP); }
-">"			      { yylval.fn = 2; return TOKEN(CMP); }
-"<"			      { yylval.fn = 3; return TOKEN(CMP); }
-">="			    { yylval.fn = 4; return TOKEN(CMP); }
-"<="			    { yylval.fn = 5; return TOKEN(CMP); }
+"="			      { yylval.fn = 1; return CMP; }
+">"			      { yylval.fn = 2; return CMP; }
+"<"			      { yylval.fn = 3; return CMP; }
+">="			    { yylval.fn = 4; return CMP; }
+"<="			    { yylval.fn = 5; return CMP; }
 
-"becomes"		  return TOKEN(TBECOMES);
+"becomes"		  { return TBECOMES; }
 
-"("			      return TOKEN(TLPAREN);
-")"			      return TOKEN(TRPAREN);
-[0-9]+\.[0-9]*		SAVE_TOKEN; return TDOUBLE;
-[0-9]+			  SAVE_TOKEN; return TINTEGER;
-[a-zA-Z_][a-zA-Z0-9_]*	SAVE_TOKEN; return TIDENTIFIER;
+"("			                { return TLPAREN; }
+")"			                { return TRPAREN; }
+[0-9]+\.[0-9]*		      { yylval.d = atof(yytext); return TDOUBLE; }
+[0-9]+			            { yylval.d = atof(yytext); return TINTEGER; }
+[a-zA-Z_][a-zA-Z0-9_]*	{ yylval.s = lookup(yytext); return TIDENTIFIER; }
 
 .			        printf("Unknown token!\n"); yyterminate();
 %%
