@@ -14,7 +14,7 @@
 
 %token <fn> TRULE TACTION TQUESTION
 %token <d> TINTEGER TDOUBLE
-%token <s> TIDENTIFIER
+%token <s> TIDENTIFIER TSENTENCE
 
 
 %token TCOMMA TDOT TSCOLON TSTOP TQEND
@@ -25,8 +25,7 @@
 %token NL
 %token UNKNOWN
 
-%type <a> program rule ident
-%type <sl> symlist
+%type <a> program rule question question_block ident stmts stmt if_stmt if_stmt_ext 
 
 %nonassoc <fn> CMP
 
@@ -37,67 +36,62 @@
 
 %%
 
-program : rule { $$ = newast('p', $1, NULL); }
+program : rule                { $$ = newast('p', $1, NULL); }
+        | question            { $$ = newast('q', $1, NULL); }
 	      ;
 
+program_ext : /* nothing */
+            | rule rule
+            | rule question
+            | question rule
+            | question quesiton { /* variation of chains of rules */ }
+            ;
 
-rule : TRULE ident symlist { $$ = newrule('r', $2, $3, NULL); }
+rule : TRULE ident stmts TDOT     { $$ = newrule($2, $3); }
      ;
+     
+question : TQUESTION ident question_block TDOT   { /* actions for a question */ }
+         ;
+         
+question_block : TSENTENCE TQEND TINPUT ident { }
+               ;
 
-/*
-stmts : stmt { }
-      | stmts stmt { }
+stmts : stmt  { /* Do something here */ }
       ;
 
-stmt : var_decl | func_decl
-     | expr { }
+stmt : { /* Do nothing */ }
+     | if_stmt                { /* if statement */ }
+     | expr                   { /* raw expression, not part of an if statement */ }
+     | TDO TASK ident         { /* do ask question */ }
      ;
 
-block : stmts TDOT
-      | stmt TDOT {  }
-      ;
-
-func_decl : RULE ident block { }
-          ;
-
-rule_decl : RULE ident block {  }
-	        ;
-
-question_decl : QUESETION ident { }
-              ;
-*/
-ident : TIDENTIFIER { }
-
-
-symlist : TIDENTIFIER               { $$ = newsymlist($1, NULL); }
-        | TIDENTIFIER ', ' symlist  { $$ = newsymlist($1, $3); }
-        ;
-/*
-numeric : TINTEGER { }
-        | TDOUBLE { }
+/* If statements. */
+if_stmt : TIF expr if_stmt_ext TTHEN expr if_stmt_ext { /* if statment */ }
+	      | TIF ident TIS ident { /* if statement */ }
 	      ;
 
-expr : ident IS UNKNOWN
-     | ident IS ident
-     | ident BECOMES ident
-     | ident comparison ident
+/* This allows for optional extras in if-statements. */	      
+if_stmt_ext : /* nothing */   { $$ = NULL; } 
+            | TAND expr       { /* if something is something AND something is something */ }
+            ;
+
+/* Expressions, such as value1 becomes value2, etc */
+expr : ident TIS UNKNOWN      { /* exp against unknown */ }
+     | ident TIS ident        { /* var against var */ }
+     | ident TBECOMES ident   { /* var becomes var */ }
+     | ident CMP ident        { /* var compared to var */ }
      ;
 
-if_stmt : IF ident IS UNKNOWN
-	| IF ident IS ident
-	;
+ident : TIDENTIFIER           { /* Do something here */ }
+      ;
 
+/*
 words : letter letter
       ;
 
 rule : RULE identifier rule_contents "." { $$ = newast('R', $1, $3); }
      ;
 
-question : "question " identifier question_contents 
-         ;
-
-comparison : CMP
-	          ;
 
 letter: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J"
       | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T"

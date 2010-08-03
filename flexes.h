@@ -99,8 +99,8 @@ struct ast *newnum(double d);
 struct ast *newflow(int nodetype, struct ast *cond, struct ast *l);
 struct ast *newcall(int nodetype, struct ast *s);
 
-struct ast *newquestion(int nodetype, struct symbol *name, struct symlist *syms, struct ast *stmts);
-struct ast *newrule(int nodetype, struct symbol *name, struct symlist *syms, struct ast *stmts);
+struct ast *newquestion(struct symbol *name, struct ast *stmts);
+struct ast *newrule(struct symbol *name, struct ast *stmts);
 
 /* Evaulate an AST */
 double eval(struct ast *);

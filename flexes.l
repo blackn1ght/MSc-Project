@@ -44,7 +44,7 @@
 [0-9]+			            { yylval.d = atof(yytext); return TINTEGER; }
 [a-zA-Z_][a-zA-Z0-9_]*	{ yylval.s = lookup(yytext); return TIDENTIFIER; }
 
-.			        printf("Unknown token!\n"); yyterminate();
+.			        { yylval.s = lookup(yytext); return TSENTENCE; }
 %%
 
 main(argc, argv)
