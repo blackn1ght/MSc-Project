@@ -46,31 +46,33 @@
      TDOUBLE = 262,
      TIDENTIFIER = 263,
      TSENTENCE = 264,
-     TCOMMA = 265,
-     TDOT = 266,
-     TSCOLON = 267,
-     TSTOP = 268,
-     TQEND = 269,
-     TPLUS = 270,
-     TMINUS = 271,
-     TMUL = 272,
-     TDIV = 273,
-     TIF = 274,
-     TTHEN = 275,
-     TIS = 276,
-     TBECOMES = 277,
-     TAND = 278,
-     TOR = 279,
-     TNOT = 280,
-     TDO = 281,
-     TASK = 282,
-     TBECAUSE = 283,
-     TINPUT = 284,
-     TLPAREN = 285,
-     TRPAREN = 286,
-     NL = 287,
-     UNKNOWN = 288,
-     CMP = 289
+     TSTRING = 265,
+     TCOMMA = 266,
+     TDOT = 267,
+     TSCOLON = 268,
+     TSTOP = 269,
+     TQEND = 270,
+     TPLUS = 271,
+     TMINUS = 272,
+     TMUL = 273,
+     TDIV = 274,
+     TIF = 275,
+     TTHEN = 276,
+     TIS = 277,
+     TBECOMES = 278,
+     TAND = 279,
+     TOR = 280,
+     TNOT = 281,
+     TDO = 282,
+     TASK = 283,
+     TBECAUSE = 284,
+     TINPUT = 285,
+     TWRITE = 286,
+     TLPAREN = 287,
+     TRPAREN = 288,
+     NL = 289,
+     UNKNOWN = 290,
+     CMP = 291
    };
 #endif
 
@@ -85,6 +87,7 @@ typedef union YYSTYPE
 
   struct ast *a;
   double d;
+  char *strval;
   struct symbol *s;
   struct symlist *sl;
   int fn;    
@@ -92,7 +95,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 96 "flexes.tab.h"
+#line 99 "flexes.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

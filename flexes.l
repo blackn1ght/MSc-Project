@@ -29,6 +29,7 @@
 "do"			    { return TDO; }
 "ask"			    { return TASK; }
 "because"		  { return TBECAUSE; }
+"write"       { return TWRITE; }
 
 "="			      { yylval.fn = 1; return CMP; }
 ">"			      { yylval.fn = 2; return CMP; }
@@ -44,6 +45,8 @@
 [0-9]+			            { yylval.d = atof(yytext); return TINTEGER; }
 [a-zA-Z_][a-zA-Z0-9_]*	{ yylval.s = lookup(yytext); return TIDENTIFIER; }
 
+'(\\.|''|[^'\n])*'  |
+\"(\\.|\"\"|[^"\n])*\"  { yylval.strval = strdup(yytext); return TSTRING; }
 .			        { yylval.s = lookup(yytext); return TSENTENCE; }
 %%
 
