@@ -101,6 +101,8 @@ struct ast *newcall(int nodetype, struct ast *s);
 
 struct ast *newquestion(struct symbol *name, struct ast *stmts);
 struct ast *newrule(struct symbol *name, struct ast *stmts);
+struct ast *newwrite(struct ast *s);
+struct ast *newsentence(struct symbol *s);
 
 /* Evaulate an AST */
 double eval(struct ast *);

@@ -14,21 +14,21 @@
 }
 
 %token <fn> TRULE TACTION TQUESTION
-%token <d> TINTEGER TDOUBLE
+%token <d> TNUMBER
 %token <s> TIDENTIFIER TSENTENCE
 %token <strval> TSTRING
 
 
 %token TCOMMA TDOT TSCOLON TSTOP TQEND
 %token TPLUS TMINUS TMUL TDIV
-%token TIF TTHEN TIS TBECOMES TAND TOR TNOT
+%token TIF TTHEN TBECOMES TAND TOR TNOT
 %token TDO TASK TBECAUSE TINPUT TWRITE
 %token TLPAREN TRPAREN
 %token NL
 %token UNKNOWN
 
-%type <a> program program_ext rule question action
-%type <a> question_block ident stmts stmt if_stmt
+%type <a> program program_ext rule question action expr
+%type <a> question_block ident stmts stmt q_stmt
 
 %nonassoc <fn> CMP
 
@@ -55,7 +55,7 @@ program_ext : { /* nothing */ }
 rule : TRULE ident stmts TDOT     { $$ = newrule($2, $3); }
      ;
      
-question : TQUESTION ident question_block TDOT   { /* actions for a question */ }
+question : TQUESTION ident q_stmt   { /* actions for a question */ }
          ;
          
 question_block : TSENTENCE TQEND TINPUT ident TSTOP { /* question */ }
@@ -65,35 +65,32 @@ question_block : TSENTENCE TQEND TINPUT ident TSTOP { /* question */ }
 action : TACTION ident stmts TDOT { }
        ;
 
-stmts : stmt  { /* Do something here */ }
-      | stmt stmt { /* Do something here */ }
+stmts : stmt  { $$ = $1; }
       ;
 
 stmt : { /* Do nothing */ }
-     | if_stmt                { /* if statement */ }
-     | expr                   { /* raw expression, not part of an if statement */ }
-     | TDO TASK ident         { /* do ask question */ }
-     | write                  { /* A write statement */ }
-     ;
-
-/* If statements. */
-if_stmt : TIF expr TTHEN expr     { $$ = newflow('I', $2, $4); }
-	      | TIF ident TIS ident     { $$ = newflow('I', $2, $4); }
-	      ;
-
-/* Expressions, such as value1 becomes value2, etc */
-expr : ident TIS UNKNOWN      { /* exp against unknown */ }
-     | ident TIS ident        { /* var against var */ }
-     | ident TBECOMES ident   { /* var becomes var */ }
-     | ident CMP ident        { /* var compared to var */ }
-     | TAND expr              { /* AND expression */ }
+     | TIF expr TTHEN expr                          { $$ = newflow('I', $2, $4)l; }
+     | TDO TASK ident                               { /* do ask question */ }
+     | TWRITE TLPAREN ident TRPAREN                 { $$ = newwrite($3); }
+     | TWRITE TLPAREN '\'' TSENTENCE '\'' TRPAREN   { $$ = newwrite($4); }
      ;
      
-write : TWRITE TLPAREN ident TRPAREN              { /* rule for the write function */ }
-      | TWRITE TLPAREN ''' TSENTENCE ''' TRPAREN  { /* rule for the write function */ }
-      ;
+q_stmt : TSENTENCE TQEND                  { $$ = newsentence($1); }
+       | TINPUT ident TQEND               
+       | TINPUT ident TSTOP               { }
+       | TBECAUSE TSENTENCE TSTOP         { }
+       ;
 
-ident : TIDENTIFIER           { /* Do something here */ }
+
+/* Expressions, such as value1 becomes value2, etc */
+expr : ident CMP UNKNOWN
+     | ident CMP ident        { $$ = newcmp($2, $1, $3); }     
+     | ident TBECOMES ident   { $$ = newassign($1, $3); }
+     | TAND expr              { /* AND expression */ }
+     | TNUMBER                { $$ = newnum($1); }
+     ;
+
+ident : TIDENTIFIER           { $$ = $1; }
       ;
 
 %%

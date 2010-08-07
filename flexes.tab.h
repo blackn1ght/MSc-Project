@@ -42,37 +42,35 @@
      TRULE = 258,
      TACTION = 259,
      TQUESTION = 260,
-     TINTEGER = 261,
-     TDOUBLE = 262,
-     TIDENTIFIER = 263,
-     TSENTENCE = 264,
-     TSTRING = 265,
-     TCOMMA = 266,
-     TDOT = 267,
-     TSCOLON = 268,
-     TSTOP = 269,
-     TQEND = 270,
-     TPLUS = 271,
-     TMINUS = 272,
-     TMUL = 273,
-     TDIV = 274,
-     TIF = 275,
-     TTHEN = 276,
-     TIS = 277,
-     TBECOMES = 278,
-     TAND = 279,
-     TOR = 280,
-     TNOT = 281,
-     TDO = 282,
-     TASK = 283,
-     TBECAUSE = 284,
-     TINPUT = 285,
-     TWRITE = 286,
-     TLPAREN = 287,
-     TRPAREN = 288,
-     NL = 289,
-     UNKNOWN = 290,
-     CMP = 291
+     TNUMBER = 261,
+     TIDENTIFIER = 262,
+     TSENTENCE = 263,
+     TSTRING = 264,
+     TCOMMA = 265,
+     TDOT = 266,
+     TSCOLON = 267,
+     TSTOP = 268,
+     TQEND = 269,
+     TPLUS = 270,
+     TMINUS = 271,
+     TMUL = 272,
+     TDIV = 273,
+     TIF = 274,
+     TTHEN = 275,
+     TBECOMES = 276,
+     TAND = 277,
+     TOR = 278,
+     TNOT = 279,
+     TDO = 280,
+     TASK = 281,
+     TBECAUSE = 282,
+     TINPUT = 283,
+     TWRITE = 284,
+     TLPAREN = 285,
+     TRPAREN = 286,
+     NL = 287,
+     UNKNOWN = 288,
+     CMP = 289
    };
 #endif
 
@@ -95,7 +93,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 99 "flexes.tab.h"
+#line 97 "flexes.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

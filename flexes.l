@@ -24,7 +24,6 @@
 "^if"			    { return TIF; }
 "and"			    { return TAND; }
 "then"			  { return TTHEN; }
-"is"			    { return TIS; }
 "not"         { return TNOT; }
 "do"			    { return TDO; }
 "ask"			    { return TASK; }
@@ -36,13 +35,14 @@
 "<"			      { yylval.fn = 3; return CMP; }
 ">="			    { yylval.fn = 4; return CMP; }
 "<="			    { yylval.fn = 5; return CMP; }
+"is"          { yylval.fn = 6; return CMP; }
 
 "becomes"		  { return TBECOMES; }
 
 "("			                { return TLPAREN; }
 ")"			                { return TRPAREN; }
-[0-9]+\.[0-9]*		      { yylval.d = atof(yytext); return TDOUBLE; }
-[0-9]+			            { yylval.d = atof(yytext); return TINTEGER; }
+[0-9]+\.[0-9]*		      { yylval.d = atof(yytext); return TNUMBER; }
+[0-9]+			            { yylval.d = atof(yytext); return TNUMBER; }
 [a-zA-Z_][a-zA-Z0-9_]*	{ yylval.s = lookup(yytext); return TIDENTIFIER; }
 
 '(\\.|''|[^'\n])*'  |
