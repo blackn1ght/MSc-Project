@@ -397,15 +397,15 @@ struct yy_trans_info
 static yyconst flex_int16_t yy_accept[96] =
     {   0,
         0,    0,   33,   31,    1,    1,   31,   31,   24,   25,
-        3,   27,    4,   20,   18,   19,   28,   31,   28,   28,
+        3,   27,    4,   19,   17,   18,   28,   31,   28,   28,
        28,   28,   28,   28,   28,    2,    1,    0,   30,    0,
-        0,   29,    0,   26,   27,   22,   21,   28,    0,    0,
-        0,    0,   28,   28,   28,   14,   12,   28,   28,   28,
+        0,   29,    0,   26,   27,   21,   20,   28,    0,    0,
+        0,    0,   28,   28,   28,   13,   22,   28,   28,   28,
         0,   30,    0,    0,   29,    0,   26,    0,    9,    0,
-        0,    0,   10,   15,   28,   13,   28,   28,    0,    0,
+        0,    0,   10,   14,   28,   12,   28,   28,    0,    0,
         0,    0,   28,   28,   11,   28,    0,    0,    0,    6,
-       28,   28,   17,    0,    8,    0,   28,   28,    7,    0,
-       16,   23,    0,    5,    0
+       28,   28,   16,    0,    8,    0,   28,   28,    7,    0,
+       15,   23,    0,    5,    0
 
     } ;
 
@@ -899,57 +899,57 @@ YY_RULE_SETUP
 case 12:
 YY_RULE_SETUP
 #line 27 "flexes.l"
-{ return TIS; }
+{ return TNOT; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 28 "flexes.l"
-{ return TNOT; }
+{ return TDO; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 29 "flexes.l"
-{ return TDO; }
+{ return TASK; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 30 "flexes.l"
-{ return TASK; }
+{ return TBECAUSE; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 31 "flexes.l"
-{ return TBECAUSE; }
+{ return TWRITE; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 32 "flexes.l"
-{ return TWRITE; }
+#line 33 "flexes.l"
+{ yylval.fn = 1; return CMP; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 34 "flexes.l"
-{ yylval.fn = 1; return CMP; }
+{ yylval.fn = 2; return CMP; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 35 "flexes.l"
-{ yylval.fn = 2; return CMP; }
+{ yylval.fn = 3; return CMP; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 36 "flexes.l"
-{ yylval.fn = 3; return CMP; }
+{ yylval.fn = 4; return CMP; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 37 "flexes.l"
-{ yylval.fn = 4; return CMP; }
+{ yylval.fn = 5; return CMP; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 38 "flexes.l"
-{ yylval.fn = 5; return CMP; }
+{ yylval.fn = 6; return CMP; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
@@ -969,12 +969,12 @@ YY_RULE_SETUP
 case 26:
 YY_RULE_SETUP
 #line 44 "flexes.l"
-{ yylval.d = atof(yytext); return TDOUBLE; }
+{ yylval.d = atof(yytext); return TNUMBER; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 45 "flexes.l"
-{ yylval.d = atof(yytext); return TINTEGER; }
+{ yylval.d = atof(yytext); return TNUMBER; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
