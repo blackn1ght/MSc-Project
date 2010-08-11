@@ -28,7 +28,7 @@ lookup(char *sym)
   int scount = NHASH;
   
   while (--scount >= 0) {
-    if (sp->name $$ !strcmp(sp->name, sym)) {return sp;}
+    if (sp->name && !strcmp(sp->name, sym)) { return sp; }
     
     if (!sp->name) {
       sp->name = strdup(sym);
@@ -49,7 +49,7 @@ lookup(char *sym)
 struct ast *
 newast(int nodetype, struct ast *l, struct ast *r)
 {
-  struct ast *a = malloc(struct ast));
+  struct ast *a = malloc(sizeof(struct ast));
   
   if (!a) {
     yyerror("Out of memory.");
@@ -78,25 +78,25 @@ newnum(double d)
 }
 
 struct ast *
-newcmp(int cmptype, struct ast *l, struct *r)
+newcmp(int cmptype, struct symbol *l, struct symbol *r)
 {
-  struct ast *a = malloc(sizeof(struct ast));
+  struct compare *a = malloc(sizeof(struct compare));
   
   if (!a) {
     yyerror("Out of memory.");
     exit(0);
   }
   
-  a->nodetype = '0' + cmptype;
+  a->cmptype = '0' + cmptype;
   a->l = l;
   a->r = r;
-  return a;
+  return (struct ast *)a;
 }
-
+/*
 struct ast *
-newcall(struct symbol *s, struct astl *l)
+newcall(int nodetype, struct ast *l)
 {
-  struct ucall *a malloc(sizeof(struct ucall));
+  struct ucall *a = malloc(sizeof(struct ucall));
   
   if (!a) {
     yyerror("Out of memory.");
@@ -105,14 +105,13 @@ newcall(struct symbol *s, struct astl *l)
   
   a->nodetype = 'C';
   a->l = l;
-  a->r = r;
   return (struct ast *)a;
 }
-
+*/
 struct ast *
 newassign(struct symbol *s1, struct symbol *s2)
 {
-  struct symasgn *a = malloc(sizeof(struct symasgn));
+  struct assign *a = malloc(sizeof(struct assign));
   
   if (!a) {
     yyerror("Out of memory.");
@@ -127,7 +126,7 @@ newassign(struct symbol *s1, struct symbol *s2)
 struct ast *
 newflow(int nodetype, struct ast* cond, struct ast *tl)
 {
-  struct flow *a = malloc(struct flow));
+  struct flow *a = malloc(sizeof(struct flow));
   
   if (!a) {
     yyerror("Out of memory.");
@@ -157,16 +156,17 @@ void treefree(struct ast *a)
       break;
     
     case 'B':
-      free( ((struct symassign *)a)->s2);
+      free( ((struct assign *)a)->s2);
       break;
       
     /* upto three subtrees */
     case 'I':
       free( ((struct flow *)a)->cond);
-      if( ((struct flow *)a->tl) treefree( ((struct flow *)a)->tl);
+      if (((struct flow *)a)->tl) treefree(((struct flow *)a)->tl);
       break;
     
     default: printf("internal error: free bad node %c\n", a->nodetype);
+      break;
   }
   
   free(a); /* always free the node itself */
@@ -184,7 +184,7 @@ newsymlist(struct symbol *sym, struct symlist *next)
   
   sl->sym = sym;
   sl->next = next;
-  return s1;
+  return sl;
 }
 
 /* free a list of symbols */

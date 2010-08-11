@@ -91,14 +91,20 @@ struct numval {
 	double number;
 };
 
+struct compare {
+  int cmptype;
+  struct symbol *l;
+  struct symbol *r;
+};
+
 /* Build an AST */
 struct ast *newast(int nodetype, struct ast *l, struct ast *r);
-struct ast *newcmp(int cmptype, struct symbol *l, struct ast *r);
+struct ast *newcmp(int cmptype, struct symbol *l, struct symbol *r);
 struct ast *newassign(struct symbol *s1, struct symbol *s2);
 struct ast *newnum(double d);
 struct ast *newflow(int nodetype, struct ast *cond, struct ast *l);
 struct ast *newcall(int nodetype, struct ast *s);
-struct ast *newquestion(struct ast *name, struct symbol *question, struct symbol *input, struct symbol *because);
+struct ast *newquestion(struct symbol *name, struct symbol *question, struct symbol *input, struct symbol *because);
 struct ast *newrule(struct symbol *name, struct ast *stmts);
 struct ast *newwrite(struct symbol *sentence);
 struct ast *newsentence(struct symbol *s);
