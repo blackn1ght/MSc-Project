@@ -46,15 +46,16 @@
 [a-zA-Z_][a-zA-Z0-9_]*	{ yylval.s = lookup(yytext); return TIDENTIFIER; }
 
 '(\\.|''|[^'\n])*'  |
-\"(\\.|\"\"|[^"\n])*\"  { yylval.strval = strdup(yytext); return TSTRING; }
-.			        { yylval.s = lookup(yytext); return TSENTENCE; }
+\"(\\.|\"\"|[^"\n])*\"  { yylval.s = lookup(yytext); return TSTRING; }
+.			                  { yyerror("Mystery Character, wtf?\n"); }
 %%
-
+/*
 main(argc, argv)
 int argc;
 char **argv;
 {
     if (argc > 1) {
+        printf("File: ", argv[1], "\n");
         if (!(yyin = fopen(argv[1], "r"))) {
             perror(argv[1]);
             return (1);
@@ -64,3 +65,5 @@ char **argv;
     yylex();
     printf("\n\t-- FILE READ --\n");
 }
+*/
+

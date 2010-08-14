@@ -986,12 +986,12 @@ case 29:
 case 30:
 YY_RULE_SETUP
 #line 49 "flexes.l"
-{ yylval.strval = strdup(yytext); return TSTRING; }
+{ yylval.s = lookup(yytext); return TSTRING; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 50 "flexes.l"
-{ yylval.s = lookup(yytext); return TSENTENCE; }
+{ yyerror("Mystery Character, wtf?\n"); }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
@@ -2013,12 +2013,13 @@ void yyfree (void * ptr )
 #line 51 "flexes.l"
 
 
-
+/*
 main(argc, argv)
 int argc;
 char **argv;
 {
     if (argc > 1) {
+        printf("File: ", argv[1], "\n");
         if (!(yyin = fopen(argv[1], "r"))) {
             perror(argv[1]);
             return (1);
@@ -2028,4 +2029,6 @@ char **argv;
     yylex();
     printf("\n\t-- FILE READ --\n");
 }
+*/
+
 

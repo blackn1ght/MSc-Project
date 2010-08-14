@@ -64,7 +64,7 @@ struct ast {
 	struct ast *r;
 };
 
-struct flow {     /* If - the if-then in flex has no else clause.*/
+struct s_flow {     /* If - the if-then in flex has no else clause.*/
 	int nodetype;
 	struct ast *cond;	/* The condition */
 	struct ast *tl;		/* Then branch */
@@ -91,23 +91,48 @@ struct numval {
 	double number;
 };
 
-struct compare {
+struct s_compare {
   int cmptype;
   struct symbol *l;
   struct symbol *r;
+};
+
+struct s_ref {
+  int nodetype;
+  struct symbol *s;
+};
+
+struct s_rule {
+  int nodetype;
+  struct symbol *name;
+  struct ast *stmts;
+};
+
+struct s_question {
+  int nodetype;
+  struct symbol *name;
+  struct symbol *question;
+  struct symbol *input;
+  struct symbol *because;
+};
+
+struct s_dowrite {
+  int nodetype;
+  struct symbol *sentence;
 };
 
 /* Build an AST */
 struct ast *newast(int nodetype, struct ast *l, struct ast *r);
 struct ast *newcmp(int cmptype, struct symbol *l, struct symbol *r);
 struct ast *newassign(struct symbol *s1, struct symbol *s2);
-struct ast *newnum(double d);
-struct ast *newflow(int nodetype, struct ast *cond, struct ast *l);
-struct ast *newcall(int nodetype, struct ast *s);
-struct ast *newquestion(struct symbol *name, struct symbol *question, struct symbol *input, struct symbol *because);
-struct ast *newrule(struct symbol *name, struct ast *stmts);
-struct ast *newwrite(struct symbol *sentence);
-struct ast *newsentence(struct symbol *s);
+struct ast *num(double d);
+struct ast *flow(int nodetype, struct ast *cond, struct ast *l);
+
+struct ast *question(struct symbol *name, struct symbol *question, struct symbol *input, struct symbol *because);
+struct ast *rule(struct symbol *name, struct ast *stmts);
+struct ast *dowrite(struct symbol *sentence);
+struct ast *sentence(struct symbol *s);
+struct ast *variable(struct symbol *s);
 
 /* Evaulate an AST */
 double eval(struct ast *);

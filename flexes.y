@@ -15,8 +15,7 @@
 
 %token <fn> TRULE TACTION TQUESTION
 %token <d> TNUMBER
-%token <s> TIDENTIFIER TSENTENCE TINPUT
-%token <strval> TSTRING
+%token <s> TIDENTIFIER TSTRING TINPUT
 
 
 %token TCOMMA TDOT TSCOLON TSTOP TQEND
@@ -26,7 +25,7 @@
 %token TLPAREN TRPAREN UNKNOWN
 %token NL
 
-%type <a> program program_ext rule action expr
+%type <a> programs program rule action expr block
 %type <a> stmts stmt question
 %type <s> sentence input ident
 
@@ -35,55 +34,55 @@
 %left TPLUS TMINUS
 %left TMUL TDIV
 
-%start program
+%start block
 
 %%
 
-program : rule program_ext action              { $$ = newast('p', $1, NULL); }
-        | question program_ext action          { $$ = newast('q', $1, NULL); }
-	      ;
-
-program_ext : { /* nothing */ }
-            | rule              { /* Single rule */ }
-            | question           { /* Single question */ }  
-            | rule rule         { /* rule followed by a rule */ }
-            | rule question     { /* rule followed by a question */ }
-            | question rule     { /* question followed by a rule */ }
-            | question question { /* variation of chains of rules */ }
-            ;
-
-rule : TRULE ident stmts TDOT   { $$ = newrule($2, $3); }
+block: programs       {  $$ = $1; }
      ;
 
-question : TQUESTION ident sentence TQEND input ident TSTOP                         { $$ = newquestion($2, $3, $5, NULL);}
-         | TQUESTION ident sentence TQEND input ident TQEND TBECAUSE sentence TSTOP { $$ = newquestion($2,$3,$5,$9);}
+programs : { /* nothing - not sure if that's really possible */ }
+         | programs program action    { /* A collection of rules and quetions */ }
+         ;
+         
+program : rule                  { /* $$ = new_rule(BLAH, $1); */ }
+        | question              { /* $$ = new_question(BLAH, $1); */ }
+        ;
+
+rule : TRULE ident stmts TDOT   { $$ = rule($2, $3); }
+     ;
+
+question : TQUESTION ident sentence TQEND input ident TSTOP                         { $$ = question($2, $3, $5, NULL);}
+         | TQUESTION ident sentence TQEND input ident TQEND TBECAUSE sentence TSTOP { $$ = question($2,$3,$5,$9);}
          ;
 
 action : TACTION ident stmts TDOT { }
        ;
 
-stmts : stmt  { $$ = $1; }
+stmts : { /* do nothing */ }
+      | stmts stmt  { $$ = $1; }
       ;
 
-stmt :                                              { /* Do nothing */ }
-     | TIF expr TTHEN expr                          { $$ = newflow('I', $2, $4); }
+stmt : TIF expr TTHEN expr                          { $$ = flow('I', $2, $4); }
      | TDO TASK ident                               { /* do ask question */ }
-     | TWRITE TLPAREN ident TRPAREN                 { $$ = newwrite($3); }
-     | TWRITE TLPAREN '\'' TSENTENCE '\'' TRPAREN   { $$ = newwrite($4); }
+     | TWRITE TLPAREN ident TRPAREN                 { $$ = dowrite($3); }
+     | TWRITE TLPAREN '\'' sentence '\'' TRPAREN   { $$ = dowrite($4); }
      ;
 
 /* Expressions, such as value1 becomes value2, etc */
 expr : ident CMP UNKNOWN      { /* meh */ }
      | ident CMP ident        { $$ = newcmp($2, $1, $3); }     
      | ident TBECOMES ident   { $$ = newassign($1, $3); }
-     | TAND expr              { /* AND expression */ }
-     | TNUMBER                { $$ = newnum($1); }
+     | TAND expr                                    { /* and expression */ }
+     | TNUMBER                { $$ = num($1); }
+     | ident                  { $$ = variable($1); }
+     | TLPAREN expr TRPAREN   { $$ = $2; }
      ;
 
 ident : TIDENTIFIER           { $$ = $1; }
       ;
       
-sentence : TSENTENCE          { $$ = $1; }
+sentence : TSTRING          { $$ = $1; }
          ;
          
 input : TINPUT                { $$ = $1; }

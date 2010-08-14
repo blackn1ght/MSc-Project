@@ -8,6 +8,7 @@
 #include <string.h>
 #include <math.h>
 #include "flexes.h"
+#include "flexes.tab.h"
 
 /* Symbol table */
 static unsigned
@@ -63,7 +64,7 @@ newast(int nodetype, struct ast *l, struct ast *r)
 }
 
 struct ast *
-newnum(double d)
+num(double d)
 {
   struct numval *a = malloc(sizeof(struct numval));
   
@@ -80,7 +81,7 @@ newnum(double d)
 struct ast *
 newcmp(int cmptype, struct symbol *l, struct symbol *r)
 {
-  struct compare *a = malloc(sizeof(struct compare));
+  struct s_compare *a = malloc(sizeof(struct s_compare));
   
   if (!a) {
     yyerror("Out of memory.");
@@ -92,22 +93,7 @@ newcmp(int cmptype, struct symbol *l, struct symbol *r)
   a->r = r;
   return (struct ast *)a;
 }
-/*
-struct ast *
-newcall(int nodetype, struct ast *l)
-{
-  struct ucall *a = malloc(sizeof(struct ucall));
-  
-  if (!a) {
-    yyerror("Out of memory.");
-    exit(0);
-  }
-  
-  a->nodetype = 'C';
-  a->l = l;
-  return (struct ast *)a;
-}
-*/
+
 struct ast *
 newassign(struct symbol *s1, struct symbol *s2)
 {
@@ -124,9 +110,24 @@ newassign(struct symbol *s1, struct symbol *s2)
 }
 
 struct ast *
-newflow(int nodetype, struct ast* cond, struct ast *tl)
+variable(struct symbol *s)
 {
-  struct flow *a = malloc(sizeof(struct flow));
+  struct s_ref *a = malloc(sizeof(struct s_ref));
+  
+  if (!a) {
+    yyerror("Out of memory.");
+    exit(0);
+  }
+  
+  a->nodetype = 'N';
+  a->s = s;
+  return (struct ast *)a;
+}
+
+struct ast *
+flow(int nodetype, struct ast* cond, struct ast *tl)
+{
+  struct s_flow *a = malloc(sizeof(struct s_flow));
   
   if (!a) {
     yyerror("Out of memory.");
@@ -135,6 +136,58 @@ newflow(int nodetype, struct ast* cond, struct ast *tl)
   a->nodetype = nodetype;
   a->cond = cond;
   a->tl = tl;
+  return (struct ast *)a;
+}
+
+struct ast *
+rule(struct symbol *name, struct ast *stmts)
+{
+  struct s_rule *a = malloc(sizeof(struct s_rule));
+  
+  if (!a) {
+    yyerror("Out of memory.");
+    exit(0);
+  }
+  
+  a->nodetype = 'R';
+  a->name = name;
+  a->stmts = stmts;
+  
+  return (struct ast *)a;
+}
+
+struct ast *
+question(struct symbol *name, struct symbol *question, struct symbol *input, struct symbol *because)
+{
+  struct s_question *a = malloc(sizeof(struct s_question));
+  
+  if (!a) {
+    yyerror("Out of memory.");
+    exit(0);
+  }
+  
+  a->nodetype = 'Q';
+  a->name = name;
+  a->question = question;
+  a->input = input;
+  a->because = because;
+  
+  return (struct ast *)a;
+}
+
+struct ast *
+dowrite(struct symbol *sentence)
+{
+  struct s_dowrite *a = malloc(sizeof(struct s_dowrite));
+  
+  if (!a) {
+    yyerror("Out of memory.");
+    exit(0);
+  }
+  
+  a->nodetype = 'W';
+  a->sentence = sentence;
+ 
   return (struct ast *)a;
 }
 
@@ -161,8 +214,8 @@ void treefree(struct ast *a)
       
     /* upto three subtrees */
     case 'I':
-      free( ((struct flow *)a)->cond);
-      if (((struct flow *)a)->tl) treefree(((struct flow *)a)->tl);
+      free( ((struct s_flow *)a)->cond);
+      if (((struct s_flow *)a)->tl) treefree(((struct s_flow *)a)->tl);
       break;
     
     default: printf("internal error: free bad node %c\n", a->nodetype);
@@ -199,3 +252,48 @@ symlistfree(struct symlist *sl)
     sl = nsl;
   }
 }
+
+double
+eval(struct ast *a)
+{
+  double v;
+  
+  switch (a->nodetype)
+  {
+    case 'R':
+      printf("Rule detected.\n");
+      break;
+    default: printf("Other detected.\n");
+      break;
+  }
+}
+
+void
+yyerror(char *s, ...)
+{
+  va_list ap;
+  va_start(ap, s);
+
+  fprintf(stderr, "%d: error: ", yylineno);
+  vfprintf(stderr, s, ap);
+  fprintf(stderr, "\n");
+}
+
+main(argc, argv)
+int argc;
+char **argv;
+{
+    
+    if (argc > 1) {
+        printf("File: ", argv[1], "\n");
+        /*
+        if (!(yyin = fopen(argv[1], "r"))) {
+            perror(argv[1]);
+            return (1);
+        } */
+    }
+    
+    yyparse();
+    printf("\n\t-- FILE READ --\n");
+}
+
