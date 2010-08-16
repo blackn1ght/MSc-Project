@@ -55,15 +55,14 @@ int argc;
 char **argv;
 {
     if (argc > 1) {
-        printf("File: ", argv[1], "\n");
         if (!(yyin = fopen(argv[1], "r"))) {
             perror(argv[1]);
             return (1);
         }
     }
-
-    yylex();
-    printf("\n\t-- FILE READ --\n");
+    
+    //yylex();
+    yyparse();
 }
 */
 

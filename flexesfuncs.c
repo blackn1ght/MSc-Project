@@ -148,7 +148,7 @@ rule(struct symbol *name, struct ast *stmts)
     yyerror("Out of memory.");
     exit(0);
   }
-  
+
   a->nodetype = 'R';
   a->name = name;
   a->stmts = stmts;
@@ -279,6 +279,7 @@ yyerror(char *s, ...)
   fprintf(stderr, "\n");
 }
 
+
 main(argc, argv)
 int argc;
 char **argv;
@@ -290,10 +291,10 @@ char **argv;
         if (!(yyin = fopen(argv[1], "r"))) {
             perror(argv[1]);
             return (1);
-        } */
+        }
+        */
     }
-    
-    yyparse();
-    printf("\n\t-- FILE READ --\n");
+  
+    return yyparse();
 }
 
