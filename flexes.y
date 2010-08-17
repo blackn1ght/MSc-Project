@@ -25,7 +25,7 @@
 %token TLPAREN TRPAREN UNKNOWN
 %token NL
 
-%type <a> programs program rule action expr block
+%type <a> programs program rule action expr
 %type <a> stmts stmt question
 %type <s> sentence input ident
 
@@ -34,22 +34,25 @@
 %left TPLUS TMINUS
 %left TMUL TDIV
 
-%start block
+%start programs
 
 %%
-
-block: programs       {  $$ = $1; }
+/*
+block: programs       {  $$ = $1; 
+						 printf("Program started.\n"); }
      ;
-
-programs : { /* nothing - not sure if that's really possible */ }
-         | programs program action    { /* A collection of rules and quetions */ }
+*/
+programs : { printf("programs: no rule fired.\n"); }
+         | programs program action    { $$ = newast('B',$1,$2);
+         								printf("programs detected.\n"); }
          ;
          
-program : rule                  { /* $$ = new_rule(BLAH, $1); */ }
-        | question              { /* $$ = new_question(BLAH, $1); */ }
+program : rule                  { $$ = newast('R',$1,NULL); }
+        | question              { $$ = newast('Q',$1,NULL); }
         ;
 
-rule : TRULE ident stmts TDOT   { $$ = rule($2, $3); }
+rule : TRULE ident stmts TDOT   { $$ = rule($2, $3);
+								  printf("Rule identified.\n"); }
      ;
 
 question : TQUESTION ident sentence TQEND input ident TSTOP                         { $$ = question($2, $3, $5, NULL);}
