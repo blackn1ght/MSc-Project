@@ -56,25 +56,24 @@
      TLPAREN = 272,
      TRPAREN = 273,
      TCOMMA = 274,
-     TDOT = 275,
-     TIF = 276,
-     TRULE = 277,
-     TQUESTION = 278,
-     TACTION = 279,
-     TINPUT = 280,
-     TSTOP = 281,
-     TQEND = 282,
-     TAND = 283,
-     TOR = 284,
-     TTHEN = 285,
-     TASK = 286,
-     TBECAUSE = 287,
-     TDO = 288,
-     TWRITE = 289,
-     TPLUS = 290,
-     TMINUS = 291,
-     TMUL = 292,
-     TDIV = 293
+     TIF = 275,
+     TRULE = 276,
+     TQUESTION = 277,
+     TACTION = 278,
+     TINPUT = 279,
+     TSTOP = 280,
+     TQEND = 281,
+     TAND = 282,
+     TOR = 283,
+     TTHEN = 284,
+     TASK = 285,
+     TBECAUSE = 286,
+     TDO = 287,
+     TWRITE = 288,
+     TPLUS = 289,
+     TMINUS = 290,
+     TMUL = 291,
+     TDIV = 292
    };
 #endif
 
@@ -99,7 +98,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 103 "parser.hpp"
+#line 102 "parser.hpp"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

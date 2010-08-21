@@ -20,7 +20,7 @@
 /* The tokens */
 %token <string> TIDENTIFIER TINTEGER TDOUBLE TSTRING
 %token <token> TCEQ TCNE TCLT TCLE TCGT TCGE TEQUAL TBECOMES TIS TNOT
-%token <token> TLPAREN TRPAREN TCOMMA TDOT
+%token <token> TLPAREN TRPAREN TCOMMA
 %token <token> TIF TRULE TQUESTION TACTION TINPUT TSTOP TQEND
 %token <token> TAND TOR TTHEN TASK TBECAUSE TDO TWRITE
 %token <token> TPLUS TMINUS TMUL TDIV
@@ -28,69 +28,68 @@
 
 %type <ident> ident
 %type <expr> expr number sentence
-%type <block> program programs stmts block question_block
-%type <stmt> stmt
+%type <block> program programs script stmts question_block
+%type <stmt> stmt rule question action
 %type <token> comparison
+//%type <string> sentence
 
 %left TPLUS TMINUS
 %left TMUL TDIV
 
-%start block
+%start script
 
 %%
 
-block: programs       { programBlock = $1; }
+script: programs       			{ programBlock = $1; }
      ;
 
-programs : program { $$ = new NBlock();  }
-         | programs program action { $$ = new NBlock(); }
+programs : program 				{ $$ = new NBlock();  }
+         | programs program 	{ $$ = new NBlock(); }
          ;
          
-program : rule							{ $$ = new NBlock(); }
-        | question question_block		{ $$ = new NBlock(); }
+program : rule					{ $$ = new NBlock(); }
+        | question				{ $$ = new NBlock(); }
+        | action				{ $$ = new NBlock(); }
         ;
 
-rule : TRULE ident stmts TDOT   { }
-     ;
-
-question : TQUESTION ident sentence TQEND TINPUT ident TSTOP                         { }
-         | TQUESTION ident sentence TQEND TINPUT ident TQEND TBECAUSE sentence TSTOP { }
+question : TQUESTION ident question_block TSTOP		{ $$ = new NMethodDeclaration($1, *$2, *$3); }
          ;
          
-question_block : sentence TQEND TINPUT ident TSTOP		{ $$ = new NBlock(); }
-			   | sentence TQEND TINPUT ident TQEND TBECAUSE sentence TSTOP { $$ = new NBlock(); }
+question_block : sentence TQEND TINPUT ident TQEND TBECAUSE sentence { $$ = new NQuestionBlock(*$1, *$4, *$7); }
 			   ;
 
-action : TACTION ident stmts TDOT { }
+rule : TRULE ident stmts TSTOP  { $$ = new NMethodDeclaration($1, *$2, *$3); }
+     ;
+
+
+action : TACTION ident stmts TSTOP { $$ = new NMethodDeclaration($1, *$2, *$3); }
        ;
 
-stmts : stmt { $$ = new NBlock(); $$->statements.push_back($<stmt>1); }
-      | stmts stmt  { $1->statements.push_back($<stmt>2); }
+stmts : stmt 			{ $$ = new NBlock; $$->statements.push_back($<stmt>1); }
+      | stmts stmt 		{ $1->statements.push_back($<stmt>2); }
       ;
 
-stmt : TRULE ident expr	TDOT	{ $$ = new NMethodDeclaration($1, *$2, *$3); }
-	 | TQUESTION ident			{ $$ = new NMethodDeclaration($1, *$2, NULL); }
-	 | expr { $$ = new NExpressionStatement(*$1); }
-	 ;
-
-/* Expressions, such as value1 becomes value2, etc */
-expr : ident TBECOMES expr   		{ $$ = new NAssignment(*$<ident>1, *$3); }
-	 | TASK TLPAREN ident TRPAREN	{ $$ = new NMethodCall(*$1, *$3); delete $3; }
-     | TAND expr                    { /* and expression */ }
-     | number
-     | ident                  		{ $<ident>$ = $1; }
-     | expr comparison expr        	{ $$ = new NBinaryOperator(*$1, $2, *$3 } 
-     | TLPAREN expr TRPAREN   		{ $$ = $2; }
-     | TIF expr TTHEN expr			{ $$ = new NDecisionStatement(*$2, *$4); }
-     | TDO TASK ident				{ $$ = new NMethodCall($3, NULL); }
+stmt : expr 						{ $$ = new NExpressionStatement(*$1); }
+	 | TIF expr TTHEN expr			{ $$ = new NDecisionStatement(*$2, *$4); }
+	 | TDO TASK ident				{ $$ = new NMethodCall(*$3); }
      | TDO TWRITE TLPAREN ident TRPAREN 		{ }
      | TDO TWRITE '\'' sentence '\'' TRPAREN	{ }
+     ;
+
+/* Expressions, such as value1 becomes value2, etc */
+expr : ident TBECOMES ident   		{ $$ = new NAssignment(*$1, *$3); }
+	 | ident TBECOMES sentence		{ $$ = new NAssignment(*$1, *$<ident>3); }
+     | ident comparison ident       { $$ = new NBinaryOperator(*$1, $2, *$3); }
+     | ident						{ $<ident>$ = $1; }
+     | number
+     | TAND expr                    { /* and expression */ }
+     | TLPAREN expr TRPAREN   		{ $$ = $2; }
      ;
 
 ident : TIDENTIFIER           { $$ - new NIdentifier(*$1); delete $1; }
       ;
       
-sentence : TSTRING          { $$ = new NSentence($1); delete $1; }
+sentence : TSTRING          { $$ = new NSentence(*$1); delete $1; }
          ;
          
 comparison : TCEQ | TCNE | TCLT | TCGT | TCGE | TIS | TEQUAL | TIS TNOT

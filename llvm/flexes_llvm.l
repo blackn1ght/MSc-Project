@@ -1,9 +1,8 @@
 /* Flex tokens */
-%option noyywrap nodefault yylineno
 %{
 #include <string.h>
 #include "node.h"
-# include "parser.hpp"
+#include "parser.hpp"
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 #define TOKEN(t) (yylval.token = t)
 extern "C" int yywrap() { }
@@ -16,19 +15,19 @@ extern "C" int yywrap() { }
 ";"					return TOKEN(TQEND);
 
 
-"^question"			return TOKEN(TQUESTION);
-"^rule"			  	return TOKEN(TRULE);
-"^action"     		return TOKEN(TACTION);
+"question"			return TOKEN(TQUESTION);
+"rule"			  	return TOKEN(TRULE);
+"action"     		return TOKEN(TACTION);
 
-"^input"		  	return TOKEN(TINPUT);
-"^if"			    return TOKEN(TIF);
+"input"		  	return TOKEN(TINPUT);
+"if"			    return TOKEN(TIF);
 "and"			    return TOKEN(TAND);
 "then"			  	return TOKEN(TTHEN);
 "not"         		return TOKEN(TNOT);
 "do"			    return TOKEN(TDO);
 "ask"			    return TOKEN(TASK);
 "because"		  	return TOKEN(TBECAUSE);
-"write"       		return TOOKEN(TWRITE);
+"write"       		return TOKEN(TWRITE);
 
 "="					return TOKEN(TEQUAL);
 "is"				return TOKEN(TIS);
@@ -36,7 +35,7 @@ extern "C" int yywrap() { }
 "<"					return TOKEN(TCLT);
 ">"					return TOKEN(TCGT);
 "<="				return TOKEN(TCLE);
-">="				return TOKNE(TCGE);
+">="				return TOKEN(TCGE);
 "("			        return TOKEN(TLPAREN);
 ")"			        return TOKEN(TRPAREN);
 
