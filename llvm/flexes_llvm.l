@@ -10,16 +10,12 @@ extern "C" int yywrap() { }
 
 %%
 [ \t\n]+			; /* Whitespace, ignore */
-^%					; /* Comment, ignore */
-"."					return TOKEN(TSTOP);
-";"					return TOKEN(TQEND);
-
-
+"%"					printf("Just a comment, ignore the line.\n");
 "question"			return TOKEN(TQUESTION);
 "rule"			  	return TOKEN(TRULE);
 "action"     		return TOKEN(TACTION);
 
-"input"		  	return TOKEN(TINPUT);
+"input"		  		return TOKEN(TINPUT);
 "if"			    return TOKEN(TIF);
 "and"			    return TOKEN(TAND);
 "then"			  	return TOKEN(TTHEN);
@@ -28,6 +24,8 @@ extern "C" int yywrap() { }
 "ask"			    return TOKEN(TASK);
 "because"		  	return TOKEN(TBECAUSE);
 "write"       		return TOKEN(TWRITE);
+"nl"				return TOKEN(TNEWLINE);
+"end"				return TOKEN(TEND);	// Temporary to end the program. Not an actual keyword.
 
 "="					return TOKEN(TEQUAL);
 "is"				return TOKEN(TIS);
@@ -39,6 +37,9 @@ extern "C" int yywrap() { }
 "("			        return TOKEN(TLPAREN);
 ")"			        return TOKEN(TRPAREN);
 
+"."					return TOKEN(TSTOP);
+";"					return TOKEN(TQEND);
+
 [0-9]+\.[0-9]*		    SAVE_TOKEN; return TDOUBLE;
 [0-9]+			        SAVE_TOKEN; return TINTEGER;
 [a-zA-Z_][a-zA-Z0-9_]*	SAVE_TOKEN; return TIDENTIFIER;
@@ -48,4 +49,3 @@ extern "C" int yywrap() { }
 
 .			            printf("Unknown token!\n"); yyterminate();
 %%
-

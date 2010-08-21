@@ -49,7 +49,7 @@ public:
 	//virtual llvm::Value* codeGen(CodeGenContext& context);
 };
 
-class NMethodCall : public NStatement {	// Was public NExpression
+class NMethodCall : public NExpression {	// Was public NExpression
 public:
 	const NIdentifier& id;
 	ExpressionList arguments;
