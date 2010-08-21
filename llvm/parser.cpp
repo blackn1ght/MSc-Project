@@ -1470,21 +1470,21 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 54 "flexes_llvm.y"
-    { (yyval.stmt) = new NMethodDeclaration((yyvsp[(1) - (4)].token), *(yyvsp[(2) - (4)].ident), *(yyvsp[(3) - (4)].block)); printf("Question is complete.\n"); ;}
+    { (yyval.stmt) = new NMethodDeclaration((yyvsp[(1) - (4)].token), *(yyvsp[(2) - (4)].ident), *(yyvsp[(3) - (4)].block)); ;}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
 #line 57 "flexes_llvm.y"
-    { (yyval.block) = new NQuestionBlock(*(yyvsp[(1) - (7)].expr), *(yyvsp[(4) - (7)].ident), *(yyvsp[(7) - (7)].expr)); printf("Question block has been matched.\n"); ;}
+    { (yyval.block) = new NQuestionBlock(*(yyvsp[(1) - (7)].expr), *(yyvsp[(4) - (7)].ident), *(yyvsp[(7) - (7)].expr));  ;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
 #line 60 "flexes_llvm.y"
-    { (yyval.stmt) = new NMethodDeclaration((yyvsp[(1) - (4)].token), *(yyvsp[(2) - (4)].ident), *(yyvsp[(3) - (4)].block)); printf("Rule is complete.\n"); ;}
+    { (yyval.stmt) = new NMethodDeclaration((yyvsp[(1) - (4)].token), *(yyvsp[(2) - (4)].ident), *(yyvsp[(3) - (4)].block)); ;}
     break;
 
   case 10:
@@ -1519,42 +1519,42 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 72 "flexes_llvm.y"
-    { (yyval.stmt) = new NDecisionStatement(*(yyvsp[(2) - (4)].expr), *(yyvsp[(4) - (4)].expr)); printf("If statement has been matched.\n"); ;}
+    { (yyval.stmt) = new NDecisionStatement(*(yyvsp[(2) - (4)].expr), *(yyvsp[(4) - (4)].expr)); ;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
 #line 76 "flexes_llvm.y"
-    { (yyval.expr) = new NAssignment(*(yyvsp[(1) - (3)].ident), *(yyvsp[(3) - (3)].ident)); printf("Assignment detected.\n"); ;}
+    { (yyval.expr) = new NAssignment(*(yyvsp[(1) - (3)].ident), *(yyvsp[(3) - (3)].ident));  ;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
 #line 77 "flexes_llvm.y"
-    { (yyval.expr) = new NAssignment(*(yyvsp[(1) - (3)].ident), *(yyvsp[(3) - (3)].ident)); printf("Assignment detected, ident has been given a value.\n"); ;}
+    { (yyval.expr) = new NAssignment(*(yyvsp[(1) - (3)].ident), *(yyvsp[(3) - (3)].ident));  ;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
 #line 78 "flexes_llvm.y"
-    { (yyval.expr) = new NBinaryOperator(*(yyvsp[(1) - (3)].ident), (yyvsp[(2) - (3)].token), *(yyvsp[(3) - (3)].ident)); printf("Comparison has been matched.\n"); ;}
+    { (yyval.expr) = new NBinaryOperator(*(yyvsp[(1) - (3)].ident), (yyvsp[(2) - (3)].token), *(yyvsp[(3) - (3)].ident)); ;}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
 #line 79 "flexes_llvm.y"
-    { (yyval.expr) = new NBinaryOperator(*(yyvsp[(1) - (3)].ident), (yyvsp[(2) - (3)].token), *(yyvsp[(3) - (3)].expr)); printf("Comparison has been matched.\n"); ;}
+    { (yyval.expr) = new NBinaryOperator(*(yyvsp[(1) - (3)].ident), (yyvsp[(2) - (3)].token), *(yyvsp[(3) - (3)].expr)); ;}
     break;
 
   case 19:
 
 /* Line 1455 of yacc.c  */
 #line 80 "flexes_llvm.y"
-    { (yyval.expr) = new NBinaryOperator(*(yyvsp[(1) - (3)].expr), (yyvsp[(2) - (3)].token), *(yyvsp[(3) - (3)].expr)); printf("Comparison has been matched.\n"); ;}
+    { (yyval.expr) = new NBinaryOperator(*(yyvsp[(1) - (3)].expr), (yyvsp[(2) - (3)].token), *(yyvsp[(3) - (3)].expr)); ;}
     break;
 
   case 20:
@@ -1568,7 +1568,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 82 "flexes_llvm.y"
-    { printf("End of script found.\n"); ;}
+    {  ;}
     break;
 
   case 22:
@@ -1596,42 +1596,42 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 86 "flexes_llvm.y"
-    { printf("Write statement matched 'ident'.\n"); ;}
+    { ;}
     break;
 
   case 26:
 
 /* Line 1455 of yacc.c  */
 #line 87 "flexes_llvm.y"
-    { printf("Write statement matched.\n"); ;}
+    {  ;}
     break;
 
   case 27:
 
 /* Line 1455 of yacc.c  */
 #line 90 "flexes_llvm.y"
-    { (yyval.ident) - new NIdentifier(*(yyvsp[(1) - (1)].string)); delete (yyvsp[(1) - (1)].string); printf("Identifier\n"); ;}
+    { (yyval.ident) - new NIdentifier(*(yyvsp[(1) - (1)].string)); delete (yyvsp[(1) - (1)].string);  ;}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
 #line 93 "flexes_llvm.y"
-    { (yyval.expr) = new NSentence(*(yyvsp[(1) - (1)].string)); delete (yyvsp[(1) - (1)].string); printf("String detected.\n"); ;}
+    { (yyval.expr) = new NSentence(*(yyvsp[(1) - (1)].string)); delete (yyvsp[(1) - (1)].string);  ;}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
 #line 99 "flexes_llvm.y"
-    { (yyval.expr) = new NDouble(atof((yyvsp[(1) - (1)].string)->c_str())); delete (yyvsp[(1) - (1)].string); printf("Double detected.\n"); ;}
+    { (yyval.expr) = new NDouble(atof((yyvsp[(1) - (1)].string)->c_str())); delete (yyvsp[(1) - (1)].string); ;}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
 #line 100 "flexes_llvm.y"
-    { (yyval.expr) = new NInteger(atol((yyvsp[(1) - (1)].string)->c_str())); delete (yyvsp[(1) - (1)].string); printf("Integer detected.\n");;}
+    { (yyval.expr) = new NInteger(atol((yyvsp[(1) - (1)].string)->c_str())); delete (yyvsp[(1) - (1)].string); ;}
     break;
 
 

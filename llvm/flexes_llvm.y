@@ -51,13 +51,13 @@ program : rule					{ $$ = new NBlock(); }
         | question				{ $$ = new NBlock(); }
         ;
 
-question : TQUESTION ident question_block TSTOP		{ $$ = new NMethodDeclaration($1, *$2, *$3); printf("Question is complete.\n"); }
+question : TQUESTION ident question_block TSTOP		{ $$ = new NMethodDeclaration($1, *$2, *$3); }
          ;
          
-question_block : sentence TQEND TINPUT ident TQEND TBECAUSE sentence { $$ = new NQuestionBlock(*$1, *$4, *$7); printf("Question block has been matched.\n"); }
+question_block : sentence TQEND TINPUT ident TQEND TBECAUSE sentence { $$ = new NQuestionBlock(*$1, *$4, *$7);  }
 			   ;
 
-rule : TRULE ident stmts TSTOP  { $$ = new NMethodDeclaration($1, *$2, *$3); printf("Rule is complete.\n"); }
+rule : TRULE ident stmts TSTOP  { $$ = new NMethodDeclaration($1, *$2, *$3); }
      ;
 
 
@@ -69,35 +69,35 @@ stmts : stmt 			{ $$ = new NBlock; $$->statements.push_back($<stmt>1); }
       ;
 
 stmt : expr 						{ $$ = new NExpressionStatement(*$1); }
-	 | TIF expr TTHEN expr			{ $$ = new NDecisionStatement(*$2, *$4); printf("If statement has been matched.\n"); }
+	 | TIF expr TTHEN expr			{ $$ = new NDecisionStatement(*$2, *$4); }
      ;
 
 /* Expressions, such as value1 becomes value2, etc */
-expr : ident TBECOMES ident   		{ $$ = new NAssignment(*$1, *$3); printf("Assignment detected.\n"); }
-	 | ident TBECOMES sentence		{ $$ = new NAssignment(*$1, *$<ident>3); printf("Assignment detected, ident has been given a value.\n"); }
-     | ident comparison ident       { $$ = new NBinaryOperator(*$1, $2, *$3); printf("Comparison has been matched.\n"); }
-     | ident comparison sentence	{ $$ = new NBinaryOperator(*$1, $2, *$3); printf("Comparison has been matched.\n"); }
-     | number comparison number		{ $$ = new NBinaryOperator(*$1, $2, *$3); printf("Comparison has been matched.\n"); }
+expr : ident TBECOMES ident   		{ $$ = new NAssignment(*$1, *$3);  }
+	 | ident TBECOMES sentence		{ $$ = new NAssignment(*$1, *$<ident>3);  }
+     | ident comparison ident       { $$ = new NBinaryOperator(*$1, $2, *$3); }
+     | ident comparison sentence	{ $$ = new NBinaryOperator(*$1, $2, *$3); }
+     | number comparison number		{ $$ = new NBinaryOperator(*$1, $2, *$3); }
      | ident						{ $<ident>$ = $1; }
-     | TEND							{ printf("End of script found.\n"); }
+     | TEND							{  }
      | TAND expr                    {  }
      | TASK ident					{ $$ = new NMethodCall(*$<ident>2); }
      | TLPAREN expr TRPAREN   		{ $$ = $2; }
-     | TWRITE TLPAREN ident TRPAREN 	{ printf("Write statement matched 'ident'.\n"); }	
-     | TWRITE TLPAREN sentence TRPAREN	{ printf("Write statement matched.\n"); }
+     | TWRITE TLPAREN ident TRPAREN 	{ }	
+     | TWRITE TLPAREN sentence TRPAREN	{  }
      ;
 
-ident : TIDENTIFIER           { $$ - new NIdentifier(*$1); delete $1; printf("Identifier\n"); }
+ident : TIDENTIFIER           { $$ - new NIdentifier(*$1); delete $1;  }
       ;
       
-sentence : TSTRING          { $$ = new NSentence(*$1); delete $1; printf("String detected.\n"); }
+sentence : TSTRING          { $$ = new NSentence(*$1); delete $1;  }
          ;
          
 comparison : TCEQ | TCNE | TCLT | TCGT | TCGE | TIS | TEQUAL | TIS TNOT
 		   ;
 		   
-number : TDOUBLE		{ $$ = new NDouble(atof($1->c_str())); delete $1; printf("Double detected.\n"); }
-		| TINTEGER		{ $$ = new NInteger(atol($1->c_str())); delete $1; printf("Integer detected.\n");}
+number : TDOUBLE		{ $$ = new NDouble(atof($1->c_str())); delete $1; }
+		| TINTEGER		{ $$ = new NInteger(atol($1->c_str())); delete $1; }
 	   ;
 
 %%
