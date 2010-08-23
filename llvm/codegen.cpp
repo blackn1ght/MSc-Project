@@ -2,7 +2,7 @@
 #include "codegen.h"
 #include "parser.hpp"
 
-using namespace std;
+using namespace llvm;
 
 /* Compile the AST into a module */
 void CodeGenContext::generateCode(NBlock& root)
@@ -10,7 +10,7 @@ void CodeGenContext::generateCode(NBlock& root)
 	std::cout << "Generating code...\n";
 
 	/* Create the top level interpreter function to call as entry */
-	vector<const Type*> argTypes;
+	std::vector<const Type*> argTypes;
 	FunctionType *ftype = FunctionType::get(Type::getVoidTy(getGlobalContext()), argTypes, false);
 	mainFunction = Function::Create(ftype, GlobalValue::InternalLinkage, "main", module);
 	BasicBlock *bblock = BasicBlock::Create(getGlobalContext(), "entry", mainFunction, 0);
@@ -33,9 +33,9 @@ void CodeGenContext::generateCode(NBlock& root)
 /* Executes the AST by running the main function */
 GenericValue CodeGenContext::runCode() {
 	std::cout << "Running code...\n";
-	ExistingModuleProvider *mp = new ExistingModuleProvider(module);
-	ExecutionEngine *ee = ExecutionEngine::create(mp, false);
-	vector<GenericValue> noargs;
+
+	ExecutionEngine *ee = EngineBuilder(module).create();
+	std::vector<GenericValue> noargs;
 	GenericValue v = ee->runFunction(mainFunction, noargs);
 	std::cout << "Code was run.\n";
 	return v;
@@ -145,13 +145,15 @@ Value* NVariableDeclaration::codeGen(CodeGenContext& context)
 	std::cout << "Creating variable declaration " << type.name << " " << id.name << std::endl;
 	AllocaInst *alloc = new AllocaInst(typeOf(type), id.name.c_str(), context.currentBlock());
 	context.locals()[id.name] = alloc;
+	/*
 	if (assignmentExpr != NULL) {
 		NAssignment assn(id, *assignmentExpr);
 		assn.codeGen(context);
 	}
+	*/
 	return alloc;
 }
-
+/*
 Value* NFunctionDeclaration::codeGen(CodeGenContext& context)
 {
 	vector<const Type*> argTypes;
@@ -169,10 +171,11 @@ Value* NFunctionDeclaration::codeGen(CodeGenContext& context)
 		(**it).codeGen(context);
 	}
 
-	block.codeGen(context);
+	bblock.codeGen(context);
 	ReturnInst::Create(getGlobalContext(), bblock);
 
 	context.popBlock();
 	std::cout << "Creating function: " << id.name << std::endl;
 	return function;
 }
+*/
