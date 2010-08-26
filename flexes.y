@@ -5,90 +5,87 @@
 %}
 
 %union {
-  struct ast *a;
-  double d;
-  char *strval;
-  struct symbol *s;
-  struct symlist *sl;
-  int fn;    
+	struct ast *a;
+	double d;
+	struct symbol *s;
+	int fn;
 }
 
-%token <fn> TRULE TACTION TQUESTION
+/* The tokens */
+%token <s> TIDENTIFIER TSTRING
 %token <d> TNUMBER
-%token <s> TIDENTIFIER TSTRING TINPUT
+%token <token> TBECOMES TNOT
+%token <token> TLPAREN TRPAREN TCOMMA TNEWLINE
+%token <token> TIF TRULE TQUESTION TACTION TINPUT TSTOP TQEND
+%token <token> TAND TOR TTHEN TASK TBECAUSE TDO TWRITE TEND
+%token <token> TPLUS TMINUS TMUL TDIV
 
-
-%token TCOMMA TDOT TSCOLON TSTOP TQEND
-%token TPLUS TMINUS TMUL TDIV
-%token TIF TTHEN TBECOMES TAND TOR TNOT
-%token TDO TASK TBECAUSE TWRITE
-%token TLPAREN TRPAREN UNKNOWN
-%token NL
-
-%type <a> programs program rule action expr
-%type <a> stmts stmt question
-%type <s> sentence input ident
+%type <s> ident
+%type <a> flexes expr
+%type <a> program programs script stmts question_block
+%type <a> stmt rule question action
 
 %nonassoc <fn> CMP
 
 %left TPLUS TMINUS
 %left TMUL TDIV
 
-%start programs
+%start flexes
 
 %%
-/*
-block: programs       {  $$ = $1; 
-						 printf("Program started.\n"); }
+
+flexes: script							{ return eval($1); }
+	  ;
+
+script: programs action      			{ $$ = newast('p', $1, $2); }
      ;
-*/
-programs : { printf("programs: no rule fired.\n"); }
-         | programs program action    { $$ = newast('B',$1,$2);
-         								printf("programs detected.\n"); }
+
+programs : program 						{ $$ = newast('p', $1, NULL); }
+         | programs program		 		{ $$ = newast('p', $1, $2); }
          ;
          
-program : rule                  { $$ = newast('R',$1,NULL); }
-        | question              { $$ = newast('Q',$1,NULL); }
+program : rule							{ $$ = newast('p', $1, NULL); }
+        | question						{ $$ = newast('p', $1, NULL); }
         ;
 
-rule : TRULE ident stmts TDOT   { $$ = rule($2, $3);
-								  printf("Rule identified.\n"); }
+question : TQUESTION ident question_block TSTOP		{ $$ = function('q', $2, $3); }
+         ;
+         
+question_block : TSTRING TQEND TINPUT ident TQEND TBECAUSE TSTRING { $$ = question_block($1,$4,$7); }
+			   ;
+
+rule : TRULE ident stmts TSTOP  { $$ = function('r', $2, $3); }
      ;
 
-question : TQUESTION ident sentence TQEND input ident TSTOP                         { $$ = question($2, $3, $5, NULL);}
-         | TQUESTION ident sentence TQEND input ident TQEND TBECAUSE sentence TSTOP { $$ = question($2,$3,$5,$9);}
-         ;
 
-action : TACTION ident stmts TDOT { }
+action : TACTION ident stmts TSTOP { $$ = function('a', $2, $3); }
        ;
 
-stmts : { /* do nothing */ }
-      | stmts stmt  { $$ = $1; }
+stmts : stmt 			{ $$ = newast('s', $1, NULL); }
+      | stmts stmt 		{ $$ = newast('S', $1, $2); }
       ;
 
-stmt : TIF expr TTHEN expr                          { $$ = flow('I', $2, $4); }
-     | TDO TASK ident                               { /* do ask question */ }
-     | TWRITE TLPAREN ident TRPAREN                 { $$ = dowrite($3); }
-     | TWRITE TLPAREN '\'' sentence '\'' TRPAREN   { $$ = dowrite($4); }
+stmt : expr 						{ $$ = newast('e', $1, NULL); }
+	 | TIF expr TTHEN expr			{ $$ = flow('i', $2, $4); }
      ;
 
 /* Expressions, such as value1 becomes value2, etc */
-expr : ident CMP UNKNOWN      { /* meh */ }
-     | ident CMP ident        { $$ = newcmp($2, $1, $3); }     
-     | ident TBECOMES ident   { $$ = newassign($1, $3); }
-     | TAND expr                                    { /* and expression */ }
-     | TNUMBER                { $$ = num($1); }
-     | ident                  { $$ = variable($1); }
-     | TLPAREN expr TRPAREN   { $$ = $2; }
+expr : ident TBECOMES ident   		{ $$ = newassign($1, $3); }
+	 | ident TBECOMES TSTRING		{ $$ = newassign($1, $3); }
+     | ident CMP ident       		{ $$ = newcmp($2, $1, $3); }
+     | ident CMP TSTRING			{ $$ = newcmp($2, $1, $3); }
+     | TNUMBER						{ $$ = num($1); }
+     | TSTRING						{ $$ = sentence($1); }
+     | TEND							{  }
+     | TAND expr                    {  }
+     | TASK ident					{  }
+     | TLPAREN expr TRPAREN   		{  }
+     | TWRITE TLPAREN ident TRPAREN 	{ $$ = dowrite($3); }	
+     | TWRITE TLPAREN TSTRING TRPAREN	{ $$ = dowrite($3); }
      ;
 
-ident : TIDENTIFIER           { $$ = $1; }
-      ;
-      
-sentence : TSTRING          { $$ = $1; }
-         ;
-         
-input : TINPUT                { $$ = $1; }
-      ;
 
+ident : TIDENTIFIER           		{  }
+      ;
+     
 %%

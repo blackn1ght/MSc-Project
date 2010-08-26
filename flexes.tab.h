@@ -39,37 +39,35 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     TRULE = 258,
-     TACTION = 259,
-     TQUESTION = 260,
-     TNUMBER = 261,
-     TIDENTIFIER = 262,
-     TSTRING = 263,
-     TINPUT = 264,
+     TIDENTIFIER = 258,
+     TSTRING = 259,
+     TNUMBER = 260,
+     TBECOMES = 261,
+     TNOT = 262,
+     TLPAREN = 263,
+     TRPAREN = 264,
      TCOMMA = 265,
-     TDOT = 266,
-     TSCOLON = 267,
-     TSTOP = 268,
-     TQEND = 269,
-     TPLUS = 270,
-     TMINUS = 271,
-     TMUL = 272,
-     TDIV = 273,
-     TIF = 274,
-     TTHEN = 275,
-     TBECOMES = 276,
-     TAND = 277,
-     TOR = 278,
-     TNOT = 279,
-     TDO = 280,
-     TASK = 281,
-     TBECAUSE = 282,
-     TWRITE = 283,
-     TLPAREN = 284,
-     TRPAREN = 285,
-     UNKNOWN = 286,
-     NL = 287,
-     CMP = 288
+     TNEWLINE = 266,
+     TIF = 267,
+     TRULE = 268,
+     TQUESTION = 269,
+     TACTION = 270,
+     TINPUT = 271,
+     TSTOP = 272,
+     TQEND = 273,
+     TAND = 274,
+     TOR = 275,
+     TTHEN = 276,
+     TASK = 277,
+     TBECAUSE = 278,
+     TDO = 279,
+     TWRITE = 280,
+     TEND = 281,
+     TPLUS = 282,
+     TMINUS = 283,
+     TMUL = 284,
+     TDIV = 285,
+     CMP = 286
    };
 #endif
 
@@ -82,17 +80,15 @@ typedef union YYSTYPE
 /* Line 1676 of yacc.c  */
 #line 7 "flexes.y"
 
-  struct ast *a;
-  double d;
-  char *strval;
-  struct symbol *s;
-  struct symlist *sl;
-  int fn;    
+	struct ast *a;
+	double d;
+	struct symbol *s;
+	int fn;
 
 
 
 /* Line 1676 of yacc.c  */
-#line 96 "flexes.tab.h"
+#line 92 "flexes.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

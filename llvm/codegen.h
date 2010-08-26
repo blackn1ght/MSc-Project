@@ -1,8 +1,11 @@
 #include <stack>
+#include <typeinfo>
 #include <llvm/Module.h>
 #include <llvm/Function.h>
 #include <llvm/Type.h>
-#include <typeinfo>
+#include <llvm/Value.h>
+#include <llvm/User.h>
+#include <llvm/BasicBlock.h>
 #include <llvm/DerivedTypes.h>
 #include <llvm/LLVMContext.h>
 #include <llvm/PassManager.h>

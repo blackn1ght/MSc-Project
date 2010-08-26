@@ -2,7 +2,7 @@
 #include "codegen.h"
 #include "parser.hpp"
 
-using namespace llvm;
+using namespace std;
 
 /* Compile the AST into a module */
 void CodeGenContext::generateCode(NBlock& root)

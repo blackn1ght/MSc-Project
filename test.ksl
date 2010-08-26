@@ -1,0 +1,20 @@
+rule my_pet
+	animal becomes "unknown"
+	if animal is "unknown"
+	then animal becomes "cat" .
+	
+question my_animal
+	"What type of pet do you have?" ;
+	input pet ;
+	because "We need to know what pet you have!" .
+	
+rule pet_cat
+	if pet is "cat"
+	then output becomes "lolz" .
+
+rule pet_dog
+	if pet is "dog"
+	then output becomes "woof" .
+
+action fin
+	end .

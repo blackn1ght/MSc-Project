@@ -26,23 +26,17 @@ struct symbol {		/* variable name */
 	double d_value;
 	char *c_value;
 	struct ast *func;	/* stmt for the function */
-	struct symlist *syms;	/* list of dummy args */
+	struct symlist *syms;
 };
 
 /* symtable of fixed size */
 #define NHASH 9997
 struct symbol symtab[NHASH];
-
 struct symbol *lookup(char*);
-
-/* list of symbols, for an argument list */
-struct symlist {
-	struct symbol *sym;
-	struct symlist *next;
-};
 
 struct symlist *newsymlist(struct symbol *sym, struct symlist *next);
 void symlistfree(struct symlist *sl);
+
 
 /* Node Types
  * r : Rule
@@ -52,12 +46,6 @@ void symlistfree(struct symlist *sl);
  * e : expression
  */
 
-enum func {
-  F_rule = 1,
-  F_action,
-  F_question
-};
-
 struct ast {
 	int nodetype;
 	struct ast *l;
@@ -65,14 +53,9 @@ struct ast {
 };
 
 struct s_flow {     /* If - the if-then in flex has no else clause.*/
-	int nodetype;
+	int nodetype;		/* Type i */
 	struct ast *cond;	/* The condition */
 	struct ast *tl;		/* Then branch */
-};
-
-struct quest {
-  int nodetype;   /* Question */
-  struct symbol *q;
 };
 
 struct ucall {     /* Stores a question, rule or action */
@@ -110,7 +93,6 @@ struct s_rule {
 
 struct s_question {
   int nodetype;
-  struct symbol *name;
   struct symbol *question;
   struct symbol *input;
   struct symbol *because;
@@ -121,6 +103,12 @@ struct s_dowrite {
   struct symbol *sentence;
 };
 
+struct s_function {
+	int nodetype;
+	struct symbol *name;
+	struct ast *statements;
+};
+
 /* Build an AST */
 struct ast *newast(int nodetype, struct ast *l, struct ast *r);
 struct ast *newcmp(int cmptype, struct symbol *l, struct symbol *r);
@@ -128,8 +116,9 @@ struct ast *newassign(struct symbol *s1, struct symbol *s2);
 struct ast *num(double d);
 struct ast *flow(int nodetype, struct ast *cond, struct ast *l);
 
-struct ast *question(struct symbol *name, struct symbol *question, struct symbol *input, struct symbol *because);
-struct ast *rule(struct symbol *name, struct ast *stmts);
+struct ast *function(int nodetype, struct symbol *name, struct ast *statements);
+struct ast *question_block(struct symbol *question, struct symbol *input, struct symbol *because);
+
 struct ast *dowrite(struct symbol *sentence);
 struct ast *sentence(struct symbol *s);
 struct ast *variable(struct symbol *s);

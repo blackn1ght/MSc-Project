@@ -36,7 +36,6 @@ lookup(char *sym)
       sp->d_value = 0;
       sp->c_value = strdup(sym);
       sp->func = NULL;
-      sp->syms = NULL;
       return sp;
     }
     
@@ -157,7 +156,7 @@ rule(struct symbol *name, struct ast *stmts)
 }
 
 struct ast *
-question(struct symbol *name, struct symbol *question, struct symbol *input, struct symbol *because)
+question_block(struct symbol *question, struct symbol *input, struct symbol *because)
 {
   struct s_question *a = malloc(sizeof(struct s_question));
   
@@ -166,13 +165,29 @@ question(struct symbol *name, struct symbol *question, struct symbol *input, str
     exit(0);
   }
   
-  a->nodetype = 'Q';
-  a->name = name;
+  a->nodetype = 'b';
   a->question = question;
   a->input = input;
   a->because = because;
   
   return (struct ast *)a;
+}
+
+struct ast *
+function(int nodetype, struct symbol *name, struct ast *statements)
+{
+	struct s_function *a = malloc(sizeof(struct s_function));
+	
+	if (!a) {
+		yyerror("Out of memory.");
+		exit(0);
+	}
+	
+	a->nodetype = nodetype;
+	a->name = name;
+	a->statements = statements;
+	
+	return (struct ast *)a;
 }
 
 struct ast *
@@ -189,6 +204,22 @@ dowrite(struct symbol *sentence)
   a->sentence = sentence;
  
   return (struct ast *)a;
+}
+
+struct ast *
+sentence(struct symbol *sentence)
+{
+	struct s_ref *a = malloc(sizeof(struct s_ref));
+	
+	if (!a) {
+		yyerror("Out of memory.");
+		exit(0);
+	}
+	
+	a->nodetype = 's';
+	a->s = sentence;
+	
+	return (struct ast *)a;
 }
 
 /* Free a tree of AST's */
@@ -225,46 +256,65 @@ void treefree(struct ast *a)
   free(a); /* always free the node itself */
 }
 
-struct symlist *
-newsymlist(struct symbol *sym, struct symlist *next)
-{
-  struct symlist *sl = malloc(sizeof(struct symlist));
-  
-  if (!sl) {
-    yyerror("Out of memory.");
-    exit(0);
-  }
-  
-  sl->sym = sym;
-  sl->next = next;
-  return sl;
-}
-
-/* free a list of symbols */
-void
-symlistfree(struct symlist *sl)
-{
-  struct symlist *nsl;
-  
-  while(sl) {
-    nsl = sl->next;
-    free(sl);
-    sl = nsl;
-  }
-}
 
 double
 eval(struct ast *a)
 {
   double v;
   
+  printf("eval fired.\n");
+  
+  if (!a) {
+  	yyerror("internal error, null eval");
+  	return 0.0;
+  }
+  
   switch (a->nodetype)
   {
-    case 'R':
+  	/* assignment */
+    case 'r':
       printf("Rule detected.\n");
       break;
-    default: printf("Other detected.\n");
-      break;
+    
+    case 'b':
+   		printf("question block.\n");
+   		break;
+    	
+	/* expressions */
+	
+	/* comparisons */
+	case '1': v = (eval(a->l) > eval(a->r))? 1 : 0; break;
+	case '2': v = (eval(a->l) < eval(a->r))? 1 : 0; break;
+	case '3': v = (eval(a->l) >= eval(a->r))? 1 : 0; break;
+	case '4': v = (eval(a->l) <= eval(a->r))? 1 : 0; break;
+	case '5': v = (eval(a->l) >= eval(a->r))? 1 : 0; break;
+	case '6': v = (eval(a->l) != eval(a->r))? 1 : 0; break;
+	case '7': v = (eval(a->l) == eval(a->r))? 1 : 0; break;
+	
+	/* if-then */
+	case 'i':
+		if ( eval( ((struct s_flow *)a)->cond) != 0) {
+			if ( ((struct s_flow *)a)->tl) {
+				v = eval( ((struct s_flow *)a)->tl);
+				printf("True.\n");
+			} else {
+				v = 0.0;	// default value, 'nothing'.
+				printf("Nothing.\n");
+			}
+		}
+		break;
+	
+	/* Create an identifier */
+	case 'N':
+		/* We need a list of identifiers to make sure we don't 
+		   create one with the same name.  If so, ignore. */
+		printf("Variable detected.\n");
+		break;
+	
+	case 'q':
+		printf("Question detected in eval.\n");
+		break;
+	
   }
 }
 
@@ -284,16 +334,22 @@ main(argc, argv)
 int argc;
 char **argv;
 {
+
+	if (argc > 1) {
+		printf("Loading script...\n");
+		extern FILE* yyin;
+		if(!(yyin = fopen(argv[1], "r"))) {
+			perror(argv[1]);
+			return (1);
+		}
+		printf("Script loaded.\n");
+		printf("Executing...\n");
+	}
+	else {
+		printf("> ");
+	}
     
-    if (argc > 1) {
-        printf("File: ", argv[1], "\n");
-        /*
-        if (!(yyin = fopen(argv[1], "r"))) {
-            perror(argv[1]);
-            return (1);
-        }
-        */
-    }
+    
   
     return yyparse();
 }

@@ -1,15 +1,15 @@
-all: flexes
+all: parser
 
 clean:
-				rm parser.cpp parser.hpp flexes tokens.cpp
+			rm parser.cpp parser.hpp parser tokens.cpp
 				
 parser.cpp: flexes_llvm.y
-				bison -d -o $@ $^
+			bison -d -o $@ $^
 				
 parser.hpp: parser.cpp
 
 tokens.cpp: flexes_llvm.l parser.hpp
-				lex -o $@ $^
+			lex -o $@ $^
 				
-flexes: parser.cpp codegen.cpp main.cpp tokens.cpp
-				g++ $@ `llvm-config --libs core jit native --cxxflags --ldflags` *.cpp
+parser: parser.cpp codegen.cpp main.cpp tokens.cpp
+			g++ -o $@ `llvm-config --libs core jit native --cxxflags --ldflags` *.cpp
