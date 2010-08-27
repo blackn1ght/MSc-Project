@@ -7,6 +7,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <math.h>
+#include "bst.h"
 #include "flexes.h"
 #include "flexes.tab.h"
 
@@ -261,6 +262,7 @@ double
 eval(struct ast *a)
 {
   double v;
+  BST();
   
   printf("eval fired.\n");
   
