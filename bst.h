@@ -20,6 +20,6 @@ struct Node {
 
 struct Node nodes[MAX_NODES];
 
-void BST();
-int Insert(char *variable_name, char *data);
+int BST();
+int Insert(int key, char *variable_name, char *data);
 char *GetVariableValue(char *variable_name);

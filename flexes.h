@@ -17,15 +17,18 @@
  * U because (question optional answer)
  * D do (do something)
  */
+#define VARNAME_SIZE		20
+#define VARVALUE_SIZE		100
+#include <string.h>
 
 
 extern int yylineno;
 void yyerror(char *s, ...);
   
 struct symbol {		/* variable name */
-	char *name;
+	char *name[VARNAME_SIZE];
 	double d_value;
-	char *c_value;
+	char *c_value[VARVALUE_SIZE];
 	struct ast *func;	/* stmt for the function */
 	struct symlist *syms;
 };
@@ -34,6 +37,11 @@ struct symbol {		/* variable name */
 #define NHASH 9997
 struct symbol symtab[NHASH];
 struct symbol *lookup(char*);
+
+struct symlist {
+	struct symbol *sym;
+	struct symlist *next;
+};
 
 struct symlist *newsymlist(struct symbol *sym, struct symlist *next);
 void symlistfree(struct symlist *sl);
@@ -81,9 +89,14 @@ struct s_compare {
   struct symbol *r;
 };
 
-struct s_ref {
+struct s_variable {
   int nodetype;
-  struct symbol *s;
+  struct symbol *var;
+};
+
+struct s_ref {
+	int nodetype;
+	struct symbol *s;
 };
 
 struct s_rule {
@@ -122,7 +135,7 @@ struct ast *question_block(struct symbol *question, struct symbol *input, struct
 
 struct ast *dowrite(struct symbol *sentence);
 struct ast *sentence(struct symbol *s);
-struct ast *variable(struct symbol *s);
+struct ast *variable(struct symbol *var);
 
 /* Evaulate an AST */
 double eval(struct ast *);

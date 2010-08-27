@@ -30,12 +30,12 @@ lookup(char *sym)
   int scount = NHASH;
   
   while (--scount >= 0) {
-    if (sp->name && !strcmp(sp->name, sym)) { return sp; }
+    if (sp->name[VARNAME_SIZE] && !strcmp(sp->name[VARNAME_SIZE], sym)) { return sp; }
     
     if (!sp->name) {
-      sp->name = strdup(sym);
+      sp->name[VARNAME_SIZE] = strdup(sym);
       sp->d_value = 0;
-      sp->c_value = strdup(sym);
+      sp->c_value[VARVALUE_SIZE] = strdup(sym);
       sp->func = NULL;
       return sp;
     }
@@ -51,6 +51,8 @@ struct ast *
 newast(int nodetype, struct ast *l, struct ast *r)
 {
   struct ast *a = malloc(sizeof(struct ast));
+  
+  printf("Firing newast.\n");
   
   if (!a) {
     yyerror("Out of memory.");
@@ -110,9 +112,12 @@ newassign(struct symbol *s1, struct symbol *s2)
 }
 
 struct ast *
-variable(struct symbol *s)
+variable(struct symbol *var)
 {
-  struct s_ref *a = malloc(sizeof(struct s_ref));
+
+	printf("Attemting to create a variable.\n");
+	
+  struct s_variable *a = malloc(sizeof(struct s_variable));
   
   if (!a) {
     yyerror("Out of memory.");
@@ -120,7 +125,7 @@ variable(struct symbol *s)
   }
   
   a->nodetype = 'N';
-  a->s = s;
+  a->var = var;
   return (struct ast *)a;
 }
 
@@ -257,19 +262,46 @@ void treefree(struct ast *a)
   free(a); /* always free the node itself */
 }
 
+struct symlist *
+newsymlist(struct symbol *sym, struct symlist *next)
+{
+	struct symlist *sl = malloc(sizeof(struct symlist));
+	
+	if (!sl) {
+		yyerror("Out of space.");
+		exit(0);
+	}
+	
+	sl->sym = sym;
+	sl->next = next;
+	return sl;
+}
+
+void
+symlistfree(struct symlist *sl)
+{
+	struct symlist *nsl;
+	
+	while (sl) {
+		nsl = sl->next;
+		free(sl);
+		sl = nsl;
+	}
+}
+
 
 double
 eval(struct ast *a)
 {
   double v;
-  BST();
-  
-  printf("eval fired.\n");
-  
+
   if (!a) {
   	yyerror("internal error, null eval");
   	return 0.0;
   }
+  
+  printf("Eval Node Type: ", a->nodetype);
+  printf("\n");
   
   switch (a->nodetype)
   {
@@ -311,6 +343,7 @@ eval(struct ast *a)
 		/* We need a list of identifiers to make sure we don't 
 		   create one with the same name.  If so, ignore. */
 		printf("Variable detected.\n");
+		
 		break;
 	
 	case 'q':
@@ -351,8 +384,9 @@ char **argv;
 		printf("> ");
 	}
     
-    
-  
+    // Create the BST
+    BST();
+
     return yyparse();
 }
 

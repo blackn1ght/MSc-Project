@@ -34,40 +34,8 @@
 
 %%
 
-flexes: script							{ return eval($1); }
-	  ;
-
-script: programs action      			{ $$ = newast('p', $1, $2); }
-     ;
-
-programs : program 						{ $$ = newast('p', $1, NULL); }
-         | programs program		 		{ $$ = newast('p', $1, $2); }
-         ;
-         
-program : rule							{ $$ = newast('p', $1, NULL); }
-        | question						{ $$ = newast('p', $1, NULL); }
-        ;
-
-question : TQUESTION ident question_block TSTOP		{ $$ = function('q', $2, $3); }
-         ;
-         
-question_block : TSTRING TQEND TINPUT ident TQEND TBECAUSE TSTRING { $$ = question_block($1,$4,$7); }
-			   ;
-
-rule : TRULE ident stmts TSTOP  { $$ = function('r', $2, $3); }
-     ;
-
-
-action : TACTION ident stmts TSTOP { $$ = function('a', $2, $3); }
-       ;
-
-stmts : stmt 			{ $$ = newast('s', $1, NULL); }
-      | stmts stmt 		{ $$ = newast('S', $1, $2); }
+ident : TIDENTIFIER           		{ printf("flexes.y: identifier found.\n"); $$ = variable($1); }
       ;
-
-stmt : expr 						{ $$ = newast('e', $1, NULL); }
-	 | TIF expr TTHEN expr			{ $$ = flow('i', $2, $4); }
-     ;
 
 /* Expressions, such as value1 becomes value2, etc */
 expr : ident TBECOMES ident   		{ $$ = newassign($1, $3); }
@@ -84,8 +52,38 @@ expr : ident TBECOMES ident   		{ $$ = newassign($1, $3); }
      | TWRITE TLPAREN TSTRING TRPAREN	{ $$ = dowrite($3); }
      ;
 
+stmt : expr 						{ $$ = newast('e', $1, NULL); }
+	 | TIF expr TTHEN expr			{ $$ = flow('i', $2, $4); }
+     ;
 
-ident : TIDENTIFIER           		{  }
+stmts : stmt 			{ $$ = newast('s', $1, NULL); }
+      | stmts stmt 		{ $$ = newast('S', $1, $2); }
       ;
+
+action : TACTION ident stmts TSTOP { $$ = function('a', $2, $3); }
+       ;
+
+rule : TRULE ident stmts TSTOP  { $$ = function('r', $2, $3); }
+     ;
+
+question_block : TSTRING TQEND TINPUT ident TQEND TBECAUSE TSTRING { $$ = question_block($1,$4,$7); }
+				;
+
+question : TQUESTION ident question_block TSTOP		{ $$ = function('q', $2, $3); }
+         ;
+
+program : rule							{ $$ = newast('p', $1, NULL); }
+        | question						{ $$ = newast('p', $1, NULL); }
+        ;
+
+programs : program 						{ $$ = newast('p', $1, NULL); }
+         | programs program		 		{ $$ = newast('p', $1, $2); }
+         ;
+
+script: programs action      			{ $$ = newast('p', $1, $2); }
+     ;
+
+flexes: script							{ $$ = $1; return eval($1); }
+	  ;
      
 %%
