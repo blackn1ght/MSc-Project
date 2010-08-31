@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.16)  16 AUG 2010 16:59
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.27)  31 AUG 2010 17:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -103,32 +103,24 @@ Chapter 1.
 Chapter 2.
 [2
 
-]
+] [3]
 Chapter 3.
-
-Package natbib Warning: Citation `compilerconstruction97' on page 3 undefined o
-n input line 67.
-
-[3
+[4
 
 ]
 Chapter 4.
-(./sample.bbl [4
+(./sample.bbl [5
 
-])
-
-Package natbib Warning: There were undefined citations.
-
-[5
+]) [6
 
 ] (./sample.aux) ) 
 Here is how much of TeX's memory you used:
- 948 strings out of 495062
- 11356 string characters out of 1182644
- 60362 words of memory out of 3000000
- 4164 multiletter control sequences out of 15000+50000
+ 954 strings out of 495062
+ 11484 string characters out of 1182644
+ 63362 words of memory out of 3000000
+ 4170 multiletter control sequences out of 15000+50000
  9790 words of font info for 35 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  25i,6n,20p,682b,226s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sample.dvi (8 pages, 11756 bytes).
+Output written on sample.dvi (9 pages, 14640 bytes).

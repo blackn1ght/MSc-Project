@@ -50,6 +50,29 @@ The 'Flex Tutorial' describes Flex as "Flex is a software system specifically de
 \\*
 To appreciate both the power and limitations of Expert System approaches to reaching expert conclusions, it is necessary to construct and experiment with expert systems.  In this module, the Flex Expert System Shell will be used.  Flex describes knowledge in terms of \textit{production rules} (that is, \textit{if-then} statements), which has proved the most popular approach to encapsulation expert knowledge.  Such rules, despite appearing simple, enable relatively complex connections to be made between individual pieces of 'knowledge', thereby solving apparently difficult problems.\citep{flexsystems09}.
 
+\section{Development}\label{sec:development}
+\subsection{Environment}\label{subsec:dev_environment}
+One of the main aims of this project was to create an open-source alternative to the propietary package "WinProlog", which provides the Flex toolkit.  This aim was to provide the project on an open-source platform, such as Linux, which would allow lecturers to tailor the package to their needs, allowing them to fix any bugs or add more advanced features, without the fear of violating any licences.  Therefore, Linux was the platform of choice to develop on, where the distribution of choice was Ubuntu, as it has a great wealth of development applications in its repositories, such as \texttt{flex}, \texttt{bison} and \texttt{gcc}.
+\\*
+\\*
+Installing these packages in Ubuntu simply required the following command:
+\\*
+\\*
+\texttt{\$ sudo apt-get install flex bison build-essential}
+\\*
+\\*
+Flex and Bison shall be discussed in the next chapter.  \texttt{build-essential} is a Debian meta-package, that is, it is simply a list of packages that are essential to building applications in a Debian based distribution.  The package satifisies the needs for most developers wishing to develop applications on Linux, and includes packages such as \texttt{gcc} and \texttt{g++} - a C and C++ compiler, respectively.
+\\*
+\\*
+Ubuntu provides a wealth of choice when it comes to development tools, however only the simple tools are required, such as a text editor such as \texttt{gedit}, or console based text editor, \texttt{nano}, whilst the terminal is perfectly acceptable for running commands to compile the tokens, grammar and C program together.  \texttt{make} comes part of the \texttt{build-essential} package, which allows a developer to write a series of commands into a makefile, and then simply run the command:\\*\\*
+\texttt{\$ make}
+\\*
+\\*
+in the directory where the makefile is located.
+\subsection{Source Control}\label{subsec:dev_source_control}
+Source control allows the source code to be backed up on a remote repository and ensures that several users are working on the same code, rather than each working on several different versions.
+
+
 \chapter{Technical Research}
 This chapter will cover the research into the technical research involved into the implementation process.
 \section{Lexical Analysis}\label{sec:lexical_analysis}
