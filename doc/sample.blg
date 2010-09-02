@@ -2,10 +2,10 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: sample.aux
 The style file: plainnat.bst
 Database file #1: sample.bib
-Warning--empty year in gnuflex
+Warning--empty year in lpawinprolog
 You've used 5 entries,
             2773 wiz_defined-function locations,
-            613 strings with 5179 characters,
+            613 strings with 5193 characters,
 and the built_in function-call counts, 1456 in all, are:
 = -- 116
 > -- 50

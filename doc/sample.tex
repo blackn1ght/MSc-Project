@@ -1,4 +1,5 @@
-\documentclass[10pt]{report}
+\documentclass[12pt]{report}
+\linespread{1.5}
 \usepackage{graphicx}
 \usepackage{fullpage}
 \usepackage{natbib}
@@ -29,20 +30,66 @@ non-technical users.
 \chapter{Introduction}
 
 \section[Why This Project?]{Why This Project?}\label{sec:why_this_project}
-Before this paper begins, it is worth noting the motivation behind this project.  During particular modules on the masters course, students were using a particular piece of software that allowed them to run Flex programs.  Whilst it achieved results, it was felt that the debugging features were sub-par and were often inaccurate, whilst giving no helpful messages for a beginner to use to correct their mistakes.
+Before this paper begins, it is worth noting the motivation behind this project.  Certain modules on the 'Intelligent Computer Systems' course required the use of some propietary software, WinProlog.  The application can do a wealth of tasks, however, the modules only focused on a niche feature of the software, flex.  Flex allows professionals, engineers and students to write a rule-based system quickly using a language that is very close to the English language.
+
+Whilst flex achieved results, it was felt that the debugging features were sub-par and were often inaccurate, whilst giving no helpful messages for a beginner to use to correct their mistakes.  Also, because of the restrictions of having a licence, it meant that the software could only be installed on certain machines, in a different department within the University campus.
+\\*
+\\*
+\section{Aim}\label{sec:aim}
+This project aims to create a basic implementation of the flex toolkit, using open source software.  The software would be able to be installed on any linux machine, whilst providing the basic features required to teach students how to write expert systems.
+\section{Objectives}\label{sec:objectives}
+The objectives of this project are to:
+\begin{itemize}
+\item Create a simple flex interpreter that can work on the simple tutorials from a tutorial.
+	\begin{itemize}
+	\item Recognise rules, questions and actions;
+	\item Recognise variables, assignments and comparisons;
+	\item Work with simple if-statements
+	\item Output variables and text using the write() statement.
+	\end{itemize}
+\item Create it for the Linux platform.
+	\begin{itemize}
+	\item Command line driven - feed the application a flex source file.
+	\item Not be coupled to a Desktop Environment (Gnome, KDE etc).
+	\end{itemize}
+\item Keep the project open source.
+	\begin{itemize}
+	\item Keep the project available on a source-control service so it can be ammended to once the project is finished.
+	\end{itemize}
+\end{itemize}
+
+\chapter{Literature Review}
+\section{Outline}\label{sec:outline}
+As described in the previous chapter, the outline of this project is to create a compiler for the expert systems language, flex.  Whilst Flex is based on the Artificial Intelligence langauge Prolog, this basic compiler will be written in C, emulating the basic features of flex, mainly as a teaching tool, rather than a fully fledged toolkit.
+
+\section{Previous Work}\label{sec:previous_work}
+Because the Flex toolkit is unique, there aren't many examples or previous work done on creating a compiler soley for Flex.  However, there are countless items of literature dedicated to writing compilers, all for different languages, but constructed in the same manor - using Flex and Bison.
 
 \chapter{Research}
 \section[Research]{Research}\label{sec:intro_to_research}
 Before any implementation can begin, research needs to be conducted in order to gain better knowledge about expert systems, the Flex language and various toolkits for developing interpreters.
 
 \section{Expert Systems}\label{sec:expert_systems}
-In the modern world where information is highly valuable and where time is of the esence, many experts have turned to computing to help provide answers for them that may otherwise take a while to reach through their own expertese.  Expert Systems provide an easier way for professionals to reach conclusions through a series of questions, usually linking to a knowledge base.  For example, a doctor may use an expert system to reach a diagnosis that may not be readily obvious.  The system would ask a question, where the doctor would answer, and then the expert system would continue asking more questions, based on the previous answers, until a conclusion is reached.
+In the modern world where information is highly valuable and where time is of the esence, many experts have turned to computing to help provide answers for them that may otherwise take a while to reach through their own expertese.  Expert Systems provide an easier way for professionals to reach conclusions through a series of questions, usually linking to a knowledge base.  For example, a doctor may use an expert system to reach a diagnosis for a patient, where the illness or problem may not be readily obvious.  The system would ask a question, where the doctor would answer with the symptoms, and then the expert system would continue asking more questions, based on the previous answers, until a conclusion is reached.
 \\*
 \\*
 Expert system development entials the conversion of information about a bounded problem domain into knowledge, which is then represented in a format suitable for computer manipulation.  The created depository of knowledge, known as the knowledge base, can then by used by various deductive reasoning techniques to derive solutions \citep{expertsystems98}.
 \\*
 \\*
-From this, it is obvious that the usefulness of the expert system is only as good as the underlying data - the knowledge base.  Using the doctors example from the previous paragraph, the system would be of no use if the knowledge base was minimal, whilst in the reverse situation, it would be extremely useful to have a large knowledge base.
+From this, it is obvious that the usefulness of the expert system is only as good as the underlying data - the knowledge base.  Using the doctors example from the previous paragraph, the system would be of no use if the knowledge base was minimal, whilst in the reverse situation, it would be extremely useful to have a large knowledge base.  Doctors from around the world could contribute answers as new illnesses and cures are discovered, which in turn would improve the accuracy and usefulness of the expert system.
+\\*
+\\*
+Expert systems can be found in many areas of industry, including engineering, medical, financial forecasting, or even just personal information systems for helping customers at a shopping centre.
+\\*
+\\*
+\textbf{Disadvantages}\\
+There are some notable disadvantages to expert systems.  One is that if the rules are of sub-par quality, then the answer may not be useful.  Also, if the person being questioned gives an answer that they're uncertain of, then the result may not be accurate, and the expert system would be non-the wiser.  A human expert would be able to tell the certainty of someones answer, and possibly re-ask the question in a way that the questionee would understand.
+
+\subsection{WinProlog}\label{subsec:winprolog}
+WinProlog is a propietary software package, developed by Logic Programming Associates Ltd, that <blah blah blah>
+\\*
+\\*
+WIN-PROLOG is the leading Prolog compiler system for Windows-based PCs. Prolog is an established and powerful AI language which provides a high-level and productive environment based on logical inference.\citep{lpawinprolog}
 
 \subsection{Flex}\label{subsec:flex}
 The 'Flex Tutorial' describes Flex as "Flex is a software system specifically designed to aid the development and delivery of Expert Systems."
@@ -50,9 +97,10 @@ The 'Flex Tutorial' describes Flex as "Flex is a software system specifically de
 \\*
 To appreciate both the power and limitations of Expert System approaches to reaching expert conclusions, it is necessary to construct and experiment with expert systems.  In this module, the Flex Expert System Shell will be used.  Flex describes knowledge in terms of \textit{production rules} (that is, \textit{if-then} statements), which has proved the most popular approach to encapsulation expert knowledge.  Such rules, despite appearing simple, enable relatively complex connections to be made between individual pieces of 'knowledge', thereby solving apparently difficult problems.\citep{flexsystems09}.
 
+
 \section{Development}\label{sec:development}
 \subsection{Environment}\label{subsec:dev_environment}
-One of the main aims of this project was to create an open-source alternative to the propietary package "WinProlog", which provides the Flex toolkit.  This aim was to provide the project on an open-source platform, such as Linux, which would allow lecturers to tailor the package to their needs, allowing them to fix any bugs or add more advanced features, without the fear of violating any licences.  Therefore, Linux was the platform of choice to develop on, where the distribution of choice was Ubuntu, as it has a great wealth of development applications in its repositories, such as \texttt{flex}, \texttt{bison} and \texttt{gcc}.
+One of the main aims of this project was to create an open-source alternative to the propietary package "WinProlog", which provides the Flex toolkit.  This aim was to provide the project on an open-source platform, such as Linux, which would allow lecturers to tailor the package to their needs, allowing them to fix any bugs or add more advanced features, without the fear of violating any licences.  Therefore, Linux was the platform of choice to develop on, where the distribution of choice was Ubuntu, as it has a great wealth of development applications in its repositories, such as \texttt{flex}, \texttt{bison} and \texttt{gcc}.  Ubuntu provides a package, \texttt{build-essential}, to help developers write and compile applications easily, which contains many useful tools that should please a large majority of software developers.
 \\*
 \\*
 Installing these packages in Ubuntu simply required the following command:
@@ -70,26 +118,68 @@ Ubuntu provides a wealth of choice when it comes to development tools, however o
 \\*
 in the directory where the makefile is located.
 \subsection{Source Control}\label{subsec:dev_source_control}
-Source control allows the source code to be backed up on a remote repository and ensures that several users are working on the same code, rather than each working on several different versions.
+Source control allows the source code to be backed up on a remote repository and ensures that several users are working on the same code, rather than each working on several different versions.  Whilst this won't be an issue for this project, it will be a useful time to research and learn how to use source control, and will also provide a useful back up tool.  The advantage of using source control, over traditional back-ups, or using removable memory, is that it's unlikely it will get lost, and the same, up to date work can be accessed from other machines if the situation requires it.  For example, a developer has a desktop PC and a laptop, and requires to work on the code using the laptop for several days.  Source control allows the developer to easily pull the latest version of the code from the repository, code away, and then push the changes back to the repository, so that when the developer comes to use their PC, they can pull the latest code and be up to date, without having to work out which files are more recent on a USB stick.
+\\*
+\\*
+There are several different source control services available for free, that do roughly the same job.
 
 
-\chapter{Technical Research}
+%\chapter{Technical Research}
 This chapter will cover the research into the technical research involved into the implementation process.
 \section{Lexical Analysis}\label{sec:lexical_analysis}
+There are several incarnations of lexical analysis programs, but the most popular is Flex, which originally dirived from yacc and lex.  Lex was written in 1975 by Mike Lesk and Eric Schmidt (now CEO of Google Corporation)
+
 Flex and Bison are tools for building programs that handle structured input.  They were originally tools for building compilers, but they have proven to be useful in many other areas.\citep{flexandbison09}.
 \\*
 \\*
-Lexical analysis is the process of taking an input, and splitting it up into meaningful parts, or \textit{tokens}.  For instance, \texttt{answer = 5 + 4;} would be split into six tokens: \textit{answer, equals, five, plus, four} and \textit{semi-colon}.  From this, the parser can work out that \texttt{5 + 4} is an expression, in which the answer is assigned (\texttt{=}) to \texttt{answer}.  By using this approach, it makes it easier to analyse and input sources that will be interpreted.
+Lexical analysis is the process of taking an input, and splitting it up into meaningful parts, or \textit{tokens}.  For instance, \texttt{answer = 5 + 4;} would be split into six tokens: \textit{answer, equals, five, plus, four} and \textit{semi-colon}.  These tokens can then be passed onto bison, which can then interpret the context of the tokens by the grammar specified in the EBNF (Extended Backus-Naur Form) .
+
+Using the grammar, the parser can work out that \texttt{5 + 4} is an expression, in which the answer is assigned (\texttt{=}) to \texttt{answer}.  By using this approach, it makes it easier to analyse and input sources that will be interpreted.
 \section{Parsing}\label{sec:parsing}
-What is parsing? derp derp
+Parsing is the process as described in the previous paragraph, where expressions are split up into tokens.  These tokens are defined through regular expressions, where flex will match a regular expression with the input source, and return a token, which represents a numerical value.
+For example, the following expression has two parts - first, the regular expression, and then the returning of the token for that expression:
+\\*
+\\*
+\texttt{"if" \quad\quad return IF;}
+\\*
+\\*
+Here, when the lexical analyser recognises the word "if", it will return a token, IF.  There are also occasions whereby literal values need to be passed onto bison to be parsed, for instance, a number, or string.  In this instance, values need to be stored in a variable, which in turn is then returned, with a token associated to the type, for example:
+\\*
+\\*
+\texttt{[0-9]+ \quad\quad yylval.d = atof(yytext); return NUMBER;}
+\\*
+\\*
+In this case, a number expression, represented by the sequence \texttt{[0-9]+} is stored into yylval, and then returned as a NUMBER token.  This is usefull when dealing with 
+literal values, such as assigning numbers and strings into variables, and also identifiers, such as variable and function names.
+\\*
+\\*
+It is possible to create a simple program just by using flex.  C code can be appened at the bottom of a lex file, and variables can be defined and used in the body of the token declarations.  For instance, a small program could be written that counts the number of words in a file, and outputs it after flex has finished analysing the file.
+
+\subsection{Regular Expressions}\label{subsec:regex}
+Regular Expressions, or more commonly known as 'regex', allows developers to match patterns of text.  It is extremely powerful for recognising patterns in text, and thus, is used in flex for matching expressions to create tokens.
+\\*
+\\*
+A regular expression is a pattern description using a metalanguage, a language that you can use to describe what you want the pattern to match.  Flex's regular expression language is essentially POSIX-extended regular expressions (which is not surprising considering their shared Unix heritage).\citep{flexandbison09}
+\\*
+\\*
+For example, numbers can be expressed in several ways, some numbers are negative and some have decimal places.  An expression needs to be able to recognise these different formats.  A string of digits, which can either be positive or negative, can be represented using the expression below:\\*
+\\*
+\texttt{[-+]?[0-9]+}
+\\*
+\\*
+The square brackets \texttt{[ ]} represents a character class, matching anything within the brakcets.  The first occurance, \texttt{[-+]} matches either a postive of a negative symbol at the start of the expression.  The \texttt{?} character means that the preceding character class can either occur once, or never, which means that the plus or minus characters can be optional.  Next is the \texttt{[0-9]} expression, which matches any text that is number 0 to 9 - the \texttt{+} at the end means that the preceeding expression can be matched one or more times, allowing a number to be either 1 or 12345.
+
 \subsection{Top-Down Parsing}\label{subsec:top_down_parsing}
-Parses input string of tokens by tracing out the steps of the leftmost derivation.  Called top down because the implied traversal of the parse tree is a preorder traversal and thus occurs from the root to the leaves (think BST's).
+Parses input string of tokens by tracing out the steps of the left most derivation.  Called top down because the implied traversal of the parse tree is a preorder traversal and thus occurs from the root to the leaves (think BST's).
 \\*
 \\*
 Two Types: Backtracing parsers \& predictive parsers.
 Predictive attempts to predict the next construction in the input string using one or more lookahead tokens, while a background parser will try different possibilities for a parse of the input, backing up an arbitrary amount in the input if one possiblity fails.  Backtracing is more powerful, but slower than predictive - useful point to make when running an interpreter.\citep{compilerconstruction97}
 \subsection{Bottom-Up Parsing}\label{subsec:bottom_up_parsing}
 Bottom up parsing is parsing that goes from bottom to up.
+
+\chapter{Implementation}
+Implementation details, including looking into LLVM etc.
 
 \chapter{Conclusion}
 I conclude that the project was poo.

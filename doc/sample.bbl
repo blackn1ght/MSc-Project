@@ -5,11 +5,6 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[GNU()]{gnuflex}
-GNU.
-\newblock Flex.
-\newblock http://www.gnu.org/software/flex/.
-
 \bibitem[Levine(2009)]{flexandbison09}
 John~R. Levine.
 \newblock \emph{Flex \& Bison}.
@@ -19,6 +14,11 @@ John~R. Levine.
 Kenneth~C. Louden.
 \newblock \emph{Compiler Construction - Principles and Practice}.
 \newblock PWS Publishing Company, 1997.
+
+\bibitem[LPA()]{lpawinprolog}
+LPA.
+\newblock Lpa win-prolog 4.9.
+\newblock http://www.lpa.co.uk/win.htm.
 
 \bibitem[Nikolopoulos(1997)]{expertsystems98}
 Chris Nikolopoulos.
