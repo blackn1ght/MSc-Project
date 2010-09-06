@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{fullpage}
 \usepackage{natbib}
+\usepackage{float}
 
 \bibpunct{[}{]}{,}{a}{,}{,}
 
@@ -30,12 +31,44 @@ non-technical users.
 \chapter{Introduction}
 
 \section[Why This Project?]{Why This Project?}\label{sec:why_this_project}
-Before this paper begins, it is worth noting the motivation behind this project.  Certain modules on the 'Intelligent Computer Systems' course required the use of some propietary software, WinProlog.  The application can do a wealth of tasks, however, the modules only focused on a niche feature of the software, flex.  Flex allows professionals, engineers and students to write a rule-based system quickly using a language that is very close to the English language.
-
-Whilst flex achieved results, it was felt that the debugging features were sub-par and were often inaccurate, whilst giving no helpful messages for a beginner to use to correct their mistakes.  Also, because of the restrictions of having a licence, it meant that the software could only be installed on certain machines, in a different department within the University campus.
+Before this paper begins, it is worth noting the motivation behind this project.  Certain modules on the 'Intelligent Computer Systems' course required the use of a propietary software package called WinProlog.  The application can do a wealth of tasks, however, the modules only focused on a niche feature of the software, a toolkit based on Prolog called Flex (not to be confused with the lexical analysis tool, or Adobe's Software Development Kit, also of the same name).  Win-Prolog's Flex allows professionals, engineers and students alike to quickly write a rule-based system using a language that is very close to the English language.
 \\*
 \\*
+Whilst flex achieved results, it was felt that the debugging features were sub-par and were often inaccurate, giving no helpful messages for a beginner to use to correct their mistakes.  Also, because of the restrictions of having a licence, it meant that the software could only be installed on certain machines, in a different department within the University campus, which students felt was restrictive and inconvienient.
+\\
+\\
+\\
+\\
+\begin{figure}[h!]
+	\centering
+		\includegraphics[scale=0.85]{flexfail}
+		\caption{A simple flex program that is syntatically wrong, plus the resulting error.}
+\end{figure}
+\\
+In figure 1.1, the line \texttt{input name} should have a semi-colon at the end, like \texttt{input name ;}, to let the compiler know that the line is finsihed, but the question isn't over.  Whilst this is a simple mistake, the flex compiler hasn't picked it up, and is only being discovered when trying to run the action \texttt{go}, where flex returns an error message \texttt{no}, with no indiciation what the error is, where it is or how to fix it.  If this were a large set of rules, finding such a basic mistake could take a long time to fix.
+\\*
+\\*
+The examples below show flex encountering a gramatically incorrect script, with the compiler displaying errors.
+\begin{figure}[h]
+	\centering
+		\includegraphics[scale=0.65]{flex_error1}
+		\caption{The compiler has detected an error in the grammar.}
+\end{figure}
+%\\*
+%\\*
+What we see here is some random text talking about nothing much at all!
+\begin{figure}[ht]
+	\centering
+		\includegraphics[scale=0.65]{flex_error2}
+		\caption{The compiler error isn't very specific to where it is refering to, there are no line number or highlighting on the error.}
+\end{figure}
+\\*
+Whilst the compiler in WinProlog does try to track down the error, it's not very friendly to new users, as it doesn't let them know where the error is, or what is wrong.  There were situations where n tutorials and in courseworks, where by small, simple errors could have been easily fixed if it weren't for ambiguous language on the debugger.
+\clearpage
 \section{Aim}\label{sec:aim}
+The problems outlined in the previous section help highlight the aims and objectives that this project can use.  Time is limited, so it wouldn't be wise to implement a full version of Flex, however a small subset of the language would be sufficient.
+\\
+\\
 This project aims to create a basic implementation of the flex toolkit, using open source software.  The software would be able to be installed on any linux machine, whilst providing the basic features required to teach students how to write expert systems.
 \section{Objectives}\label{sec:objectives}
 The objectives of this project are to:
@@ -58,9 +91,12 @@ The objectives of this project are to:
 	\end{itemize}
 \end{itemize}
 
+\section{Project Overview}\label{sec:project_overview}
+This project shall begin by looking into the previous or similar research that others have carried out on this topic.  Reseach will then be conduced into Expert Systems, Win-Prolog and flex, with sample scripts of what it is capable of.  Adding to this, research will then be conducted into the tools used to write a compiler.  The implementation of the compiler will also be documented.
+
 \chapter{Literature Review}
 \section{Outline}\label{sec:outline}
-As described in the previous chapter, the outline of this project is to create a compiler for the expert systems language, flex.  Whilst Flex is based on the Artificial Intelligence langauge Prolog, this basic compiler will be written in C, emulating the basic features of flex, mainly as a teaching tool, rather than a fully fledged toolkit.
+As described in the previous chapter, the outline of this project is to create a compiler for the expert systems language, flex.  Whilst Flex is based on the Artificial Intelligence langauge Prolog, this basic compiler will be written in C, emulating the basic features of flex, mainly as a teaching tool, rather than a fully fledged toolkit.  However, because Flex is built on top of Prolog, there are many papers on writing Prolog compilers.
 
 \section{Previous Work}\label{sec:previous_work}
 Because the Flex toolkit is unique, there aren't many examples or previous work done on creating a compiler soley for Flex.  However, there are countless items of literature dedicated to writing compilers, all for different languages, but constructed in the same manor - using Flex and Bison.
@@ -82,6 +118,36 @@ From this, it is obvious that the usefulness of the expert system is only as goo
 Expert systems can be found in many areas of industry, including engineering, medical, financial forecasting, or even just personal information systems for helping customers at a shopping centre.
 \\*
 \\*
+Expert systems languages are entirely different to imperative languages such as C, C\#, Java.  Instead, they make use of logical langauges, such as Prolog, which is based on rules, and assosciations with data.  The code in figure \ref{fig:prolog_code} shows a short example of a program written in Prolog.
+\\*
+\\*
+\begin{figure}[H]
+\texttt{born(charles, elizabeth2, philip).\\
+born(anne,    elizabeth2, philip).\\
+born(andrew,  elizabeth2, philip).\\
+born(edward,  elizabeth2, philip).\\
+\\
+born(diana,   frances,    edwardSpencer).\\
+\\
+born(william, diana,      charles).\\
+born(henry,   diana,      charles).\\
+\\
+? born(S, elizabeth2, Y) and born(G, M, S).}
+\caption{Example Prolog code.}
+\label{fig:prolog_code}
+\end{figure}
+The first four lines link the first argument with the next two.  So, on line one, charles is the child of elizabeth2 and philip.  On the 5th line, diana is declared as the daughter of frances and edwardSpencer 
+The final line execute the program, by submitting a query.
+\\*
+\\*
+\begin{figure}[H]
+\texttt{born(charles, elizabeth2, philip), born(william, diana, charles) yes\\
+born(charles, elizabeth2, philip), born(henry, diana, charles) yes}
+\caption{Output from executing the sample code.}
+\label{fig:prolog_output}
+\end{figure}
+Figure \ref{fig:prolog_output} shows the output from the sample code.  The query executes two sub queries, \texttt{born(S, elizabeth2, Y)}, which retrives a set of data where the child's mother is \texttt{elizabeth2}.  Based on the four rules at the start of the program, this would return four answers for \texttt{S}, and a single result for \texttt{Y} (philip).  The second query, \texttt{born(G, M, S)} queries the returned data set from the first query.  In this case, the mother (\texttt{M}), while the father is \texttt{S}.  Lines six and severn in \ref{fig:prolog_code} show that charles has two children, and thus \texttt{william} and \texttt{henry} are returned.
+\clearpage
 \textbf{Disadvantages}\\
 There are some notable disadvantages to expert systems.  One is that if the rules are of sub-par quality, then the answer may not be useful.  Also, if the person being questioned gives an answer that they're uncertain of, then the result may not be accurate, and the expert system would be non-the wiser.  A human expert would be able to tell the certainty of someones answer, and possibly re-ask the question in a way that the questionee would understand.
 
