@@ -133,7 +133,7 @@ born(william, diana,      charles).\\
 born(henry,   diana,      charles).\\
 \\
 ? born(S, elizabeth2, Y) and born(G, M, S).}
-\caption{Example Prolog code.}
+\caption{Example Prolog code.\citep{thehouseofwindsor}}
 \label{fig:prolog_code}
 \end{figure}
 The first four lines link the first argument with the next two.  So, on line one, charles is the child of elizabeth2 and philip.  On the 5th line, diana is declared as the daughter of frances and edwardSpencer 
@@ -149,25 +149,75 @@ born(charles, elizabeth2, philip), born(henry, diana, charles) yes}
 Figure \ref{fig:prolog_output} shows the output from the sample code.  The query executes two sub queries, \texttt{born(S, elizabeth2, Y)}, which retrives a set of data where the child's mother is \texttt{elizabeth2}.  Based on the four rules at the start of the program, this would return four answers for \texttt{S}, and a single result for \texttt{Y} (philip).  The second query, \texttt{born(G, M, S)} queries the returned data set from the first query.  In this case, the mother (\texttt{M}), while the father is \texttt{S}.  Lines six and severn in \ref{fig:prolog_code} show that charles has two children, and thus \texttt{william} and \texttt{henry} are returned.
 \clearpage
 \textbf{Disadvantages}\\
-There are some notable disadvantages to expert systems.  One is that if the rules are of sub-par quality, then the answer may not be useful.  Also, if the person being questioned gives an answer that they're uncertain of, then the result may not be accurate, and the expert system would be non-the wiser.  A human expert would be able to tell the certainty of someones answer, and possibly re-ask the question in a way that the questionee would understand.
+There are some notable disadvantages to expert systems.  An important pitfall to consider is the GIGO acronym - Garbage In Garbage Out.  If the rules are .  Also, if the person being questioned gives an answer that they're uncertain of, then the result may not be accurate, and the expert system would be non-the wiser.  A human expert would be able to tell the certainty of someones answer, and possibly re-ask the question in a way that the questionee would understand.
 
 \subsection{WinProlog}\label{subsec:winprolog}
-WinProlog is a propietary software package, developed by Logic Programming Associates Ltd, that <blah blah blah>
+WinProlog is a propietary software package, developed by Logic Programming Associates Ltd.  LPA describe Win-Prolog below:
 \\*
 \\*
 WIN-PROLOG is the leading Prolog compiler system for Windows-based PCs. Prolog is an established and powerful AI language which provides a high-level and productive environment based on logical inference.\citep{lpawinprolog}
+\\*
+\\*
+One of the features of Win-Prolog is Flex, an expert systems toolkit built on top of Prolog.
 
 \subsection{Flex}\label{subsec:flex}
 The 'Flex Tutorial' describes Flex as "Flex is a software system specifically designed to aid the development and delivery of Expert Systems."
 \\*
 \\*
 To appreciate both the power and limitations of Expert System approaches to reaching expert conclusions, it is necessary to construct and experiment with expert systems.  In this module, the Flex Expert System Shell will be used.  Flex describes knowledge in terms of \textit{production rules} (that is, \textit{if-then} statements), which has proved the most popular approach to encapsulation expert knowledge.  Such rules, despite appearing simple, enable relatively complex connections to be made between individual pieces of 'knowledge', thereby solving apparently difficult problems.\citep{flexsystems09}.
-
-
+\\*
+\\*
+The advantages of flex is that it's easy to understand, as it's very close to the English language.  A non-programmer could look at it and understand the system within several minutes, where as a traditional Prolog script may need some understanding of programming to be able to understand what is going on.
+\\*
+\\*
+Flex expert system toolkit, an expressive and flexible rule-based development system for building and delivering scalable and flexible expert systems and business rules applications. Flex provides a comprehensive and versatile set of facilities for both programmers and non-programmers to construct reliable and maintainable applications.\citep{lpawinprolog-flex}.
+\\*
+\\*
+The code below shows an example program written in flex:
+\begin{figure}[H]
+\texttt{\begin{tabbing}group \= temperature\_choices warm, cold .\\
+\\
+rule ask\_temperature \\
+\>	if the temperature is unknown\\
+\>	then ask temperature .\\
+\\
+question temperature\\
+\>	What is the temperature?;\\
+\>	choose from the temperature\_choices ;\\
+\> 	because it is necessary to work out the need for a coat .\\
+\\
+rule temp\_w\\
+\>	if temperature is warm\\
+\>	then write('You would be mad to wear a coat.').\\
+\\
+rule temp\_c\\
+\>	if temperature is cold\\
+\>	then write('Take a coat to keep warm.').\\
+\\
+ruleset take\_a\_coat\\
+\>	contains all rules;\\
+\>	select rule suing first come first servced;\\
+\>	update ruleset by removing each selected rule;\\
+\>	initiate by doing restart .\\
+\\
+action go\\
+\>	do invoke ruleset take\_a\_coat .\\
+\end{tabbing}}
+\caption{A simple flex program that lets you know if you should wear a coat or not.\citep{flexsystems09}}
+\label{fig:flex_code}
+\end{figure}
+It's immediately obvious that the program is made up of rules and questions.  The compiler starts from the top, and runs down through the rules, until they've all been fired.  Questions only get fired if they are called upon within a rule.\\*
+\\
+The first line declares a group of choices that can be asked during a question.  This can be likened to a Enumerative type in languages such as C and C\#, where \texttt{warm} and \texttt{cold} are two options that belong to \texttt{temperature}.  The first rule, \texttt{ask\_temperature}, checks if the variable \texttt{temperature} (not to be confused with the group of the same name) has been assigned a value.  If it's not, then it asks the question, \texttt{temperature}.  Because the flex compiler starts at the top, then temperature will be unknown by default, so this rule will always fire.\\
+\\
+Questions always have the same format: The first line is the question text that the user will see, the second line presents the options to the user and also accepts their input.  In this instance, the user will be presented the two choices of \texttt{temperature}, where the choice is then assigned to the variable \texttt{temperature}.\\
+\\
+The two rules, \texttt{temp\_w} and \texttt{temp\_c}, check the users input, and display the message as appropriate, while the ruleset \texttt{take\_a\_coat} tells the compiler how to go about running the script.  Finally, the the action \texttt{go}, which is triggered as a query from the command prompt, starts the program.\\
+\\
+Whilst this is a reasonably simple script, it has all the basics that make up larger and more complicated flex programs.
 \section{Development}\label{sec:development}
 \subsection{Environment}\label{subsec:dev_environment}
-One of the main aims of this project was to create an open-source alternative to the propietary package "WinProlog", which provides the Flex toolkit.  This aim was to provide the project on an open-source platform, such as Linux, which would allow lecturers to tailor the package to their needs, allowing them to fix any bugs or add more advanced features, without the fear of violating any licences.  Therefore, Linux was the platform of choice to develop on, where the distribution of choice was Ubuntu, as it has a great wealth of development applications in its repositories, such as \texttt{flex}, \texttt{bison} and \texttt{gcc}.  Ubuntu provides a package, \texttt{build-essential}, to help developers write and compile applications easily, which contains many useful tools that should please a large majority of software developers.
-\\*
+One of the main aims of this project was to create an open-source alternative to the propietary package "WinProlog", which provides the Flex toolkit.  This aim was to provide the project on an open-source platform, such as Linux, which would allow lecturers to tailor the package to their needs, allowing them to fix any bugs or add more advanced features, without the fear of violating any licences.  Therefore, Linux was the platform of choice to develop on, where the distribution of choice was Ubuntu, as it has a great wealth of development applications in its repositories, such as \texttt{flex}, \texttt{bison} and \texttt{gcc}.  Ubuntu provides a package, \texttt{build-essential}, to help developers write and compile applications easily, which contains many useful tools that should please a large majority of software developers.\\*
 \\*
 Installing these packages in Ubuntu simply required the following command:
 \\*
@@ -188,10 +238,6 @@ Source control allows the source code to be backed up on a remote repository and
 \\*
 \\*
 There are several different source control services available for free, that do roughly the same job.
-
-
-%\chapter{Technical Research}
-This chapter will cover the research into the technical research involved into the implementation process.
 \section{Lexical Analysis}\label{sec:lexical_analysis}
 There are several incarnations of lexical analysis programs, but the most popular is Flex, which originally dirived from yacc and lex.  Lex was written in 1975 by Mike Lesk and Eric Schmidt (now CEO of Google Corporation)
 
