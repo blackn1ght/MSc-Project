@@ -9,15 +9,14 @@
 
 \begin{document}
 
-\title{Developing an Interpreter for the Expert Systems Language, Flex}
+\title{Developing a Compiler for the Expert Systems Language, Flex}
 \author{05017742 - Thomas Cowell\\
 		\texttt{05017742@glam.ac.uk}}
 
 \maketitle
 
 \begin{abstract}
-The aim of this project is to create a simple interpreter for the language Flex.  Flex is an expert systems language that focuses on using plain English to make it accessible for
-non-technical users.
+The aim of this project is to create a simple compiler for the expert systems language, Flex.  Flex is an expert systems language that focuses on using plain English to make it accessible for non-technical users, and to aid building rapid rule based systems.
 \end{abstract}
 
 \pagestyle{plain}
@@ -238,7 +237,37 @@ Source control allows the source code to be backed up on a remote repository and
 \\*
 \\*
 There are several different source control services available for free, that do roughly the same job.
-\section{Lexical Analysis}\label{sec:lexical_analysis}
+\section{What Is A Compiler?}\label{sec:what_is_a_compiler}
+Programming languages are notations for describing computations to people and to machines.  The world as we know it depends on programming langauges, because all the software running on all the computers was written in some programming langauge.  But, before a program can be run, it first must be translated into a form in which it can be executed by a computer.
+
+The software systems that do this translation are called \textit{compilers}.\citep{compilers07}
+\\*
+\\*
+This quote nicely gives a brief overview of what a compiler does.  It translates the human readable program into a format that the computer can understand, i.e. instructions.  Whilst this sounds simple, the actual process is reasonably complicated, and done in several phases:\\
+\begin{itemize}
+	\item Lexical Analysis
+	\item Syntactical Analysis
+	\item Intermediate Code Generation
+	\item Optimization
+	\item Object Code Generation
+\end{itemize}\citep{compilerconstruction92}
+\subsection{Lexical Analysis}\label{subsec:lexical_analysis}
+The first task of the compiler is to read the source code that the developer has written, and breaks it up into meaningful chunks called tokens.  These tokens are defined in a lexical file, in which the lexical scanner will process.
+\\*
+For example, take the following flex code:\\*
+\texttt{\begin{tabbing}rule \= my\_pet\\
+\>	if animal is 'cat'\\
+\>	then sound becomes 'meow' .\\
+\end{tabbing}}
+\\
+This can be broken down to be easier to understand:\\*
+\begin{itemize}
+	\item keywords: rule, if, is, then
+	\item identifies: my\_pet, animal, sound
+	\item operator: becomes
+	\item string: 'cat', 'meow'
+	\item punctuation: .
+\end{itemize}
 There are several incarnations of lexical analysis programs, but the most popular is Flex, which originally dirived from yacc and lex.  Lex was written in 1975 by Mike Lesk and Eric Schmidt (now CEO of Google Corporation)
 
 Flex and Bison are tools for building programs that handle structured input.  They were originally tools for building compilers, but they have proven to be useful in many other areas.\citep{flexandbison09}.
@@ -247,6 +276,14 @@ Flex and Bison are tools for building programs that handle structured input.  Th
 Lexical analysis is the process of taking an input, and splitting it up into meaningful parts, or \textit{tokens}.  For instance, \texttt{answer = 5 + 4;} would be split into six tokens: \textit{answer, equals, five, plus, four} and \textit{semi-colon}.  These tokens can then be passed onto bison, which can then interpret the context of the tokens by the grammar specified in the EBNF (Extended Backus-Naur Form) .
 
 Using the grammar, the parser can work out that \texttt{5 + 4} is an expression, in which the answer is assigned (\texttt{=}) to \texttt{answer}.  By using this approach, it makes it easier to analyse and input sources that will be interpreted.
+\subsection{Syntactical Analysis}\label{subsec:syntactical_analysis}
+Bing bish bash bosh
+\subsection{Intermediate Code Generation}\label{subsec:intermediate_code_gen}
+Bing bish bash bosh
+\subsection{Optimization}\label{subsec:optimization}
+Bing bish bash bosh
+\subsection{Object Code Generation}\label{subsec:object_code_gen}
+Bing bish bash bosh
 \section{Parsing}\label{sec:parsing}
 Parsing is the process as described in the previous paragraph, where expressions are split up into tokens.  These tokens are defined through regular expressions, where flex will match a regular expression with the input source, and return a token, which represents a numerical value.
 For example, the following expression has two parts - first, the regular expression, and then the returning of the token for that expression:
