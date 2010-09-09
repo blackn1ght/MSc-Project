@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.27)  8 SEP 2010 14:12
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.27)  9 SEP 2010 18:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -67,7 +67,11 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box26
 \@float@everytoks=\toks16
 \@floatcapt=\box27
-) (./sample.aux)
+) (./sample.aux
+
+LaTeX Warning: Label `subsec:flex' multiply defined.
+
+)
 \openout1 = `sample.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
@@ -88,8 +92,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 16.
  [1
 
-]
-[1] (./sample.toc
+] [1] (./sample.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 2.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -210,23 +213,59 @@ Underfull \hbox (badness 10000) in paragraph at lines 208--217
 
  []
 
-[14] [15] [16]
-Underfull \hbox (badness 10000) in paragraph at lines 243--247
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 221--225
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 255--263
+Underfull \hbox (badness 10000) in paragraph at lines 233--239
 
  []
 
-[17] [18] [19] [20] [21]
+
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
+
+ []
+
+[15]
+Underfull \hbox (badness 10000) in paragraph at lines 248--249
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 250--281
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 250--281
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 250--281
+
+ []
+
+[16] [17]
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 284
+.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 284.
+
+
+LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 284.
+
+File: whilegraph.ps Graphic file (type eps)
+<whilegraph.ps> [18] [19] [20] [21] [22] [23] [24]
 Chapter 4.
-[22
+[25
 
 ]
 Chapter 5.
-(./sample.bbl [23
+(./sample.bbl [26
 
 ]
 Overfull \hbox (173.52956pt too wide) in paragraph at lines 9--14
@@ -234,20 +273,23 @@ Overfull \hbox (173.52956pt too wide) in paragraph at lines 9--14
 w.csse.monash.edu.au/ lloyd/tildeLogic/Prolog.toy/Examples/windsor-
  []
 
-) [24
+) [27
 
 ] (./sample.aux)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 1067 strings out of 495062
- 13295 string characters out of 1182644
- 64579 words of memory out of 3000000
- 4273 multiletter control sequences out of 15000+50000
+ 1079 strings out of 495062
+ 13458 string characters out of 1182644
+ 65579 words of memory out of 3000000
+ 4282 multiletter control sequences out of 15000+50000
  10099 words of font info for 36 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  25i,6n,27p,1064b,259s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sample.dvi (28 pages, 42864 bytes).
+Output written on sample.dvi (31 pages, 47724 bytes).

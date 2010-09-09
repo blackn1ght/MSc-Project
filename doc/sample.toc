@@ -11,18 +11,21 @@
 \contentsline {section}{\numberline {3.2}Expert Systems}{8}
 \contentsline {subsection}{\numberline {3.2.1}WinProlog}{11}
 \contentsline {subsection}{\numberline {3.2.2}Flex}{11}
-\contentsline {section}{\numberline {3.3}Development}{15}
-\contentsline {subsection}{\numberline {3.3.1}Environment}{15}
-\contentsline {subsection}{\numberline {3.3.2}Source Control}{16}
-\contentsline {section}{\numberline {3.4}What Is A Compiler?}{16}
-\contentsline {subsection}{\numberline {3.4.1}Lexical Analysis}{17}
-\contentsline {subsection}{\numberline {3.4.2}Syntactical Analysis}{18}
-\contentsline {subsection}{\numberline {3.4.3}Intermediate Code Generation}{18}
-\contentsline {subsection}{\numberline {3.4.4}Optimization}{18}
-\contentsline {subsection}{\numberline {3.4.5}Object Code Generation}{18}
-\contentsline {section}{\numberline {3.5}Parsing}{19}
-\contentsline {subsection}{\numberline {3.5.1}Regular Expressions}{20}
-\contentsline {subsection}{\numberline {3.5.2}Top-Down Parsing}{20}
-\contentsline {subsection}{\numberline {3.5.3}Bottom-Up Parsing}{21}
-\contentsline {chapter}{\numberline {4}Implementation}{22}
-\contentsline {chapter}{\numberline {5}Conclusion}{23}
+\contentsline {section}{\numberline {3.3}What Is A Compiler?}{14}
+\contentsline {subsection}{\numberline {3.3.1}Lexical Analysis}{15}
+\contentsline {subsubsection}{Regular Expressions}{16}
+\contentsline {subsection}{\numberline {3.3.2}Syntactic Analysis}{18}
+\contentsline {subsubsection}{Grammar}{20}
+\contentsline {subsection}{\numberline {3.3.3}Intermediate Code Generation}{20}
+\contentsline {subsection}{\numberline {3.3.4}Optimization}{20}
+\contentsline {subsection}{\numberline {3.3.5}Object Code Generation}{20}
+\contentsline {section}{\numberline {3.4}Development}{20}
+\contentsline {subsection}{\numberline {3.4.1}Environment}{20}
+\contentsline {subsection}{\numberline {3.4.2}Flex}{21}
+\contentsline {subsection}{\numberline {3.4.3}Bison}{22}
+\contentsline {subsection}{\numberline {3.4.4}Source Control}{22}
+\contentsline {section}{\numberline {3.5}Parsing}{22}
+\contentsline {subsection}{\numberline {3.5.1}Top-Down Parsing}{23}
+\contentsline {subsection}{\numberline {3.5.2}Bottom-Up Parsing}{24}
+\contentsline {chapter}{\numberline {4}Implementation}{25}
+\contentsline {chapter}{\numberline {5}Conclusion}{26}

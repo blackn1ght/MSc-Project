@@ -214,29 +214,7 @@ Questions always have the same format: The first line is the question text that 
 The two rules, \texttt{temp\_w} and \texttt{temp\_c}, check the users input, and display the message as appropriate, while the ruleset \texttt{take\_a\_coat} tells the compiler how to go about running the script.  Finally, the the action \texttt{go}, which is triggered as a query from the command prompt, starts the program.\\
 \\
 Whilst this is a reasonably simple script, it has all the basics that make up larger and more complicated flex programs.
-\section{Development}\label{sec:development}
-\subsection{Environment}\label{subsec:dev_environment}
-One of the main aims of this project was to create an open-source alternative to the propietary package "WinProlog", which provides the Flex toolkit.  This aim was to provide the project on an open-source platform, such as Linux, which would allow lecturers to tailor the package to their needs, allowing them to fix any bugs or add more advanced features, without the fear of violating any licences.  Therefore, Linux was the platform of choice to develop on, where the distribution of choice was Ubuntu, as it has a great wealth of development applications in its repositories, such as \texttt{flex}, \texttt{bison} and \texttt{gcc}.  Ubuntu provides a package, \texttt{build-essential}, to help developers write and compile applications easily, which contains many useful tools that should please a large majority of software developers.\\*
-\\*
-Installing these packages in Ubuntu simply required the following command:
-\\*
-\\*
-\texttt{\$ sudo apt-get install flex bison build-essential}
-\\*
-\\*
-Flex and Bison shall be discussed in the next chapter.  \texttt{build-essential} is a Debian meta-package, that is, it is simply a list of packages that are essential to building applications in a Debian based distribution.  The package satifisies the needs for most developers wishing to develop applications on Linux, and includes packages such as \texttt{gcc} and \texttt{g++} - a C and C++ compiler, respectively.
-\\*
-\\*
-Ubuntu provides a wealth of choice when it comes to development tools, however only the simple tools are required, such as a text editor such as \texttt{gedit}, or console based text editor, \texttt{nano}, whilst the terminal is perfectly acceptable for running commands to compile the tokens, grammar and C program together.  \texttt{make} comes part of the \texttt{build-essential} package, which allows a developer to write a series of commands into a makefile, and then simply run the command:\\*\\*
-\texttt{\$ make}
-\\*
-\\*
-in the directory where the makefile is located.
-\subsection{Source Control}\label{subsec:dev_source_control}
-Source control allows the source code to be backed up on a remote repository and ensures that several users are working on the same code, rather than each working on several different versions.  Whilst this won't be an issue for this project, it will be a useful time to research and learn how to use source control, and will also provide a useful back up tool.  The advantage of using source control, over traditional back-ups, or using removable memory, is that it's unlikely it will get lost, and the same, up to date work can be accessed from other machines if the situation requires it.  For example, a developer has a desktop PC and a laptop, and requires to work on the code using the laptop for several days.  Source control allows the developer to easily pull the latest version of the code from the repository, code away, and then push the changes back to the repository, so that when the developer comes to use their PC, they can pull the latest code and be up to date, without having to work out which files are more recent on a USB stick.
-\\*
-\\*
-There are several different source control services available for free, that do roughly the same job.
+
 \section{What Is A Compiler?}\label{sec:what_is_a_compiler}
 Programming languages are notations for describing computations to people and to machines.  The world as we know it depends on programming langauges, because all the software running on all the computers was written in some programming langauge.  But, before a program can be run, it first must be translated into a form in which it can be executed by a computer.
 
@@ -259,31 +237,109 @@ For example, take the following flex code:\\*
 \>	if animal is 'cat'\\
 \>	then sound becomes 'meow' .\\
 \end{tabbing}}
-\\
 This can be broken down to be easier to understand:\\*
 \begin{itemize}
 	\item keywords: rule, if, is, then
-	\item identifies: my\_pet, animal, sound
+	\item identifiers: my\_pet, animal, sound
 	\item operator: becomes
 	\item string: 'cat', 'meow'
 	\item punctuation: .
 \end{itemize}
-There are several incarnations of lexical analysis programs, but the most popular is Flex, which originally dirived from yacc and lex.  Lex was written in 1975 by Mike Lesk and Eric Schmidt (now CEO of Google Corporation)
-
-Flex and Bison are tools for building programs that handle structured input.  They were originally tools for building compilers, but they have proven to be useful in many other areas.\citep{flexandbison09}.
+The lexical analyiser is capable of removing characters that aren't relevant to the program, such as comments, new lines and whitespace (spaces and tabs).  All of the above are leximes that are mapped into tokens, that makes it easier for the syntactical analyser to understand.  The way that the lexical analyser recognises these leximes is through matching the patterns of text, which is where regular expressions come in useful.\\
+\subsubsection{Regular Expressions}\label{subsubsec:regex}
+Regular Expressions, or more commonly known as 'regex', allows developers to match patterns of text.  It is extremely powerful for recognising patterns in text, and thus, is used in the lexical analysus process for matching expressions to create tokens.
 \\*
 \\*
-Lexical analysis is the process of taking an input, and splitting it up into meaningful parts, or \textit{tokens}.  For instance, \texttt{answer = 5 + 4;} would be split into six tokens: \textit{answer, equals, five, plus, four} and \textit{semi-colon}.  These tokens can then be passed onto bison, which can then interpret the context of the tokens by the grammar specified in the EBNF (Extended Backus-Naur Form) .
-
-Using the grammar, the parser can work out that \texttt{5 + 4} is an expression, in which the answer is assigned (\texttt{=}) to \texttt{answer}.  By using this approach, it makes it easier to analyse and input sources that will be interpreted.
-\subsection{Syntactical Analysis}\label{subsec:syntactical_analysis}
-Bing bish bash bosh
+A regular expression is a pattern description using a metalanguage, a language that you can use to describe what you want the pattern to match.  Flex's regular expression language is essentially POSIX-extended regular expressions (which is not surprising considering their shared Unix heritage).\citep{flexandbison09}
+\\*
+\\*
+Regular expressions are a powerful way of matching complicated patterns of strings.  It uses a series of special characters that allow the user [of regular expressions] to create a query.
+\\*
+For example, numbers can be expressed in several ways, some numbers are negative and some have decimal places.  An expression needs to be able to recognise these different formats.  A string of digits, which can either be positive or negative, can be represented using the expression below:\\*
+\\*
+\texttt{[-+]?[0-9]+}
+\\*
+\\*
+The square brackets \texttt{[ ]} represents a character class, matching anything within the brakcets.  The first occurance, \texttt{[-+]} matches either a postive of a negative symbol at the start of the expression.  The \texttt{?} character means that the preceding character class can either occur once, or never, which means that the plus or minus characters can be optional.  Next is the \texttt{[0-9]} expression, which matches any text that is number 0 to 9 - the \texttt{+} at the end means that the preceeding expression can be matched one or more times, allowing a number to be either 1 or 12345.  Another example, shown below, recognises an identifier, such as one from the flex example.
+\\*
+\\*
+\texttt{[a-zA-Z\_][a-zA-Z0-9\_]*}
+\\*
+\\*
+The expression is comprised of two character classes.  The first matches a series of characters, in either lower or uppercase, followed by an underscore. The following class is similar, but can also contain numbers.  The astricks, \texttt{*}, means that the preceeding expression can be matched zero or more times, so, the second character class is optional.  This example allows for an identifier to look something like:\\
+\\
+\texttt{animal}\\
+\texttt{My\_Animal01}\\
+\texttt{animal\_}\\
+\\
+But \textbf{not}:\\
+\texttt{my1\_animal}\\
+\texttt{1\_animal}\\
+\\
+Matching keywords is much easier, as they need to be treated literally.  Matching for the \texttt{if} keyword, for example, simply looks like so:\\*\\*
+\texttt{"if"}
+\subsection{Syntactic Analysis}\label{subsec:syntactical_analysis}
+The process of syntactic analysis is to parse the tokens into meaningful sentences.  It creates a tree of tokens, whereby each node represents an operation such as \texttt{while}, and its child nodes represent the evaluation expression, and the block of code to loop around, which could be broken down again, where the evaluation is the root node, and the children are the parameters and comparison operators.
+\begin{center}
+\texttt{\begin{tabbing}while \= (found != true) \{\\ \> found = do\_something();\\ \}\end{tabbing}}
+\end{center}
+The code above can be broken down into tokens.
+\begin{itemize}
+	\item Keywords: while, true
+	\item Identifiers: found, do\_something
+	\item Operators: =
+	\item Comparison: !=
+	\item Punctuation: \{ \} ( ) ;
+\end{itemize}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1]{whilegraph}
+	\caption {Expression parse tree.}\label{fig:whilegraph}
+\end{figure}
+Figure \ref{fig:whilegraph} shows a parse tree of the simple \texttt{while} code sample.  The code is broken down into two main parts - the evaluation, and the block.  These are then further broken down further down the tree.
+\\*
+The syntactic analyzer, or \textit{parser}, is the heart of the front end of the compiler.  The parser's main task is analyzing the structure of the program and its component statements and checking these for errors.  It frequently controls the lexical analyzer, which provides tokens in response to the parser's requests, and it may also supervise the operation of the intermediate code generator.\citep{compilerconstruction92}
+\\*
+\\*
+A programming langauge follows a strict set of rules that form it, much like the English langauge has rules to string certain words together to form meaningful and sensible sentences.  The parser's job is to put the tokens into an order that follows the grammar.  For example, the grammar specifies that an identifier, or an expression, must come after the \texttt{if} keyword, followed by a comparison of another identifier or expression.
+\subsubsection{Grammar}\label{subsubsec:grammar}
+The grammar is the important area of the parser, as it defines how the langauge should look and work.  Most langauges use "context free grammars", whereby the grammar is built up in steps, to provide a bigger picture.
 \subsection{Intermediate Code Generation}\label{subsec:intermediate_code_gen}
 Bing bish bash bosh
 \subsection{Optimization}\label{subsec:optimization}
 Bing bish bash bosh
 \subsection{Object Code Generation}\label{subsec:object_code_gen}
 Bing bish bash bosh
+\section{Development}\label{sec:development}
+\subsection{Environment}\label{subsec:dev_environment}
+One of the main aims of this project was to create an open-source alternative to the propietary package "WinProlog", which provides the Flex toolkit.  This aim was to provide the project on an open-source platform, such as Linux, which would allow lecturers to tailor the package to their needs, allowing them to fix any bugs or add more advanced features, without the fear of violating any licences.  Therefore, Linux was the platform of choice to develop on, where the distribution of choice was Ubuntu, as it has a great wealth of development applications in its repositories, such as \texttt{flex}, \texttt{bison} and \texttt{gcc}.  Ubuntu provides a package, \texttt{build-essential}, to help developers write and compile applications easily, which contains many useful tools that should please a large majority of software developers.\\*
+\\*
+Installing these packages in Ubuntu simply required the following command:
+\\*
+\\*
+\texttt{\$ sudo apt-get install flex bison build-essential}
+\\*
+\\*
+Flex and Bison shall be discussed in the next chapter.  \texttt{build-essential} is a Debian meta-package, that is, it is simply a list of packages that are essential to building applications in a Debian based distribution.  The package satifisies the needs for most developers wishing to develop applications on Linux, and includes packages such as \texttt{gcc} and \texttt{g++} - a C and C++ compiler, respectively.
+\\*
+\\*
+Ubuntu provides a wealth of choice when it comes to development tools, however only the simple tools are required, such as a text editor such as \texttt{gedit}, or console based text editor, \texttt{nano}, whilst the terminal is perfectly acceptable for running commands to compile the tokens, grammar and C program together.  \texttt{make} comes part of the \texttt{build-essential} package, which allows a developer to write a series of commands into a makefile, and then simply run the command:\\*\\*
+\texttt{\$ make}
+\\*
+\\*
+in the directory where the makefile is located.
+\subsection{Flex}\label{subsec:flex}
+Bing bish bash bosh
+There are several incarnations of lexical analysis programs, but the most popular is Flex, which originally dirived from yacc and lex.  Lex was written in 1975 by Mike Lesk and Eric Schmidt (now CEO of Google Corporation)
+
+Flex and Bison are tools for building programs that handle structured input.  They were originally tools for building compilers, but they have proven to be useful in many other areas.\citep{flexandbison09}.
+\subsection{Bison}\label{subsec:bison}
+Bing bish bash bosh
+\subsection{Source Control}\label{subsec:dev_source_control}
+Source control allows the source code to be backed up on a remote repository and ensures that several users are working on the same code, rather than each working on several different versions.  Whilst this won't be an issue for this project, it will be a useful time to research and learn how to use source control, and will also provide a useful back up tool.  The advantage of using source control, over traditional back-ups, or using removable memory, is that it's unlikely it will get lost, and the same, up to date work can be accessed from other machines if the situation requires it.  For example, a developer has a desktop PC and a laptop, and requires to work on the code using the laptop for several days.  Source control allows the developer to easily pull the latest version of the code from the repository, code away, and then push the changes back to the repository, so that when the developer comes to use their PC, they can pull the latest code and be up to date, without having to work out which files are more recent on a USB stick.
+\\*
+\\*
+There are several different source control services available for free, that do roughly the same job.
 \section{Parsing}\label{sec:parsing}
 Parsing is the process as described in the previous paragraph, where expressions are split up into tokens.  These tokens are defined through regular expressions, where flex will match a regular expression with the input source, and return a token, which represents a numerical value.
 For example, the following expression has two parts - first, the regular expression, and then the returning of the token for that expression:
@@ -303,20 +359,6 @@ literal values, such as assigning numbers and strings into variables, and also i
 \\*
 \\*
 It is possible to create a simple program just by using flex.  C code can be appened at the bottom of a lex file, and variables can be defined and used in the body of the token declarations.  For instance, a small program could be written that counts the number of words in a file, and outputs it after flex has finished analysing the file.
-
-\subsection{Regular Expressions}\label{subsec:regex}
-Regular Expressions, or more commonly known as 'regex', allows developers to match patterns of text.  It is extremely powerful for recognising patterns in text, and thus, is used in flex for matching expressions to create tokens.
-\\*
-\\*
-A regular expression is a pattern description using a metalanguage, a language that you can use to describe what you want the pattern to match.  Flex's regular expression language is essentially POSIX-extended regular expressions (which is not surprising considering their shared Unix heritage).\citep{flexandbison09}
-\\*
-\\*
-For example, numbers can be expressed in several ways, some numbers are negative and some have decimal places.  An expression needs to be able to recognise these different formats.  A string of digits, which can either be positive or negative, can be represented using the expression below:\\*
-\\*
-\texttt{[-+]?[0-9]+}
-\\*
-\\*
-The square brackets \texttt{[ ]} represents a character class, matching anything within the brakcets.  The first occurance, \texttt{[-+]} matches either a postive of a negative symbol at the start of the expression.  The \texttt{?} character means that the preceding character class can either occur once, or never, which means that the plus or minus characters can be optional.  Next is the \texttt{[0-9]} expression, which matches any text that is number 0 to 9 - the \texttt{+} at the end means that the preceeding expression can be matched one or more times, allowing a number to be either 1 or 12345.
 
 \subsection{Top-Down Parsing}\label{subsec:top_down_parsing}
 Parses input string of tokens by tracing out the steps of the left most derivation.  Called top down because the implied traversal of the parse tree is a preorder traversal and thus occurs from the root to the leaves (think BST's).
