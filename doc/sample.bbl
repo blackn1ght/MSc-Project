@@ -1,4 +1,4 @@
-\begin{thebibliography}{9}
+\begin{thebibliography}{11}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -11,6 +11,13 @@ Lloyd Allison.
 \newblock
   http://www.csse.monash.edu.au/~lloyd/tildeLogic/Prolog.toy/Examples/windsor-%
 small/.
+
+\bibitem[Estier()]{whatisbnfnotation}
+Th. Estier.
+\newblock What is bnf notation?
+\newblock
+  http://www.cui.unige.ch/db-research/Enseignement/analyseinfo/AboutBNF.html.
+\newblock CUI - Univeristy of Geneva.
 
 \bibitem[Levine(2009)]{flexandbison09}
 John~R. Levine.
@@ -51,5 +58,10 @@ Paul Roach.
 Alfred V.Aho, Monica~S. Lam, Ravi Sethi, and Jeffrey~D. Ullman.
 \newblock \emph{Compilers - Principles\, Techniques\, \& Tools}.
 \newblock Addison Wesley.
+
+\bibitem[Wilhelm and Maurer(1995)]{compilerdesign95}
+Reinhard Wilhelm and Dieter Maurer.
+\newblock \emph{Compiler Design}.
+\newblock Addison Wesley, 1995.
 
 \end{thebibliography}

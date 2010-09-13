@@ -16,16 +16,19 @@
 \contentsline {subsubsection}{Regular Expressions}{16}
 \contentsline {subsection}{\numberline {3.3.2}Syntactic Analysis}{18}
 \contentsline {subsubsection}{Grammar}{20}
-\contentsline {subsection}{\numberline {3.3.3}Intermediate Code Generation}{20}
-\contentsline {subsection}{\numberline {3.3.4}Optimization}{20}
-\contentsline {subsection}{\numberline {3.3.5}Object Code Generation}{20}
-\contentsline {section}{\numberline {3.4}Development}{20}
-\contentsline {subsection}{\numberline {3.4.1}Environment}{20}
-\contentsline {subsection}{\numberline {3.4.2}Flex}{21}
-\contentsline {subsection}{\numberline {3.4.3}Bison}{22}
-\contentsline {subsection}{\numberline {3.4.4}Source Control}{22}
-\contentsline {section}{\numberline {3.5}Parsing}{22}
-\contentsline {subsection}{\numberline {3.5.1}Top-Down Parsing}{23}
-\contentsline {subsection}{\numberline {3.5.2}Bottom-Up Parsing}{24}
-\contentsline {chapter}{\numberline {4}Implementation}{25}
-\contentsline {chapter}{\numberline {5}Conclusion}{26}
+\contentsline {subsubsection}{Parsing}{21}
+\contentsline {paragraph}{Top-Down Parsing}{21}
+\contentsline {paragraph}{Bottom-Up Parsing}{22}
+\contentsline {subsection}{\numberline {3.3.3}Intermediate Code Generation}{22}
+\contentsline {subsection}{\numberline {3.3.4}Optimization}{22}
+\contentsline {subsection}{\numberline {3.3.5}Object Code Generation}{22}
+\contentsline {section}{\numberline {3.4}Development}{22}
+\contentsline {subsection}{\numberline {3.4.1}Environment}{22}
+\contentsline {subsection}{\numberline {3.4.2}Flex}{24}
+\contentsline {subsection}{\numberline {3.4.3}Bison}{26}
+\contentsline {subsection}{\numberline {3.4.4}Source Control}{29}
+\contentsline {section}{\numberline {3.5}Parsing}{30}
+\contentsline {subsection}{\numberline {3.5.1}Top-Down Parsing}{31}
+\contentsline {subsection}{\numberline {3.5.2}Bottom-Up Parsing}{31}
+\contentsline {chapter}{\numberline {4}Implementation}{32}
+\contentsline {chapter}{\numberline {5}Conclusion}{33}

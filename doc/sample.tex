@@ -4,6 +4,7 @@
 \usepackage{fullpage}
 \usepackage{natbib}
 \usepackage{float}
+\usepackage{subfig}
 
 \bibpunct{[}{]}{,}{a}{,}{,}
 
@@ -39,7 +40,7 @@ Whilst flex achieved results, it was felt that the debugging features were sub-p
 \\
 \\
 \begin{figure}[h!]
-	\centering
+	\centering because empathy doesn't support otr. pidgin for icq xmpp(jabber). smuxi f
 		\includegraphics[scale=0.85]{flexfail}
 		\caption{A simple flex program that is syntatically wrong, plus the resulting error.}
 \end{figure}
@@ -159,7 +160,7 @@ WIN-PROLOG is the leading Prolog compiler system for Windows-based PCs. Prolog i
 \\*
 One of the features of Win-Prolog is Flex, an expert systems toolkit built on top of Prolog.
 
-\subsection{Flex}\label{subsec:flex}
+\subsection{Flex}\label{subsec:introflex}
 The 'Flex Tutorial' describes Flex as "Flex is a software system specifically designed to aid the development and delivery of Expert Systems."
 \\*
 \\*
@@ -303,13 +304,49 @@ The syntactic analyzer, or \textit{parser}, is the heart of the front end of the
 \\*
 A programming langauge follows a strict set of rules that form it, much like the English langauge has rules to string certain words together to form meaningful and sensible sentences.  The parser's job is to put the tokens into an order that follows the grammar.  For example, the grammar specifies that an identifier, or an expression, must come after the \texttt{if} keyword, followed by a comparison of another identifier or expression.
 \subsubsection{Grammar}\label{subsubsec:grammar}
-The grammar is the important area of the parser, as it defines how the langauge should look and work.  Most langauges use "context free grammars", whereby the grammar is built up in steps, to provide a bigger picture.
+For the parser to operate, there needs to be a way for the syntactic analyser to convert the tokens into the parser tree.  The grammar fulfills this role by using a BNF, or EBNF.  It originally started as BNF (Backus-Naur Form), as created by John Backus and Peter Naur to describe the syntax of a specific language.\\*
+\\*
+John Backus and Peter Naur introduced for the first time a formal notation to describe the syntax of a given langauge (This was for the description of the ALGOL 60 programming langauge. \citep{whatisbnfnotation}
+\\*
+\\*
+The grammar is the important area of the parser, as it defines how the langauge should look and work.  Most langauges use "context free grammars", where the grammar is built up of small chunks, which can be used in themselves.\\*
+\\*
+Context-free grammars are used to describe the syntactic structure of programs of a programming language.  This shows how programs are composed from subprograms, or, more precisely, which elementary constructs there are and how composite constructs can be built from other constructs. \citep{compilerdesign95}\\*
+\\*
+Take the following EBNF grammar for example:\\*
+\begin{figure}[H]
+\begin{tabbing}
+\texttt{stmt:}\= \texttt{ if\_stmt}\\
+\>\textbar \texttt { while\_stmt}\\
+\>\texttt{;}\\
+\\
+\texttt{if\_stmt:}\= \texttt{ if test then expr else expr}\\
+\>\textbar \texttt{ if test then expr}\\
+\>\texttt{;}\\
+\\
+\texttt{while\_stmt:}\= \texttt{ while '(' test ')' '\{' expr '\}'}\\
+\>\texttt{;}\\
+\end{tabbing}
+\caption{Conext Free Grammar in EBNF}\label{fig:context_free}
+\end{figure}
+Figure \ref{fig:context_free} shows three rules, \texttt{stmt}, \texttt{if\_stmt} and \texttt{while\_stmt}.  The root rule here, \texttt{stmt}, contains two further rules, which can either be an if statement, or a while statement.  These statements are then declared seperately below, where \texttt{if\_stmt} declares two types of if statements that is allowed.  The if statement can either consist of an if-then-else, or an if-then statement.  These rules also contain other rules nested inside of them, such as \texttt{test} and \texttt{expr}, however they aren't listed for the purpose of the example.
+\subsubsection{Parsing}\label{subsec:parsing}
+Parsing is the process of constructing the parse tree from the grammar.  There are two different ways of performing this task, both of which are described below.
+\paragraph{Top-Down Parsing}
+The top-down parser begins with the start symbol in the grammar, and with the use of the token stream, tries to predict which is the next route to take to get to the end result.\\
+\\
+The top-down parser must start at the root of the tree and determine, from the token stream, how to grow the parse tree that results in the observed tokens.  It must do this from nothing but knowledge of the incoming tokens and of the productions in the grammar.  Furthermore, as a practical matter, it must scan the incoming tokens from left to right. \citep{compilerconstruction92}
+\\
+This quote gives a basic overview of how the top-down parsing process works.
+\paragraph{Bottom-Up Parsing}
+A bottom-up parser attempts to perform the parsing the opposite way of top-down, in that it starts at the leaf nodes, and works its way to the root.  Bottom-up parsing is much more powerful, but more complex, than top-down parsing.
 \subsection{Intermediate Code Generation}\label{subsec:intermediate_code_gen}
 Bing bish bash bosh
 \subsection{Optimization}\label{subsec:optimization}
 Bing bish bash bosh
 \subsection{Object Code Generation}\label{subsec:object_code_gen}
 Bing bish bash bosh
+
 \section{Development}\label{sec:development}
 \subsection{Environment}\label{subsec:dev_environment}
 One of the main aims of this project was to create an open-source alternative to the propietary package "WinProlog", which provides the Flex toolkit.  This aim was to provide the project on an open-source platform, such as Linux, which would allow lecturers to tailor the package to their needs, allowing them to fix any bugs or add more advanced features, without the fear of violating any licences.  Therefore, Linux was the platform of choice to develop on, where the distribution of choice was Ubuntu, as it has a great wealth of development applications in its repositories, such as \texttt{flex}, \texttt{bison} and \texttt{gcc}.  Ubuntu provides a package, \texttt{build-essential}, to help developers write and compile applications easily, which contains many useful tools that should please a large majority of software developers.\\*
@@ -329,17 +366,117 @@ Ubuntu provides a wealth of choice when it comes to development tools, however o
 \\*
 in the directory where the makefile is located.
 \subsection{Flex}\label{subsec:flex}
-Bing bish bash bosh
+Flex is a lexical analyser, which takes an input, i.e. the source code, and tokenises it ready to be parsed.\\*
+\\*
 There are several incarnations of lexical analysis programs, but the most popular is Flex, which originally dirived from yacc and lex.  Lex was written in 1975 by Mike Lesk and Eric Schmidt (now CEO of Google Corporation)
 
-Flex and Bison are tools for building programs that handle structured input.  They were originally tools for building compilers, but they have proven to be useful in many other areas.\citep{flexandbison09}.
+Flex and Bison are tools for building programs that handle structured input.  They were originally tools for building compilers, but they have proven to be useful in many other areas. \citep{flexandbison09}.
+\\*
+\\*
+Flex was chosen due to it being a popular lexical analyser.  This has the advantage of their being lots of support and documentation for it, and it's also easily available from the Ubuntu repositories.\\*
+\\*
+The sample code below is an extract from the book Flex \& Bison:
+\begin{figure}[H]
+	\begin{tabbing}
+	\texttt{/* just like Unix wc */}\\
+	\texttt{\%\{}\\
+	\texttt{int chars = 0;}\\
+	\texttt{int words = 0;}\\
+	\texttt{int lines = 0;}\=\\
+	\texttt{\%\}}\\
+	\\
+	\texttt{\%\%}
+	\\
+	\\
+	\texttt{[a-zA-Z]+} \> \texttt{\{ words++; chars += strlen(yytext); \}}\\
+	\texttt{\textbackslash n} \> \texttt{\{ chars++; lines++; \}}\\
+	\texttt{.} \> \texttt{\{ chars++; \}}
+	\\
+	\\
+	\texttt{\%\%}
+	\\
+	\\
+	\texttt{main(int argc, char \*\*argv)\{}\\
+	\> \texttt{yylex();}\\
+	\> \texttt{printf("\%8d\%8d\%8d\textbackslash n", lines, words, chars);}\\
+	\texttt{\}}
+	\end{tabbing}
+	\caption{A word count program written in flex}\label{fig:flexwc}
+	\citep{flexandbison09}
+\end{figure}
+The small flex program in figure \ref{fig:flexwc} counts the characters, words and lines in a given file.  It works similar to the \texttt{wc} GNU program in unix based systems.  The program is separated into three sections, by the use of the \texttt{\%\%} characters.  The first section declares any variables, such as \texttt{chars}, \texttt{words}, \texttt{lines}.  
+
+The second section is the heart of the lexical analyser, and is where the patterns are matched to create tokens.  In this example, there are three patterns to match: a whole word, a new line, and any character at all (decipted by the \texttt{.} character).  When each pattern is matched, the variable is incremented.
+
+The third section looks like a C program, which contains a \texttt{main} function and two lines of code.  The first line, \texttt{yylex();}, call the analyser to run on a text file that has been passed as an argument.  The second line, \texttt{printf}, outputs the values of the variables, after the lexer has been run.
+\\*
+\\*
+The example in figure \ref{fig:flexwc} doesn't generate any tokens, as it doesn't make use of a syntactic analyser (Bison), however, they can be generated like so:
+\\*
+\\*
+\texttt{"if"\quad\quad return IF;}\\
+Where IF is the token to return.  Tokens can also be created for values and numbers.  The value is stored into yylval, which is passed to the parser, along with a token, so that the parser knows the type.
+\\*
+\\*
+\texttt{[0-9]+\quad\quad yylval.d = atof(yytext); return NUMBER;}
 \subsection{Bison}\label{subsec:bison}
-Bing bish bash bosh
+Bison is the syntactic analyser which works hand in hand with Flex.  Bison originally came from Yacc (Yet Another Compiler Compiler), which was developed in the mid 1970's.  This version of Yacc was limited through it's licencing (Unix licence), which spured the development of Berkeley Yacc.  The Berkeley version was much faster, and was also under a less restrictive licence, allowing it to become the most popular version.  Richard Stallman, founder of the Free Software Foundation, then in turn created a GNU edition to be part of the GNU project, called Bison.\\*
+\\*
+Bison uses BNF, as described in an earlier chapter.  Like Flex, a Bison file is split up into three sections, where the third section is optional.  Below is an example from Flex \& Bison that shows the structure of a Bison file:\\*
+\\*
+\begin{figure}[H]
+	\begin{tabbing}
+	\texttt{/* simplest version of calculator */}\\
+	\texttt{\%\{}\\
+	\texttt{\#include <stdio.h>}\\
+	\texttt{\%\}}\\
+	\\
+	\texttt{/* declare tokens */}\\
+	\texttt{\%token NUMBER}\\
+	\texttt{\%token ADD SUB MUL DIV ABS}\\
+	\texttt{\%token EOL}\\
+	\\
+	\texttt{\%\%}\\
+	\\
+	\texttt{calclist:} \= \texttt{/* nothing */}\\
+	\> \texttt{| calclist exp EOL \{ printf("=\%d\textbackslash n", \$1); \}}\\
+	\> \texttt{;}\\
+	\\
+	\texttt{exp:} \= \texttt{factor}\\
+	\> \texttt{| exp ADD factor \{ \$\$ = \$1 + \$3; \}}\\
+	\> \texttt{| exp SUB factor \{ \$\$ = \$1 - \$3; \}}\\
+	\> \texttt{;}\\
+	\\
+	\texttt{factor:} \= \texttt{term}\\
+	\> \texttt{| factor MUL term \{ \$\$ = \$1 * \$3; \}}\\
+	\> \texttt{| factor DIV term \{ \$\$ = \$1 / \$3; \}}\\
+	\> \texttt{;}
+	\end{tabbing}
+	\end{figure}
+	%separate the figure into two pages
+	\begin{figure}[H]
+	\begin{tabbing}
+	\ContinuedFloat
+	\texttt{term:} \= \texttt{NUMBER}\\
+	\> \texttt{| ABS term \{ \$\$ = \$2 >= 0? \$2 : - \$2; \}}\\
+	\> \texttt{;}\\
+	\texttt{\%\%}
+	\texttt{main}\=\texttt{(int argc, char **argv)\{}\\
+	\> \texttt{yyparse();}\\
+	\texttt{\}}\\
+	\\
+	\texttt{yyerror(char *s)\{}\\
+	\> \texttt{fprintf(stderr, "error: \%s\textbackslash n", s);}\\
+	\texttt{\}}
+	\end{tabbing}
+	\caption{A simple calculator built in Bison}\label{fig:bison_example}
+\end{figure}
 \subsection{Source Control}\label{subsec:dev_source_control}
 Source control allows the source code to be backed up on a remote repository and ensures that several users are working on the same code, rather than each working on several different versions.  Whilst this won't be an issue for this project, it will be a useful time to research and learn how to use source control, and will also provide a useful back up tool.  The advantage of using source control, over traditional back-ups, or using removable memory, is that it's unlikely it will get lost, and the same, up to date work can be accessed from other machines if the situation requires it.  For example, a developer has a desktop PC and a laptop, and requires to work on the code using the laptop for several days.  Source control allows the developer to easily pull the latest version of the code from the repository, code away, and then push the changes back to the repository, so that when the developer comes to use their PC, they can pull the latest code and be up to date, without having to work out which files are more recent on a USB stick.
 \\*
 \\*
 There are several different source control services available for free, that do roughly the same job.
+
 \section{Parsing}\label{sec:parsing}
 Parsing is the process as described in the previous paragraph, where expressions are split up into tokens.  These tokens are defined through regular expressions, where flex will match a regular expression with the input source, and return a token, which represents a numerical value.
 For example, the following expression has two parts - first, the regular expression, and then the returning of the token for that expression:
