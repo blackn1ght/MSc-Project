@@ -28,6 +28,7 @@
 "nl"				return TNEWLINE;
 "end"				return TEND;	// Temporary to end the program. Not an actual keyword.
 "becomes"			return TBECOMES;
+"name"				return TNAME;
 
 ">"					yylval.fn = 1; return CMP;
 "<"					yylval.fn = 2; return CMP;

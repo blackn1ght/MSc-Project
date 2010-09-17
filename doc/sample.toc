@@ -27,8 +27,13 @@
 \contentsline {subsection}{\numberline {3.4.2}Flex}{24}
 \contentsline {subsection}{\numberline {3.4.3}Bison}{26}
 \contentsline {subsection}{\numberline {3.4.4}Source Control}{29}
-\contentsline {section}{\numberline {3.5}Parsing}{30}
-\contentsline {subsection}{\numberline {3.5.1}Top-Down Parsing}{31}
-\contentsline {subsection}{\numberline {3.5.2}Bottom-Up Parsing}{31}
-\contentsline {chapter}{\numberline {4}Implementation}{32}
-\contentsline {chapter}{\numberline {5}Conclusion}{33}
+\contentsline {chapter}{\numberline {4}Implementation}{31}
+\contentsline {section}{\numberline {4.1}Design}{31}
+\contentsline {paragraph}{Rule}{31}
+\contentsline {paragraph}{Question}{32}
+\contentsline {paragraph}{Action}{32}
+\contentsline {paragraph}{If and Then}{32}
+\contentsline {section}{\numberline {4.2}Tokens}{34}
+\contentsline {section}{\numberline {4.3}Data Structures}{36}
+\contentsline {section}{\numberline {4.4}Grammar}{37}
+\contentsline {chapter}{\numberline {5}Conclusion}{38}

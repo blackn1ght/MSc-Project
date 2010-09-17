@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.27)  13 SEP 2010 16:22
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.27)  17 SEP 2010 14:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -307,13 +307,101 @@ Underfull \hbox (badness 10000) in paragraph at lines 423--455
 
  []
 
-[26] [27] [28] [29] [30] [31]
+[26] [27] [28] [29] [30]
 Chapter 4.
-[32
+
+Underfull \hbox (badness 10000) in paragraph at lines 488--492
+
+ []
+
+[31
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 495--500
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 495--500
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 495--500
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 506--511
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 506--511
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 506--511
+
+ []
+
+[32]
+Underfull \hbox (badness 10000) in paragraph at lines 518--523
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 518--523
+
+ []
+
+[33]
+Underfull \hbox (badness 10000) in paragraph at lines 526--527
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 531--558
+
+ []
+
+[34]
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 567.
+
+ (/usr/share/texmf-texlive/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <12> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 567.
+
+Underfull \hbox (badness 10000) in paragraph at lines 559--577
+
+ []
+
+[35]
+Underfull \hbox (badness 10000) in paragraph at lines 580--587
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 580--587
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 580--587
+
+ []
+
+[36]
+Underfull \hbox (badness 10000) in paragraph at lines 594--596
+
+ []
+
+[37]
 Chapter 5.
-(./sample.bbl [33
+(./sample.bbl [38
 
 ]
 Overfull \hbox (173.52956pt too wide) in paragraph at lines 9--14
@@ -327,23 +415,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--21
 /db-
  []
 
-) [34
+) [39
 
 ] (./sample.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 2162 strings out of 495062
- 32669 string characters out of 1182644
- 99780 words of memory out of 3000000
- 5355 multiletter control sequences out of 15000+50000
+ 2182 strings out of 495062
+ 32967 string characters out of 1182644
+ 100780 words of memory out of 3000000
+ 5372 multiletter control sequences out of 15000+50000
  10099 words of font info for 36 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 44i,6n,42p,1064b,286s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,9n,42p,1064b,315s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sample.dvi (38 pages, 56940 bytes).
+Output written on sample.dvi (43 pages, 69696 bytes).
