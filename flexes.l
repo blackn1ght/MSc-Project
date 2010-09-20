@@ -29,6 +29,8 @@
 "end"				return TEND;	// Temporary to end the program. Not an actual keyword.
 "becomes"			return TBECOMES;
 "name"				return TNAME;
+"number"			return TINUMBER;
+"integer"			return TIINTEGER;
 
 ">"					yylval.fn = 1; return CMP;
 "<"					yylval.fn = 2; return CMP;

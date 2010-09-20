@@ -12,7 +12,7 @@
 }
 
 /* The tokens */
-%token <s> TIDENTIFIER TSTRING
+%token <s> TIDENTIFIER TSTRING TNAME TINUMBER TIINTEGER
 %token <d> TNUMBER
 %token <token> TBECOMES TNOT
 %token <token> TLPAREN TRPAREN TCOMMA TNEWLINE
@@ -21,7 +21,7 @@
 %token <token> TPLUS TMINUS TMUL TDIV
 
 %type <s> ident
-%type <a> flexes expr
+%type <a> flexes expr input
 %type <a> program programs script stmts question_block
 %type <a> stmt rule question action
 
@@ -34,7 +34,7 @@
 
 %%
 
-ident : TIDENTIFIER           		{ printf("flexes.y: identifier found.\n"); $$ = variable($1); }
+ident : TIDENTIFIER           		{ printf("flexes.y: identifier found.\n"); /*$$ = variable($1);*/ }
       ;
 
 /* Expressions, such as value1 becomes value2, etc */
@@ -66,8 +66,16 @@ action : TACTION ident stmts TSTOP 	{ $$ = function('a', $2, $3); }
 rule : TRULE ident stmts TSTOP  	{ $$ = function('r', $2, $3); }
      ;
 
-question_block : TSTRING TQEND TINPUT ident TQEND TBECAUSE TSTRING { $$ = question_block($1,$4,$7); }
-				;
+input : TINPUT TNAME 			{ $$ = newast('i', $<a>2, NULL); }
+      | TINPUT TINUMBER 		{ $$ = newast('i', $<a>2, NULL); }
+      | TINPUT TIINTEGER 		{ $$ = newast('i', $<a>2, NULL); }
+      | TINPUT ident			{ $$ = newast('i', $<a>2, NULL); }
+      ;
+
+question_block : TSTRING TQEND input TQEND TBECAUSE TSTRING { $$ = question_block($1,$3,$6); }
+		;
+
+
 
 question : TQUESTION ident question_block TSTOP		{ $$ = function('q', $2, $3); }
          ;

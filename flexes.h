@@ -108,7 +108,7 @@ struct s_rule {
 struct s_question {
   int nodetype;
   struct symbol *question;
-  struct symbol *input;
+  struct ast *input;
   struct symbol *because;
 };
 
@@ -131,7 +131,7 @@ struct ast *num(double d);
 struct ast *flow(int nodetype, struct ast *cond, struct ast *l);
 
 struct ast *function(int nodetype, struct symbol *name, struct ast *statements);
-struct ast *question_block(struct symbol *question, struct symbol *input, struct symbol *because);
+struct ast *question_block(struct symbol *question, struct ast *input, struct symbol *because);
 
 struct ast *dowrite(struct symbol *sentence);
 struct ast *sentence(struct symbol *s);

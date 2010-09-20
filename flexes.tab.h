@@ -41,33 +41,36 @@
    enum yytokentype {
      TIDENTIFIER = 258,
      TSTRING = 259,
-     TNUMBER = 260,
-     TBECOMES = 261,
-     TNOT = 262,
-     TLPAREN = 263,
-     TRPAREN = 264,
-     TCOMMA = 265,
-     TNEWLINE = 266,
-     TIF = 267,
-     TRULE = 268,
-     TQUESTION = 269,
-     TACTION = 270,
-     TINPUT = 271,
-     TSTOP = 272,
-     TQEND = 273,
-     TAND = 274,
-     TOR = 275,
-     TTHEN = 276,
-     TASK = 277,
-     TBECAUSE = 278,
-     TDO = 279,
-     TWRITE = 280,
-     TEND = 281,
-     TPLUS = 282,
-     TMINUS = 283,
-     TMUL = 284,
-     TDIV = 285,
-     CMP = 286
+     TNAME = 260,
+     TINUMBER = 261,
+     TIINTEGER = 262,
+     TNUMBER = 263,
+     TBECOMES = 264,
+     TNOT = 265,
+     TLPAREN = 266,
+     TRPAREN = 267,
+     TCOMMA = 268,
+     TNEWLINE = 269,
+     TIF = 270,
+     TRULE = 271,
+     TQUESTION = 272,
+     TACTION = 273,
+     TINPUT = 274,
+     TSTOP = 275,
+     TQEND = 276,
+     TAND = 277,
+     TOR = 278,
+     TTHEN = 279,
+     TASK = 280,
+     TBECAUSE = 281,
+     TDO = 282,
+     TWRITE = 283,
+     TEND = 284,
+     TPLUS = 285,
+     TMINUS = 286,
+     TMUL = 287,
+     TDIV = 288,
+     CMP = 289
    };
 #endif
 
@@ -88,7 +91,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 92 "flexes.tab.h"
+#line 95 "flexes.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

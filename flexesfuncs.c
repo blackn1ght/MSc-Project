@@ -26,6 +26,7 @@ symhash(char *sym)
 struct symbol *
 lookup(char *sym)
 {
+/*
   struct symbol *sp = &symtab[symhash(sym)%NHASH];
   int scount = NHASH;
   
@@ -40,11 +41,12 @@ lookup(char *sym)
       return sp;
     }
     
-    if (++sp >= symtab+NHASH) sp = symtab; /* try the next entry */
+    if (++sp >= symtab+NHASH) sp = symtab;
   }
   
   yyerror("symbol table overflow\n");
-  abort(); /* tried them all, table is full */
+  abort();
+*/
 }
 
 struct ast *
@@ -147,6 +149,7 @@ flow(int nodetype, struct ast* cond, struct ast *tl)
 struct ast *
 rule(struct symbol *name, struct ast *stmts)
 {
+  printf("Firing rule\n");
   struct s_rule *a = malloc(sizeof(struct s_rule));
   
   if (!a) {
@@ -162,7 +165,7 @@ rule(struct symbol *name, struct ast *stmts)
 }
 
 struct ast *
-question_block(struct symbol *question, struct symbol *input, struct symbol *because)
+question_block(struct symbol *question, struct ast *input, struct symbol *because)
 {
   struct s_question *a = malloc(sizeof(struct s_question));
   
@@ -182,6 +185,9 @@ question_block(struct symbol *question, struct symbol *input, struct symbol *bec
 struct ast *
 function(int nodetype, struct symbol *name, struct ast *statements)
 {
+	if (nodetype == 'q') printf("Firing question.\n");
+	if (nodetype == 'r') printf("Firing rule.\n");
+
 	struct s_function *a = malloc(sizeof(struct s_function));
 	
 	if (!a) {
@@ -261,7 +267,7 @@ void treefree(struct ast *a)
   
   free(a); /* always free the node itself */
 }
-
+/*
 struct symlist *
 newsymlist(struct symbol *sym, struct symlist *next)
 {
@@ -276,7 +282,7 @@ newsymlist(struct symbol *sym, struct symlist *next)
 	sl->next = next;
 	return sl;
 }
-
+*/
 void
 symlistfree(struct symlist *sl)
 {
@@ -300,7 +306,7 @@ eval(struct ast *a)
   	return 0.0;
   }
   
-  printf("Eval Node Type: ", a->nodetype);
+  printf("Eval Node Type: %i", a->nodetype);
   printf("\n");
   
   switch (a->nodetype)
@@ -385,7 +391,7 @@ char **argv;
 	}
     
     // Create the BST
-    BST();
+    //BST();
 
     return yyparse();
 }

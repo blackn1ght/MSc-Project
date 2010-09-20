@@ -595,7 +595,71 @@ Whilst the AST handles the tree, there needs to be a way to store the code.  For
 \\*
 A symbol table is required to store data, such as identifiers (variables) and their values.
 \section{Grammar}\label{sec:grammar}
-blloom
+The grammar describes the syntax of the language.  It should start off with an abstract view of the program, then working it's way deeper into more detail about expressions and statements.  The overall program structure should involved a mixed combination of rules and questions, with an action at the end, to run the script.  The rule needs to allow any combination of rules and questions, but at least one of each has to exist.  This can be achieved by using multple rules and nesting them in the correct order.\\
+\\
+Firstly, a rule needs to represent the entire program.  This can be simply:\\
+\\
+\begin{tabbing}
+	\texttt{flexes:} \= \texttt{script\quad\quad\{ \}}\\
+	\> \texttt{;}\\
+\end{tabbing}
+This can be called from the top of the parser file, after the token delcarations, so that the parsr knows where to start in the grammar.\\
+\\
+\texttt{\%start flexes}\\
+\\
+The \texttt{script} rule then contains two non-temrinals.  The first, \texttt{programs}, represents all the rules and questions, in whatever order, in the program, and the second, \texttt{action}, represents the action method that must appear at the end of the program.\\
+\\
+\begin{tabbing}
+	\texttt{script:} \= \texttt{programs action}\\
+	\> \texttt{;}\\
+	\\
+	\texttt{programs:} \= \texttt{program}\\
+	\> \texttt{\textbar \space programs program}\\
+	\> \texttt{;}\\
+	\\
+	\texttt{program:} \= \texttt{rule}\\
+	\> \texttt{\textbar \space question}\\
+	\> \texttt{;}\\
+\end{tabbing}
+The above grammar shows the breakdown of how the code should be structured.  The \texttt{programs} rule is possibly the most important; it describes that there can either be a rule or question, or, there can be an instance of itself (rules and questions), along with a rule and question.  It's this logic that allows there to be multiple rules and questions in any particular order within the flex program.\\
+\\
+The next rule represents an entire question block.  Because a question is structured in particular way, a single rule can encompass the majority of the question.  A question consists of two compulsary parts: the question itself and a way to catch an answer from the user, whilst it is optional to include a \texttt{because} clause.\\
+\\
+\begin{tabbing}
+	\texttt{question:} \= \texttt{TQUESTION ident question\_block TSTOP}\\
+	\> \texttt{;}\\
+	\\
+	\texttt{question\_block:} \= \texttt{TSTRING TQEND input TQEND TBECAUSE TSTRING}\\
+	\> \texttt{;}\\
+	\\
+	\texttt{input:} \= \texttt{TINPUT TNAME}\\
+	\> \texttt{\textbar \space TINPUT TINUMBER}\\
+	\> \texttt{\textbar \space TINPUT TIINTEGER}\\
+	\> \texttt{;}\\
+\end{tabbing}
+The \texttt{question} rule provides an overview description of the question - the token \texttt{TQUESTION} identifies the word "question" in the code, whilst the \texttt{ident} represents the name of the question.  The \texttt{question\_block} represents the innards of the question, finishing off with \texttt{TSTOP}, which simply represents a full stop, notifiying the end of the question block.\\
+\\
+The \texttt{question\_block} itself handles the two required lines, plus the optional because clause.  The \texttt{TSTRING} token represents a string of characters within quotation marks, followed by \texttt{TQEND}, which tells the compiler that the first line has ended.  The second park, \texttt{input}, is another rule that handles the different data types that the input can handle, such as strings, numbers and integers.  This of course is terminated with the \texttt{TQEND} token, and finally, the \texttt{TBECAUSE} and \texttt{TSTRING} represent the because statement repsectively.  There is no \texttt{TDOT} on the end of the \texttt{because} statement, as the \texttt{question} rule handles it.\\
+\\
+Next, the grammar needs to support rules.  The \texttt{rule} statement is similar to the \texttt{question}:\\
+\\
+\begin{tabbing}
+\texttt{rule:} \= \texttt{TRULE ident stmts TSTOP}\\
+\> \texttt{;}\\
+\end{tabbing}
+The \texttt{TRULE} token represents the "rule" statement in the code, along with \texttt{ident}, that represents the name of the rule.  The \texttt{stmts} rule is the most important symbol, as it represents any combination of statements that can be included in a rule.  Finally, the rule is terminated with a full stop.\\
+\\
+The \texttt{stmts} rule acts like a link to other rules, similar to how the \texttt{programs} rule worked in an earlier example:\\
+\\
+\begin{tabbing}
+	\texttt{stmts:} \= \texttt{stmt}\\
+	\> \texttt{\textbar \space stmts stmt}\\
+	\> \texttt{;}\\
+	\\
+	\texttt{stmt:} \= \texttt{expr}\\
+	\> \texttt{\textbar \space TIF expr TTHEN expr}\\
+	\> \texttt{;}\\
+\end{tabbing}
 
 \chapter{Conclusion}
 I conclude that the project was poo.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.27)  17 SEP 2010 14:52
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.27)  19 SEP 2010 20:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -395,13 +395,83 @@ Underfull \hbox (badness 10000) in paragraph at lines 580--587
  []
 
 [36]
-Underfull \hbox (badness 10000) in paragraph at lines 594--596
+Underfull \hbox (badness 10000) in paragraph at lines 598--602
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 598--602
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 598--602
 
  []
 
 [37]
+Underfull \hbox (badness 10000) in paragraph at lines 606--612
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 606--612
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 606--612
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 606--612
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 624--628
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 624--628
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 624--628
+
+ []
+
+[38]
+Underfull \hbox (badness 10000) in paragraph at lines 640--648
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 640--648
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 640--648
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 640--648
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 640--648
+
+ []
+
+[39] [40]
 Chapter 5.
-(./sample.bbl [38
+(./sample.bbl [41
 
 ]
 Overfull \hbox (173.52956pt too wide) in paragraph at lines 9--14
@@ -415,7 +485,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--21
 /db-
  []
 
-) [39
+) [42
 
 ] (./sample.aux)
 
@@ -431,4 +501,4 @@ Here is how much of TeX's memory you used:
  28 hyphenation exceptions out of 8191
  44i,9n,42p,1064b,315s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sample.dvi (43 pages, 69696 bytes).
+Output written on sample.dvi (46 pages, 74096 bytes).
