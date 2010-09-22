@@ -2,7 +2,7 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: sample.aux
 The style file: plainnat.bst
 Database file #1: sample.bib
-I was expecting a `,' or a `}'---line 33 of file sample.bib
+I was expecting a `,' or a `}'---line 34 of file sample.bib
  :  
  :  year  = "2007",
 (Error may have been on previous line)
@@ -15,41 +15,41 @@ Warning--empty year in compilers07
 Warning--empty year in compilers07
 You've used 11 entries,
             2773 wiz_defined-function locations,
-            638 strings with 5834 characters,
-and the built_in function-call counts, 3466 in all, are:
-= -- 277
+            638 strings with 5856 characters,
+and the built_in function-call counts, 3468 in all, are:
+= -- 281
 > -- 150
 < -- 10
 + -- 57
 - -- 45
-* -- 199
-:= -- 560
+* -- 197
+:= -- 557
 add.period$ -- 34
 call.type$ -- 11
-change.case$ -- 42
+change.case$ -- 43
 chr.to.int$ -- 10
 cite$ -- 28
-duplicate$ -- 194
+duplicate$ -- 189
 empty$ -- 341
 format.name$ -- 58
-if$ -- 716
+if$ -- 719
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 12
+missing$ -- 10
 newline$ -- 64
 num.names$ -- 44
 pop$ -- 143
 preamble$ -- 1
 purify$ -- 37
 quote$ -- 0
-skip$ -- 128
+skip$ -- 129
 stack$ -- 0
 substring$ -- 22
 swap$ -- 12
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 91
+type$ -- 96
 warning$ -- 6
 while$ -- 33
 width$ -- 0

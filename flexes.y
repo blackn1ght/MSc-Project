@@ -21,9 +21,9 @@
 %token <token> TPLUS TMINUS TMUL TDIV
 
 %type <s> ident
-%type <a> flexes expr input
+%type <a> flexes expr input comp
 %type <a> program programs script stmts question_block
-%type <a> stmt rule question action
+%type <a> rule question action
 
 %nonassoc <fn> CMP
 
@@ -34,14 +34,21 @@
 
 %%
 
+/* Variables */
 ident : TIDENTIFIER           		{ printf("flexes.y: identifier found.\n"); /*$$ = variable($1);*/ }
       ;
 
-/* Expressions, such as value1 becomes value2, etc */
-expr : ident TBECOMES ident   		{ $$ = newassign($1, $3); }
-     | ident TBECOMES TSTRING		{ $$ = newassign($1, $3); }
-     | ident CMP ident       		{ $$ = newcmp($2, $1, $3); }
+/* Comparisons */
+comp : ident CMP ident       		{ $$ = newcmp($2, $1, $3); }
      | ident CMP TSTRING		{ $$ = newcmp($2, $1, $3); }
+     | TNUMBER CMP TNUMBER		{ $$ = newcmp($2, $<s>1, $<s>3); }
+     | TAND comp			{ }
+     ;	
+
+/* Expressions, such as value1 becomes value2, etc */
+expr : TIF comp TTHEN expr		{ $$ = flow('i', $2, $4); }
+     | ident TBECOMES ident   		{ $$ = newassign($1, $3); }
+     | ident TBECOMES TSTRING		{ $$ = newassign($1, $3); }
      | TNUMBER				{ $$ = num($1); }
      | TSTRING				{ $$ = sentence($1); }
      | TEND				{  }
@@ -52,17 +59,15 @@ expr : ident TBECOMES ident   		{ $$ = newassign($1, $3); }
      | TWRITE TLPAREN TSTRING TRPAREN	{ $$ = dowrite($3); }
      ;
 
-stmt : expr 				{ $$ = newast('e', $1, NULL); }
-     | TIF expr TTHEN expr		{ $$ = flow('i', $2, $4); }
-     ;
-
-stmts : stmt 				{ $$ = newast('s', $1, NULL); }
-      | stmts stmt 			{ $$ = newast('S', $1, $2); }
+stmts : expr				{ $$ = newast('s', $1, NULL); }
+      | stmts expr			{ $$ = newast('S', $1, $2); }
       ;
 
+/* Action block */
 action : TACTION ident stmts TSTOP 	{ $$ = function('a', $2, $3); }
        ;
 
+/* Rule block */
 rule : TRULE ident stmts TSTOP  	{ $$ = function('r', $2, $3); }
      ;
 
@@ -74,8 +79,6 @@ input : TINPUT TNAME 			{ $$ = newast('i', $<a>2, NULL); }
 
 question_block : TSTRING TQEND input TQEND TBECAUSE TSTRING { $$ = question_block($1,$3,$6); }
 		;
-
-
 
 question : TQUESTION ident question_block TSTOP		{ $$ = function('q', $2, $3); }
          ;

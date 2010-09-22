@@ -12,6 +12,12 @@ Lloyd Allison.
   http://www.csse.monash.edu.au/~lloyd/tildeLogic/Prolog.toy/Examples/windsor-%
 small/.
 
+\bibitem[Berkeley(1997)]{whatisai}
+Istvan~S.N. Berkeley.
+\newblock What is artificial intelligence?
+\newblock
+  http://www.ucs.louisiana.edu/~isb9112/dept/phil341/wisai/WhatisAI.html, 1997.
+
 \bibitem[Estier()]{whatisbnfnotation}
 Th. Estier.
 \newblock What is bnf notation?
@@ -23,11 +29,6 @@ Th. Estier.
 John~R. Levine.
 \newblock \emph{Flex \& Bison}.
 \newblock O'Reilly Media, 2009.
-
-\bibitem[Louden(1997)]{compilerconstruction97}
-Kenneth~C. Louden.
-\newblock \emph{Compiler Construction - Principles and Practice}.
-\newblock PWS Publishing Company, 1997.
 
 \bibitem[LPA({\natexlab{a}})]{lpawinprolog}
 LPA.

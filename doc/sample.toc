@@ -8,32 +8,33 @@
 \contentsline {section}{\numberline {2.2}Previous Work}{7}
 \contentsline {chapter}{\numberline {3}Research}{8}
 \contentsline {section}{\numberline {3.1}Research}{8}
-\contentsline {section}{\numberline {3.2}Expert Systems}{8}
-\contentsline {subsection}{\numberline {3.2.1}WinProlog}{11}
-\contentsline {subsection}{\numberline {3.2.2}Flex}{11}
-\contentsline {section}{\numberline {3.3}What Is A Compiler?}{14}
-\contentsline {subsection}{\numberline {3.3.1}Lexical Analysis}{15}
-\contentsline {subsubsection}{Regular Expressions}{16}
-\contentsline {subsection}{\numberline {3.3.2}Syntactic Analysis}{18}
-\contentsline {subsubsection}{Grammar}{20}
-\contentsline {subsubsection}{Parsing}{21}
-\contentsline {paragraph}{Top-Down Parsing}{21}
-\contentsline {paragraph}{Bottom-Up Parsing}{22}
-\contentsline {subsection}{\numberline {3.3.3}Intermediate Code Generation}{22}
-\contentsline {subsection}{\numberline {3.3.4}Optimization}{22}
-\contentsline {subsection}{\numberline {3.3.5}Object Code Generation}{22}
-\contentsline {section}{\numberline {3.4}Development}{22}
-\contentsline {subsection}{\numberline {3.4.1}Environment}{22}
-\contentsline {subsection}{\numberline {3.4.2}Flex}{24}
-\contentsline {subsection}{\numberline {3.4.3}Bison}{26}
-\contentsline {subsection}{\numberline {3.4.4}Source Control}{29}
-\contentsline {chapter}{\numberline {4}Implementation}{31}
-\contentsline {section}{\numberline {4.1}Design}{31}
-\contentsline {paragraph}{Rule}{31}
-\contentsline {paragraph}{Question}{32}
-\contentsline {paragraph}{Action}{32}
-\contentsline {paragraph}{If and Then}{32}
-\contentsline {section}{\numberline {4.2}Tokens}{34}
-\contentsline {section}{\numberline {4.3}Data Structures}{36}
-\contentsline {section}{\numberline {4.4}Grammar}{37}
-\contentsline {chapter}{\numberline {5}Conclusion}{41}
+\contentsline {section}{\numberline {3.2}Artificial Intelligence}{8}
+\contentsline {section}{\numberline {3.3}Expert Systems}{9}
+\contentsline {subsection}{\numberline {3.3.1}WinProlog}{12}
+\contentsline {subsection}{\numberline {3.3.2}Flex}{12}
+\contentsline {section}{\numberline {3.4}What Is A Compiler?}{15}
+\contentsline {subsection}{\numberline {3.4.1}Lexical Analysis}{16}
+\contentsline {subsubsection}{Regular Expressions}{17}
+\contentsline {subsection}{\numberline {3.4.2}Syntactic Analysis}{19}
+\contentsline {subsubsection}{Grammar}{21}
+\contentsline {subsubsection}{Parsing}{22}
+\contentsline {paragraph}{Top-Down Parsing}{22}
+\contentsline {paragraph}{Bottom-Up Parsing}{23}
+\contentsline {subsection}{\numberline {3.4.3}Intermediate Code Generation}{23}
+\contentsline {subsection}{\numberline {3.4.4}Optimization}{23}
+\contentsline {subsection}{\numberline {3.4.5}Object Code Generation}{23}
+\contentsline {section}{\numberline {3.5}Development}{23}
+\contentsline {subsection}{\numberline {3.5.1}Environment}{23}
+\contentsline {subsection}{\numberline {3.5.2}Flex}{25}
+\contentsline {subsection}{\numberline {3.5.3}Bison}{27}
+\contentsline {subsection}{\numberline {3.5.4}Source Control}{30}
+\contentsline {chapter}{\numberline {4}Implementation}{32}
+\contentsline {section}{\numberline {4.1}Design}{32}
+\contentsline {paragraph}{Rule}{32}
+\contentsline {paragraph}{Question}{33}
+\contentsline {paragraph}{Action}{33}
+\contentsline {paragraph}{If and Then}{33}
+\contentsline {section}{\numberline {4.2}Tokens}{36}
+\contentsline {section}{\numberline {4.3}Data Structures}{38}
+\contentsline {section}{\numberline {4.4}Grammar}{39}
+\contentsline {chapter}{\numberline {5}Conclusion}{45}

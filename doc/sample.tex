@@ -105,6 +105,15 @@ Because the Flex toolkit is unique, there aren't many examples or previous work 
 \section[Research]{Research}\label{sec:intro_to_research}
 Before any implementation can begin, research needs to be conducted in order to gain better knowledge about expert systems, the Flex language and various toolkits for developing interpreters.
 
+\section{Artificial Intelligence}\label{sec:AI}
+Artificial Intelligence (AI) is a term for machines that can appear to act as if they are 'thinking' for themselves - that is, to emulate the way the human mind works.\\
+\\
+Roughly speaking, Artificial Intelligence is the study of man-made computational devices and systems which can be made to act in a manner which we would be inclined to call intelligent. \citep{whatisai}
+\\
+\\
+Interest in AI began when the British computer scientist Alan Turing stated, that if a machine can pass a series of questions, and trick the questioner into thinking that the machine was infact human, then the machine could be classed as having intelligence.  This test has since become known as the 'Turing Test'.\\
+\\
+Expert Systems fall into the category of AI, because they emulate the roll of an expert of a field.  Given answers, an expert system should be able to come to a conclusion based in varying pieces of information.
 \section{Expert Systems}\label{sec:expert_systems}
 In the modern world where information is highly valuable and where time is of the esence, many experts have turned to computing to help provide answers for them that may otherwise take a while to reach through their own expertese.  Expert Systems provide an easier way for professionals to reach conclusions through a series of questions, usually linking to a knowledge base.  For example, a doctor may use an expert system to reach a diagnosis for a patient, where the illness or problem may not be readily obvious.  The system would ask a question, where the doctor would answer with the symptoms, and then the expert system would continue asking more questions, based on the previous answers, until a conclusion is reached.
 \\*
@@ -422,6 +431,11 @@ Where IF is the token to return.  Tokens can also be created for values and numb
 \subsection{Bison}\label{subsec:bison}
 Bison is the syntactic analyser which works hand in hand with Flex.  Bison originally came from Yacc (Yet Another Compiler Compiler), which was developed in the mid 1970's.  This version of Yacc was limited through it's licencing (Unix licence), which spured the development of Berkeley Yacc.  The Berkeley version was much faster, and was also under a less restrictive licence, allowing it to become the most popular version.  Richard Stallman, founder of the Free Software Foundation, then in turn created a GNU edition to be part of the GNU project, called Bison.\\*
 \\*
+Bison uses two parser methods: LALR parser (Look Ahead LR), which is based on the LR parser, and GLR (Generalised Left to Right), however Bison prefers to use LALR(1), as it is faster and easier to use than the more powerful GLR method.
+\\
+General LR parsers are called LR(\textit{k}) parsers; this has an interpretation similar to the LL(\textit{k}) parsers: the \textit{L} is for \textit{L}eft-to-right scan of tokens, the \textit{R} is for the \textit{R}ightmost derivation, and the \textit{k} is for the \textit{k}-character lookahead.  Use of more than one character of lookahead puts an undesireable burden on the lexical analyser and results in very large parsing tables. \citep{compilerconstruction92}
+\\*
+\\*
 Bison uses BNF, as described in an earlier chapter.  Like Flex, a Bison file is split up into three sections, where the third section is optional.  Below is an example from Flex \& Bison that shows the structure of a Bison file:\\*
 \\*
 \begin{figure}[H]
@@ -525,8 +539,23 @@ In flex, there are two comparison operators for checking if a value is equal: \t
 \end{center}
 can be useful in situations for setting up default values of variables, as the test will always be true.  It is sometimes useful to test if something isn't true, which is where the \texttt{not} keyword can be used in conjunction with \texttt{is}, such as:\\
 \begin{center}
-\texttt{if cat is not 'tree'}
+\texttt{if cat is not 'tree'}\\
 \end{center}
+Flex has the ability to group tests together, usually where an or statement is used, to get the correct logic.  There maybe an instance where several variables need be of a certain value to make a statement true, or a single variable can make the entire statement true.  Take the following example:
+\begin{figure}[H]
+	\begin{tabbing}
+		\texttt{rule} \= \texttt{q\_test4}\\
+		\> \texttt{if result is 'none'}\\
+		\> \texttt{and test4 is unknown}\\
+		\> \texttt{and \textbf{[} wildlife > 10}\\
+		\> \texttt{and wildlife < 20}\\
+		\> \texttt{or wildlife > 20 \textbf{]}}\\
+		\> \texttt{then write('asking test4 from test1.') and nl}\\
+		\> \texttt{and ask test4 .}\\
+	\end{tabbing}
+	\caption{A sample test from a peice of coursework showing the grouping of tests}\label{fig:if_grouping}
+\end{figure}
+In figure \ref{fig:if_grouping} shows an if-statement that has the tests grouped together.  Without the square brackets, the test would be true if \texttt{test4} is unknown, wildlife is greater than ten and less than twenty, or the entire test can also be true if wildlife is over twenty, disregarding any of the other tests.  With the angle brackets, \texttt{test4} \textit{has} to be unknown, and wildlife can either be between or over twenty.  Whilst this is a useful feature in flex, it's not feature critical to the language, and possible scenarios would be to create extra rules if need be, therefore this feature won't be implemented.
 \section{Tokens}\label{sec:tokens}
 The research in section \ref{sec:design} helps to decide what tokens are required.  For each keyword and operator, a token can be created, for instance:\\
 \texttt{"if"\quad\quad\quad return TIF;}\\
@@ -650,17 +679,41 @@ Next, the grammar needs to support rules.  The \texttt{rule} statement is simila
 The \texttt{TRULE} token represents the "rule" statement in the code, along with \texttt{ident}, that represents the name of the rule.  The \texttt{stmts} rule is the most important symbol, as it represents any combination of statements that can be included in a rule.  Finally, the rule is terminated with a full stop.\\
 \\
 The \texttt{stmts} rule acts like a link to other rules, similar to how the \texttt{programs} rule worked in an earlier example:\\
-\\
 \begin{tabbing}
-	\texttt{stmts:} \= \texttt{stmt}\\
-	\> \texttt{\textbar \space stmts stmt}\\
+	\texttt{stmts:} \= \texttt{expr}\\
+	\> \texttt{\textbar \space stmts expr}\\
 	\> \texttt{;}\\
 	\\
-	\texttt{stmt:} \= \texttt{expr}\\
-	\> \texttt{\textbar \space TIF expr TTHEN expr}\\
+	\texttt{expr:} \= \texttt{TIF comp TTHEN expr}\\
+	\> \texttt{\textbar \space ident TBECOMES ident}\\
+	\> \texttt{\textbar \space ident TBECOMES TSTRING}\\
+	\> \texttt{\textbar \space TNUMBER}\\
+	\> \texttt{\textbar \space TSTRING}\\
+	\> \texttt{\textbar \space TAND expr}\\
+	\> \texttt{\textbar \space TASK ident}\\
+	\> \texttt{\textbar \space TLPAREN expr TRPAREN}\\
+	\> \texttt{\textbar \space TWRITE TLPAREN ident TRPAREN}\\
+	\> \texttt{\textbar \space TWRITE TLPAREN TSTRING TRPAREN}\\
 	\> \texttt{;}\\
 \end{tabbing}
-
+The \texttt{stmts} rule simply allows one or more instances of the \texttt{expr} rule, by either having just a single \texttt{expr}, or having itself (which could be mutliple times), followed by the \texttt{expr} rule.  In short, the rule specifies that there can either be a single statement, or an infinite number of statements.  The \texttt{expr} rule contains many of the little tasks that make up a flex program.  The first rule is an if statement, that simply allows for a simple comparison, and then an expression in the true statement.  The grammar allows the if statement to have several tests, such as:\\
+\\
+\texttt{IF sky IS "blue" AND clouds IS "none" THEN \textit{expr}}\\
+\\
+through the use of the \texttt{TAND expr} rule.  This can allow if statements to be nested, as the IF statement is part of \texttt{expr}. Likewise, there can be multiple \texttt{expr} statements after the then, such as:\\
+\\
+\texttt{IF sky IS "blue" AND clouds IS "none" THEN day becomes "sunny" AND message becomes "take sun glasses!"}\\
+\\
+The \texttt{TASK ident} expression allows flex to call upon questions, and the \texttt{TLPAREN expr TRPAREN} simply represents any expression wrapped in parenthesis.
+The tests for the if statement are contained in a separate rule, \texttt{comp}:\\
+\begin{tabbing}
+\texttt{comp:} \= \texttt{ident CMP ident}\\
+\> \texttt{\textbar \space ident CMP TSTRING}\\
+\> \texttt{\textbar \space TNUMBER CMP TNUMBER}\\
+\> \texttt{\textbar \space TAND comp}\\
+\> \texttt{;}\\
+\end{tabbing}
+This allows comarisons to be made between two variables (\texttt{ident}), a variable value and a string and two numbers.  The final rule allows for a concatination of multiple comparisons, as shown in a previous example.
 \chapter{Conclusion}
 I conclude that the project was poo.
 
