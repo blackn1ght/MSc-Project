@@ -35,7 +35,7 @@
 %%
 
 /* Variables */
-ident : TIDENTIFIER           		{ printf("flexes.y: identifier found.\n"); /*$$ = variable($1);*/ }
+ident : TIDENTIFIER           		{ /*$$ = variable($1);*/ }
       ;
 
 /* Comparisons */

@@ -467,8 +467,8 @@ static const yytype_uint8 yyrline[] =
 {
        0,    38,    38,    42,    43,    44,    45,    49,    50,    51,
       52,    53,    54,    55,    56,    57,    58,    59,    62,    63,
-      67,    71,    74,    75,    76,    77,    80,    85,    88,    89,
-      92,    93,    96,    99
+      67,    71,    74,    75,    76,    77,    80,    83,    86,    87,
+      90,    91,    94,    97
 };
 #endif
 
@@ -1415,7 +1415,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 38 "flexes.y"
-    { printf("flexes.y: identifier found.\n"); /*$$ = variable($1);*/ ;}
+    { /*$$ = variable($1);*/ ;}
     break;
 
   case 3:
@@ -1589,49 +1589,49 @@ yyreduce:
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 85 "flexes.y"
+#line 83 "flexes.y"
     { (yyval.a) = function('q', (yyvsp[(2) - (4)].s), (yyvsp[(3) - (4)].a)); ;}
     break;
 
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 88 "flexes.y"
+#line 86 "flexes.y"
     { (yyval.a) = newast('p', (yyvsp[(1) - (1)].a), NULL); ;}
     break;
 
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 89 "flexes.y"
+#line 87 "flexes.y"
     { (yyval.a) = newast('p', (yyvsp[(1) - (1)].a), NULL); ;}
     break;
 
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 92 "flexes.y"
+#line 90 "flexes.y"
     { (yyval.a) = newast('p', (yyvsp[(1) - (1)].a), NULL); ;}
     break;
 
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 93 "flexes.y"
+#line 91 "flexes.y"
     { (yyval.a) = newast('p', (yyvsp[(1) - (2)].a), (yyvsp[(2) - (2)].a)); ;}
     break;
 
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 96 "flexes.y"
+#line 94 "flexes.y"
     { (yyval.a) = newast('p', (yyvsp[(1) - (2)].a), (yyvsp[(2) - (2)].a)); ;}
     break;
 
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 99 "flexes.y"
+#line 97 "flexes.y"
     { (yyval.a) = (yyvsp[(1) - (1)].a); return eval((yyvsp[(1) - (1)].a)); ;}
     break;
 
@@ -1850,6 +1850,6 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 102 "flexes.y"
+#line 100 "flexes.y"
 
 

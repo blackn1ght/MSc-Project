@@ -7,7 +7,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <math.h>
-#include "bst.h"
+//#include "bst.h"
 #include "flexes.h"
 #include "flexes.tab.h"
 
@@ -305,10 +305,7 @@ eval(struct ast *a)
   	yyerror("internal error, null eval");
   	return 0.0;
   }
-  
-  printf("Eval Node Type: %i", a->nodetype);
-  printf("\n");
-  
+
   switch (a->nodetype)
   {
   	/* assignment */

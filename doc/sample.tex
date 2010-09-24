@@ -490,6 +490,8 @@ The first section contains the declarations, such as importing external librarie
 The second section contains the actual context-free BNF grammar.  The above example features action code, which is what is executed when the grammar is matched by the parser.  The \texttt{\$\$} symbol represents the value of the symbol on the left hand side, such as \texttt{exp}, \texttt{factor} and \texttt{term}.  The \texttt{\$n} values represent the token position in the grammar.  So, for \texttt{factor} multiply rule, \texttt{\$1} represents \texttt{factor} and \texttt{\$3} represents term.
 
 The final section, which is optional, contains the C code.  Because there are no additional C files, the bison file has a main function, which calls the parser via \texttt{yyparse()}, and also a custom version of \texttt{yyerror()}, which prints an error message when an error is encountered by the parser.
+\subsection{GCC}\label{fig:gcc}
+GCC (GNU Compiler Collection) is a compiler originally written for C, but now extends to C++, Java, Ada and other languages.  It comes bundled with the \texttt{build-essential} meta package.  Bison generates the parser in a c file (\texttt{name.tab.c}), which needs to be compiled together along with any other c files that accompany the flex and bison files.
 \subsection{Source Control}\label{subsec:dev_source_control}
 Source control allows the source code to be backed up on a remote repository and ensures that several users are working on the same code, rather than each working on several different versions.  Whilst this won't be an issue for this project, it will be a useful time to research and learn how to use source control, and will also provide a useful back up tool.  The advantage of using source control, over traditional back-ups, or using removable memory, is that it's unlikely it will get lost, and the same, up to date work can be accessed from other machines if the situation requires it.  For example, a developer has a desktop PC and a laptop, and requires to work on the code using the laptop for several days.  Source control allows the developer to easily pull the latest version of the code from the repository, code away, and then push the changes back to the repository, so that when the developer comes to use their PC, they can pull the latest code and be up to date, without having to work out which files are more recent on a USB stick.
 \\*
@@ -715,7 +717,79 @@ The tests for the if statement are contained in a separate rule, \texttt{comp}:\
 \end{tabbing}
 This allows comarisons to be made between two variables (\texttt{ident}), a variable value and a string and two numbers.  The final rule allows for a concatination of multiple comparisons, as shown in a previous example.
 \chapter{Conclusion}
-I conclude that the project was poo.
+One of the motivations for this project was to research into an area that hasn't been covered by the university courses, on either the undergraduate or post-graduate level.  This provided a steep learning curve into the subject, which did effect the quality of the implementation, however it can be felt that the knowledge gained has been useful.\\
+\\
+The implementation took many turns as more research was carried out.  At one stage, the development started to make use of LLVM (Low Level Virtual Machine), which would help build the 
+\section{What has been discovered?}\label{sec:conc:discovered}
+The depth and complexity of the project has meant that there was plenty to learn, as nearly everything has been new.  It has been interesting to learn how source code is read by a compiler: separating each 'word' out into tokens, discarding whitespace and comments, and then matching them against a grammar.  The fascinating part is the parse tree, where the tokens are placed into a tree according to the grammar.
+\\
+\\
+One valuable tool that has been discovered from this project has been the use of regular expressions.  Regular expressions are extremely useful for text analysis, especially for validating the formatting of text in forms before processing.
+\section{What has been achieved?}\label{sec:con:achieved}
+Whilst the project didn't finish what it was set out to achieve, it did meet some of the objectives set out in section \ref{sec:objectives}, which can be found below:\\
+\begin{itemize}
+\item Create a simple flex interpreter that can work on the simple tutorials from a tutorial.
+	\begin{itemize}
+	\item Recognise rules, questions and actions;
+	\item Recognise variables, assignments and comparisons;
+	\item Work with simple if-statements
+	\item Output variables and text using the write() statement.
+	\end{itemize}
+\item Create it for the Linux platform.
+	\begin{itemize}
+	\item Command line driven - feed the application a flex source file.
+	\item Not be coupled to a Desktop Environment (Gnome, KDE etc).
+	\end{itemize}
+\item Keep the project open source.
+	\begin{itemize}
+	\item Keep the project available on a source-control service so it can be ammended to once the project is finished.\\
+	\end{itemize}
+\end{itemize}
+The first aim is to create a simple interpreter that can work on the a sample tutorial.  This meant being able to recognise rules, questions and actions.  The compiler is able to recognise these features.  Secondly, the compiler should have been able to recognise variables, comparison and assignment operators, which the compiler is able to do.  The third aim is to work with simple if-statements.  The implemented compiler could detect an if statement, along with the test and any expressions that followed, however, it wasn't designed to work with the square brackets for a more defined test.  For the fourth objective, however, the compiler wasn't able to implement.  Whilst it could recognise variables and write statments in the grammar, it wasn't able to make them actually write anything out to the terminal.\\
+\\
+The compiler was able to recognise most of the features that it was set out to do, however, there were some slight differences in the syntax.  For example, in a question should look like the following:\\
+\\
+\begin{tabbing}
+\texttt{question} \= \texttt{my\_rule}\\
+\> \texttt{What is your favourite animal? ;}\\
+\> \texttt{input name ;}\\
+\> \texttt{because We need to know your favourite animal .}\\
+\end{tabbing}
+However, the string areas such as the question and the because need to be quoted in the implemented compiler, as so:\\
+\begin{tabbing}
+\texttt{question} \= \texttt{my\_rule}\\
+\> \texttt{"What is your favourite animal?" ;}\\
+\> \texttt{input name ;}\\
+\> \texttt{because "We need to know your favourite animal" .}\\
+\end{tabbing}
+This is because of the lexical analysis, where the lexical analyser needs to distinguish a string of words.  One way that this could have been improved, a non-quoted string was matched simply by the \texttt{.} (full stop) character, which matches anything that isn't already declared.  This could have been returned as a token:\\
+\\
+\texttt{.\quad\quad\quad yylval.s = lookup(yytext); return TNQSTRING;}\\
+\\
+This has the advantage of catching anything, and as long as it is the last token to be declared, then it shouldn't interfere with other tokens.  The grammar would look like the following:\\
+\\
+\texttt{TNQSTRING TQEND input TQEND TBECAUSE TNQSTRING}\\
+\\
+Where \texttt{TNQSTRING} is any series of characters matched by the lexical analyser.\\
+\\
+The second aim was to build the application on and for linux.  This was achieved, as all the ability for it to be command line driven, as can be seen in figure \ref{fig:linux}:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.75]{linux}
+	\caption{Running Ubuntu Linux, along with the compiler in text mode}\label{fig:linux}
+\end{figure}
+The compiler can also take an argument in the form of a flex file:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.75]{flexes}
+	\caption{The compiler (flexes) running a test script, without output.}\label{fig:flexes}
+\end{figure}
+In figure \ref{fig:flexes}, the compiler is reading from a source file that has been passed as an argument.\\
+\\
+Because the compiler is simple a source program without a graphical user interface, it doesn't make use of any library from Gnome or KDE.  If one wanted, a client could be built using GTK (Gnome) or QT (KDE) that would hook onto the flexes compiler.
+\section{What could have been done better?}\label{sec:con:better}
+In hindsight, the project could have gone further based on a greater amount of research at the start.  Whilst there is a lot of material on creating a compiler, many of them go deep into the theoretical side, rather than anything practical that can be put into use, and then learn from that.
+
 
 \bibliographystyle{plainnat}
 \bibliography{sample}
