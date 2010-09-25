@@ -21,7 +21,7 @@
 %token <token> TPLUS TMINUS TMUL TDIV
 
 %type <s> ident
-%type <a> flexes expr input comp
+%type <a> flexes expr input comp comps
 %type <a> program programs script stmts question_block
 %type <a> rule question action
 
@@ -42,17 +42,19 @@ ident : TIDENTIFIER           		{ /*$$ = variable($1);*/ }
 comp : ident CMP ident       		{ $$ = newcmp($2, $1, $3); }
      | ident CMP TSTRING		{ $$ = newcmp($2, $1, $3); }
      | TNUMBER CMP TNUMBER		{ $$ = newcmp($2, $<s>1, $<s>3); }
-     | TAND comp			{ }
      ;	
 
+comps : comp              { }
+      | comps TAND comp        { }
+
 /* Expressions, such as value1 becomes value2, etc */
-expr : TIF comp TTHEN expr		{ $$ = flow('i', $2, $4); }
+expr : TAND expr                { } 
+     | TIF comps TTHEN expr		{ $$ = flow('i', $2, $4); }
      | ident TBECOMES ident   		{ $$ = newassign($1, $3); }
      | ident TBECOMES TSTRING		{ $$ = newassign($1, $3); }
      | TNUMBER				{ $$ = num($1); }
      | TSTRING				{ $$ = sentence($1); }
      | TEND				{  }
-     | TAND expr                    	{  }
      | TASK ident			{  }
      | TLPAREN expr TRPAREN   		{  }
      | TWRITE TLPAREN ident TRPAREN 	{ $$ = dowrite($3); }	

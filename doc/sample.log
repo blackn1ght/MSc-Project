@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.27)  24 SEP 2010 15:30
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.27)  25 SEP 2010 18:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -529,79 +529,109 @@ Underfull \hbox (badness 10000) in paragraph at lines 701--711
 
  []
 
-[43] [44]
+[43]
+Underfull \hbox (badness 10000) in paragraph at lines 720--722
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 720--722
+
+ []
+
+
+Overfull \hbox (14.80058pt too wide) in paragraph at lines 725--732
+[][] 
+ []
+
+[44]
+Underfull \hbox (badness 10000) in paragraph at lines 735--738
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 735--738
+
+ []
+
+[45] [46]
 Chapter 5.
 
-Underfull \hbox (badness 10000) in paragraph at lines 720--723
+Underfull \hbox (badness 10000) in paragraph at lines 751--754
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 724--728
+Underfull \hbox (badness 10000) in paragraph at lines 755--759
 
  []
 
-[45
+[47
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 729--730
+Underfull \hbox (badness 10000) in paragraph at lines 760--761
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 745--746
+Underfull \hbox (badness 10000) in paragraph at lines 776--777
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--752
+Underfull \hbox (badness 10000) in paragraph at lines 779--783
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--752
+Underfull \hbox (badness 10000) in paragraph at lines 779--783
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--752
+Underfull \hbox (badness 10000) in paragraph at lines 779--783
 
  []
 
-[46]
-Underfull \hbox (badness 10000) in paragraph at lines 758--759
+[48]
+Underfull \hbox (badness 10000) in paragraph at lines 789--790
 
  []
 
 File: linux.eps Graphic file (type eps)
 <linux.eps>
-Underfull \hbox (badness 10000) in paragraph at lines 765--780
+Underfull \hbox (badness 10000) in paragraph at lines 796--811
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 765--780
+Underfull \hbox (badness 10000) in paragraph at lines 796--811
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 765--780
+Underfull \hbox (badness 10000) in paragraph at lines 796--811
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 765--780
+Underfull \hbox (badness 10000) in paragraph at lines 796--811
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 765--780
+Underfull \hbox (badness 10000) in paragraph at lines 796--811
 
  []
 
-[47]
+[49]
 File: flexes.eps Graphic file (type eps)
- <flexes.eps> [48] (./sample.bbl [49]
+ <flexes.eps> [50]
+Underfull \hbox (badness 10000) in paragraph at lines 818--821
+
+ []
+
+(./sample.bbl [51]
 Overfull \hbox (173.52956pt too wide) in paragraph at lines 9--14
 []\OT1/cmr/m/n/12 Lloyd Al-li-son.  Pro-log - the house of wind-sor.  http://ww
 w.csse.monash.edu.au/ lloyd/tildeLogic/Prolog.toy/Examples/windsor-
@@ -619,20 +649,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 22--27
 /db-
  []
 
-) [50
+) [52
 
 ] (./sample.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 2197 strings out of 495062
- 33114 string characters out of 1182644
+ 2200 strings out of 495062
+ 33186 string characters out of 1182644
  100780 words of memory out of 3000000
- 5384 multiletter control sequences out of 15000+50000
+ 5387 multiletter control sequences out of 15000+50000
  10267 words of font info for 37 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 44i,9n,42p,1064b,315s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,11n,42p,1064b,315s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sample.dvi (54 pages, 89980 bytes).
+Output written on sample.dvi (56 pages, 94356 bytes).

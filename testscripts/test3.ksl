@@ -1,0 +1,5 @@
+rule output
+	write('This test should fail.') .
+
+action go
+	run .

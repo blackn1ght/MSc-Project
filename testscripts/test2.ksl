@@ -1,0 +1,34 @@
+rule setup
+	if q_animal is unknown
+	then animal becomes unknown
+	and ask q_animal .
+
+question q_animal
+	"What noise does your favourite animal make?" ;
+	input name ;
+	because "We want to know what animal you like" .
+
+rule cat
+	if q_animal is 'meow'
+	then animal becomes 'cat' .
+
+rule dog
+	if q_animal is 'woof'
+	then animal becomes 'dog' .
+
+rule cow
+	if q_animal is 'moo'
+	then animal becomes 'cow' .
+
+rule pig
+	if q_animal is 'oink'
+	then animal becomes 'pig' .
+
+rule output
+	if q_animal is not unknown
+	and animal is not unknown
+	then write("The animal is ")
+	and write(animal) .
+
+action go
+	run .

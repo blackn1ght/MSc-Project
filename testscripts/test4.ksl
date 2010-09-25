@@ -1,0 +1,8 @@
+rule my_test
+    if test is unknown
+    and animal is unknown
+    then output becomes "True"
+    and animal becomes cat .
+
+action go
+    run .

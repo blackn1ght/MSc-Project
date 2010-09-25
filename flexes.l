@@ -26,7 +26,7 @@
 "because"		  	return TBECAUSE;
 "write"       		return TWRITE;
 "nl"				return TNEWLINE;
-"end"				return TEND;	// Temporary to end the program. Not an actual keyword.
+"run"				return TEND;	// Temporary to end the program. Not an actual keyword.
 "becomes"			return TBECOMES;
 "name"				return TNAME;
 "number"			return TINUMBER;

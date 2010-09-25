@@ -716,10 +716,42 @@ The tests for the if statement are contained in a separate rule, \texttt{comp}:\
 \> \texttt{;}\\
 \end{tabbing}
 This allows comarisons to be made between two variables (\texttt{ident}), a variable value and a string and two numbers.  The final rule allows for a concatination of multiple comparisons, as shown in a previous example.
+\section{Testing}
+Whilst the implementation is incomplete, it is worth testing to see if the compiler can recognise tokens and follow the grammar that flex uses.  The grammar stipulates that it requires a rule, a question and an action, thus these are the bare minimum required for a test.  The bare minimum to work should be those features found in the objectives, and then the features in section \ref{sec:design}.\\
+\\
+\subsection{Testing Results}\label{sub:sec:testing_results}
+The table below shows the results from the testing.  The R/F field ('[R]un' or '[F]ail') represents the \textit{expected} result.
+\begin{figure}[H]
+	\begin{tabular}{| l | l | p{270pt} | p{130pt} |}
+		\hline
+		\textbf{\#} & \textbf{R/F} & \textbf{Test Description} & \textbf{Result} \\ \hline
+		1 & R & Simple test & Runs \\ \hline
+		2 & R & More rules and if statements with several tests. What happens if this continues? & Fail: See \ref{sub:sub:sec:test2} \\ \hline
+		3 & R & Test with no questions at all. & Runs \\ \hline
+		4 & R & Test with multiple questions and rules. & Unknown \\ \hline
+	\end{tabular}
+\end{figure}
+\subsection{Testing Discussion}\label{sub:sec:testing_discussion}
+\subsubsection{Test 2}\label{sub:sub:sec:test2}
+This test was to ask a question where the user would input the sound an animal would make.  The following rules would then try to match the users input and conclude what animal it was.  The animal would then have been outputted using a write statement.  The main difference in this test is the use of the \texttt{and} statement.  Writing a small test with an if statement that uses \texttt{and} within the comparison expression shows that it fails on the line with the \texttt{and} statement, however, the \texttt{then} block can have multiple \texttt{and} expressions.  Therefore, the grammar needs to be changed in the way it handles multiple comparison tests.\\
+\\
+The solution to this problem is to add another rule between \texttt{expr} and \texttt{comp}.  The new rule can be called \texttt{comps}, and looks like the following:\\
+\begin{tabbing}
+	\texttt{comps:} \= \texttt{comp}\\
+	\> \texttt{\textbar \space comps TAND comp}\\
+	\> \texttt{;}\\
+	\\
+	\texttt{comp:} \= \texttt{ident CMP ident}\\
+	\> \texttt{\textbar \space ident CMP TSTRING}\\
+	\> \texttt{\textbar \space TNUMBER CMP TNUMBER}\\
+	\> \texttt{;}\\
+\end{tabbing}
+The '\texttt{TAND comp}' expression was removed from '\texttt{comp}'.  The '\texttt{comps}' rule allows there to be multiple versions of comp, as long as there is an and statement between them, which basically allows a comparison statement to be repeated multiple times with an \texttt{and} seperating them.  This change allows the compiler to produce the expected result from the original test.
+
 \chapter{Conclusion}
 One of the motivations for this project was to research into an area that hasn't been covered by the university courses, on either the undergraduate or post-graduate level.  This provided a steep learning curve into the subject, which did effect the quality of the implementation, however it can be felt that the knowledge gained has been useful.\\
 \\
-The implementation took many turns as more research was carried out.  At one stage, the development started to make use of LLVM (Low Level Virtual Machine), which would help build the 
+The implementation took many turns as more research was carried out.  At one stage, the development started to make use of LLVM (Low Level Virtual Machine), which would help build the hash
 \section{What has been discovered?}\label{sec:conc:discovered}
 The depth and complexity of the project has meant that there was plenty to learn, as nearly everything has been new.  It has been interesting to learn how source code is read by a compiler: separating each 'word' out into tokens, discarding whitespace and comments, and then matching them against a grammar.  The fascinating part is the parse tree, where the tokens are placed into a tree according to the grammar.
 \\
