@@ -728,7 +728,7 @@ The table below shows the results from the testing.  The R/F field ('[R]un' or '
 		1 & R & Simple test & Runs \\ \hline
 		2 & R & More rules and if statements with several tests. What happens if this continues? & Fail: See \ref{sub:sub:sec:test2} \\ \hline
 		3 & R & Test with no questions at all. & Runs \\ \hline
-		4 & R & Test with multiple questions and rules. & Unknown \\ \hline
+		4 & R & Test with questions,rules and numbers. & Fail \\ \hline
 	\end{tabular}
 \end{figure}
 \subsection{Testing Discussion}\label{sub:sec:testing_discussion}
@@ -747,7 +747,11 @@ The solution to this problem is to add another rule between \texttt{expr} and \t
 	\> \texttt{;}\\
 \end{tabbing}
 The '\texttt{TAND comp}' expression was removed from '\texttt{comp}'.  The '\texttt{comps}' rule allows there to be multiple versions of comp, as long as there is an and statement between them, which basically allows a comparison statement to be repeated multiple times with an \texttt{and} seperating them.  This change allows the compiler to produce the expected result from the original test.
-
+\subsubsection{Test 4}\label{sub:sub:sec:test4}
+This program tests the compiler by having multiple questions, rules, write statements and also mixes up data types with numbers and strings.  The compiler complains about the source code on line 20, which is:\\
+\\
+\texttt{then cost becomes 0.00 .}\\
+This is a simple statement that other tests have passed fine, with the exception of using a number type mixed in.  Looking at the \texttt{expr} rule in the grammar, it's clear that there is no \texttt{ident TBECOMES TNUMBER}.  Upon re-adding that line to the grammar allowed the test program to parse successfuly.
 \chapter{Conclusion}
 One of the motivations for this project was to research into an area that hasn't been covered by the university courses, on either the undergraduate or post-graduate level.  This provided a steep learning curve into the subject, which did effect the quality of the implementation, however it can be felt that the knowledge gained has been useful.\\
 \\

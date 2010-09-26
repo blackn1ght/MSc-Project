@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.27)  25 SEP 2010 18:03
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2010.8.27)  26 SEP 2010 12:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -540,94 +540,94 @@ Underfull \hbox (badness 10000) in paragraph at lines 720--722
  []
 
 
-Overfull \hbox (14.80058pt too wide) in paragraph at lines 725--732
+Overfull \hbox (14.80058pt too wide) in paragraph at lines 725--733
 [][] 
  []
 
 [44]
-Underfull \hbox (badness 10000) in paragraph at lines 735--738
+Underfull \hbox (badness 10000) in paragraph at lines 736--739
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 735--738
+Underfull \hbox (badness 10000) in paragraph at lines 736--739
 
  []
 
 [45] [46]
 Chapter 5.
 
-Underfull \hbox (badness 10000) in paragraph at lines 751--754
+Underfull \hbox (badness 10000) in paragraph at lines 752--755
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 755--759
+Underfull \hbox (badness 10000) in paragraph at lines 756--760
 
  []
 
 [47
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 760--761
+Underfull \hbox (badness 10000) in paragraph at lines 761--762
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 776--777
+Underfull \hbox (badness 10000) in paragraph at lines 777--778
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 779--783
+Underfull \hbox (badness 10000) in paragraph at lines 780--784
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 779--783
+Underfull \hbox (badness 10000) in paragraph at lines 780--784
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 779--783
+Underfull \hbox (badness 10000) in paragraph at lines 780--784
 
  []
 
 [48]
-Underfull \hbox (badness 10000) in paragraph at lines 789--790
+Underfull \hbox (badness 10000) in paragraph at lines 790--791
 
  []
 
 File: linux.eps Graphic file (type eps)
 <linux.eps>
-Underfull \hbox (badness 10000) in paragraph at lines 796--811
+Underfull \hbox (badness 10000) in paragraph at lines 797--812
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 796--811
+Underfull \hbox (badness 10000) in paragraph at lines 797--812
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 796--811
+Underfull \hbox (badness 10000) in paragraph at lines 797--812
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 796--811
+Underfull \hbox (badness 10000) in paragraph at lines 797--812
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 796--811
+Underfull \hbox (badness 10000) in paragraph at lines 797--812
 
  []
 
 [49]
 File: flexes.eps Graphic file (type eps)
  <flexes.eps> [50]
-Underfull \hbox (badness 10000) in paragraph at lines 818--821
+Underfull \hbox (badness 10000) in paragraph at lines 819--822
 
  []
 
@@ -655,9 +655,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 22--27
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
  2200 strings out of 495062
@@ -668,4 +665,4 @@ Here is how much of TeX's memory you used:
  28 hyphenation exceptions out of 8191
  44i,11n,42p,1064b,315s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on sample.dvi (56 pages, 94356 bytes).
+Output written on sample.dvi (56 pages, 94940 bytes).

@@ -1,8 +1,55 @@
-rule my_test
-    if test is unknown
-    and animal is unknown
-    then output becomes "True"
-    and animal becomes cat .
+rule setup
+    if order is unknown
+    and cost is unknown
+    and size is unknown
+    then ask order .
+
+question order
+    "Which item would you like  Please enter a product." ;
+    input name ;
+    because "Enter a number for the order you want" .
+
+question o_size
+    "What size would you like the item Enter a number, 1 is small, 2 is medium, 3 is large" ;
+    input number ;
+    because "We need to know how big you want your order" .
+
+rule collate
+    if order is not unknown
+    and o_size is not unknown
+    then cost becomes 0.00 .
+
+rule chips
+    if order is 'chips'
+    then cost becomes 0.90 .
+
+rule cod
+    if order is 'cod'
+    then cost becomes 1.50 .
+
+rule pie
+    if order is 'pie'
+    then cost becomes 1.20 .
+
+rule small
+    if o_size = 1
+    then size becomes 'small' .
+
+rule medium
+    if o_size = 2
+    then size becomes 'medium' .
+
+rule large
+    if o_size = 3
+    then size becomes 'large' .
+
+rule sell
+    if o_size is not unknown
+    and order is not unknown
+    then write('Order is ')
+    and write(size)
+    and write(' ')
+    and write(order) .
 
 action go
     run .

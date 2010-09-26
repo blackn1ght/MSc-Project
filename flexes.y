@@ -41,6 +41,7 @@ ident : TIDENTIFIER           		{ /*$$ = variable($1);*/ }
 /* Comparisons */
 comp : ident CMP ident       		{ $$ = newcmp($2, $1, $3); }
      | ident CMP TSTRING		{ $$ = newcmp($2, $1, $3); }
+     | ident CMP TNUMBER        { $$ = newcmp($2, $1, $<s>3); }
      | TNUMBER CMP TNUMBER		{ $$ = newcmp($2, $<s>1, $<s>3); }
      ;	
 
@@ -52,6 +53,7 @@ expr : TAND expr                { }
      | TIF comps TTHEN expr		{ $$ = flow('i', $2, $4); }
      | ident TBECOMES ident   		{ $$ = newassign($1, $3); }
      | ident TBECOMES TSTRING		{ $$ = newassign($1, $3); }
+     | ident TBECOMES TNUMBER       { $$ = newassign($1, $<s>3); }
      | TNUMBER				{ $$ = num($1); }
      | TSTRING				{ $$ = sentence($1); }
      | TEND				{  }
