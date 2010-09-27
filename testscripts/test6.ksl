@@ -1,0 +1,52 @@
+% Set up variables
+rule setup
+    if 1=1
+    then result becomes unknown .
+
+% Ask the user for their name
+question ur_name
+    "What is your name?" ;
+    input name ;
+    because "We need to know your name" .
+
+% Ask the user for their age
+question ur_age
+    "How old are you?" ;
+    input number ;
+    because "We need to know how old you are" .
+
+% Put together the details
+rule teenager
+    if ur_name is not unknown
+    and ur_age is not unknown
+    and ur_age < 18
+    then result becomes 'you are too young to drink' .
+
+% Rule for folks that are 18-29
+rule twenties
+    if ur_name is not unknown
+    and ur_age >= 18
+    and ur_age < 30
+    then result becomes 'you are in your prime' .
+
+% rule for folks that are 30-39
+rule thirties
+    if ur_name is not unknown
+    and ur_age >= 30
+    and ur_age < 40
+    then result becomes 'you are in a great age' .
+
+rule fourtyplus
+    if ur_name is not unknown
+    and ur_age >= 40
+    then result becomes 'you are getting on a bit' .
+
+rule print
+    if ur_name is not unknown
+    and ur_age is not unknown
+    then write(ur_name)
+    and write(' ')
+    and write(result) .
+
+action go
+    run .

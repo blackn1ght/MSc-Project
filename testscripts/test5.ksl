@@ -1,0 +1,2 @@
+rule test5
+    write('This test should not run') .

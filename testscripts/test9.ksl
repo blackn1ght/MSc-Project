@@ -1,0 +1,64 @@
+group selection yes, no .
+group distance near, far .
+group openings open, closed .
+
+% determine facts needed
+
+rule ask_hungry
+    if hungry is unknown
+    then ask hungry .
+
+question hungry
+    "Are you hungry?" ;
+    choose from selection
+    because "you will not want chips if you are not hungry" .
+
+rule ask_money
+    if money is unknown
+    then ask money .
+
+question money
+    "Do you have enough money to buy chips?" ;
+    choose from selection
+    because "you will not be able to buy chips if you have no money" .
+
+rule ask_near_shop
+    if position is unknown
+    then ask position .
+
+question position
+    "How far is the nearest chip shop?" ;
+    choose from distance
+    because "the shop may be too far away to buy chips" .
+
+rule shop_open
+    if open_shop is unknown
+    then ask open_shop .
+
+question open_shop
+    "Is the shop open?" ;
+    choose from openings
+    because "if the shop is closed you will not be buying any chips" .
+
+% rules about buying chips
+
+rule buy_chips
+    if hungry is yes
+    and money is yes
+    and position is near
+    and open_shop is open
+    then write('You can buy chips')
+    and nl .
+
+rule do_not_buy_chips
+    if hungry is no
+    or money is no
+    or position is far
+    or open_shop is closed
+    then write('You can not buy chips')
+    and nl .
+
+% start the program
+
+action buy_or_not
+    run .

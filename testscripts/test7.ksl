@@ -1,0 +1,6 @@
+rule test7
+    "Hello world"
+    49 .
+
+action go
+    run .

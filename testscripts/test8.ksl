@@ -1,0 +1,46 @@
+% Declare groups
+group drink tea, coffee, chocolate .
+group yn yes, no .
+group sugar none, one, two, three .
+
+% setup
+rule setup
+    if 1=1
+    then result becomes 'nothing'
+    and ask q_drink .
+
+question q_drink
+    "What would you like to drink?" ;
+    choose from drink ;
+    because "We need to know what you would like to drink" .
+
+rule milk
+    if q_drink is tea
+    or q_drink is coffee
+    then ask q_milk .
+
+question q_milk
+    "Do you want milk in your drink?" ;
+    choose from yn .
+
+rule sugar
+    if q_sugar is unknown
+    then ask q_sugar .
+
+question q_sugar
+    "How many sugars would you like in your drink?" ;
+    choose from sugar .
+
+rule output
+    if q_drink is not unknown
+    then write('Your order is:')
+    and nl
+    and write(q_drink)
+    and nl
+    and write(q_sugar)
+    and nl
+    and write(q_milk) .
+
+action go
+    run .
+    
