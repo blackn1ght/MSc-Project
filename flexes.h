@@ -29,6 +29,7 @@ struct symbol {		/* variable name */
 	char *name[VARNAME_SIZE];
 	double d_value;
 	char *c_value[VARVALUE_SIZE];
+	int isdouble;
 	struct ast *func;	/* stmt for the function */
 	struct symlist *syms;
 };

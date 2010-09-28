@@ -476,8 +476,8 @@ static const yytype_uint8 yyrline[] =
        0,    39,    39,    43,    44,    45,    46,    49,    50,    51,
       55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
       65,    68,    69,    73,    77,    80,    81,    82,    83,    84,
-      87,    88,    89,    92,    95,    96,    98,   100,   101,   103,
-     104,   107,   108,   111,   112,   115
+      87,    88,    89,    92,    95,    96,    99,   102,   103,   106,
+     107,   110,   111,   114,   115,   118
 };
 #endif
 
@@ -1673,70 +1673,70 @@ yyreduce:
   case 36:
 
 /* Line 1455 of yacc.c  */
-#line 98 "flexes.y"
+#line 99 "flexes.y"
     { ;}
     break;
 
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 100 "flexes.y"
+#line 102 "flexes.y"
     { ;}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 101 "flexes.y"
+#line 103 "flexes.y"
     { ;}
     break;
 
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 103 "flexes.y"
+#line 106 "flexes.y"
     { (yyval.a) = newast('p', (yyvsp[(1) - (1)].a), NULL); ;}
     break;
 
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 104 "flexes.y"
+#line 107 "flexes.y"
     { (yyval.a) = newast('p', (yyvsp[(1) - (1)].a), NULL); ;}
     break;
 
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 107 "flexes.y"
+#line 110 "flexes.y"
     { (yyval.a) = newast('p', (yyvsp[(1) - (1)].a), NULL); ;}
     break;
 
   case 42:
 
 /* Line 1455 of yacc.c  */
-#line 108 "flexes.y"
+#line 111 "flexes.y"
     { (yyval.a) = newast('p', (yyvsp[(1) - (2)].a), (yyvsp[(2) - (2)].a)); ;}
     break;
 
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 111 "flexes.y"
+#line 114 "flexes.y"
     { (yyval.a) = newast('p', (yyvsp[(1) - (2)].a), (yyvsp[(2) - (2)].a)); ;}
     break;
 
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 112 "flexes.y"
+#line 115 "flexes.y"
     { (yyval.a) = newast('p', (yyvsp[(1) - (3)].a), (yyvsp[(2) - (3)].a)); ;}
     break;
 
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 115 "flexes.y"
+#line 118 "flexes.y"
     { (yyval.a) = (yyvsp[(1) - (1)].a); return eval((yyvsp[(1) - (1)].a)); ;}
     break;
 
@@ -1955,6 +1955,6 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 118 "flexes.y"
+#line 121 "flexes.y"
 
 

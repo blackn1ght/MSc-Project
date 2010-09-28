@@ -94,11 +94,14 @@ question : TQUESTION ident question_block TSTOP		{ $$ = function('q', $2, $3); }
 
 group_choices : ident                       { }
               | group_choices TCOMMA ident   { }
+	      ;
 
 group : TGROUP ident group_choices TSTOP     { }
+      ;
 
 groups : group                              { }
        | groups group                       { }
+       ;
 
 program : rule						{ $$ = newast('p', $1, NULL); }
         | question					{ $$ = newast('p', $1, NULL); }

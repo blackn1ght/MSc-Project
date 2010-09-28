@@ -421,6 +421,13 @@ There are two types of intermediate code generators:
 \paragraph{Low-Level Representations} are closer to machine language, and are usually easier to optimise, as the target architecture is known.
 \subsubsection{Warren Abstract Machine}\label{subsubsec:wam}
 The Warren Abstract Machine (WAM) is a compiler specifically for Prolog
+\subsubsection{LLVM}\label{subsubsec:llvm}
+LLVM (Low-Level Virtual Machine) is a framework that helps to create the intermediate code for a compiler.  It is unrelated to the actual Virtual Machines that run full desktops on top of another desktop.  One of the main sub-projects of LLVM is:\\
+\\
+The LLVM Core libraries provide a modern source- and target-independent optimizer, along with code generation support for many popular CPUs (as well as some less common ones!) These libraries are built around a well specified code representation known as the LLVM intermediate representation ("LLVM IR"). The LLVM Core libraries are well documented, and it is particularly easy to invent your own language (or port an existing compiler) to use LLVM as a optimizer and code generator. \citep{llvm10}
+\\
+\\
+In short, LLVM can provide a way of optimizing and generating the object code for a wide range of processor archiectures.  Whilst LLVM is specifically designed for C++, there is a project that provides a C based (C, C++, Objective-C) front end (the lexical analysis and parsing phase), making it even easier to generate the AST's and feed it into LLVM.
 \subsection{Optimization}\label{subsec:optimization}
 Bing bish bash bosh
 \subsection{Object Code Generation}\label{subsec:object_code_gen}
@@ -627,7 +634,9 @@ The above code would be found at the top of the flex source code.  It is used in
 \> \texttt{choose from gTemperature ;}\\
 \> \texttt{because So we can decide if you need a coat .}\\
 \end{tabbing}
-This feature is extremely useful, as it allows for a more controlled user input: restricts options where necessary, and means that the user cannot mis-spell words.
+This feature is extremely useful, as it allows for a more controlled user input: restricts options where necessary, and means that the user cannot mis-spell words.\\
+\\
+There is a practicality issue, however, when dealing with the command line interface.  Whilst the user will still be presented with a choice, the user won't be able to simply click on an option - they will have to type in their answer in some form.  The practical solution would be to have the list of group options numbered, so the user enters the number corresponding the option.  This would provide a good solution if someone would want to hook a graphical user interface to it, as the list of options would be displayed in a list control, and the index of the selected item would be returned.
 \\
 \\
 Other features that need to be added to the grammar is the ability to compare and assign values.  The ability to perform tests on values is crutial in the decision making process, and thus such features must be built in.  These include \texttt{becomes}, which assigns a value into a variable, such as \texttt{animal becomes 'cat'}, or \texttt{animal becomes pet}, where the value of one variable is assigned to another variable.  Also, operators such as \texttt{+}, \texttt{-}, \texttt{\*}, and \texttt{/} need to be included for some basic math.\\
@@ -704,34 +713,6 @@ Comparison operators will be handled differently, as it would make the grammar e
 	\end{center}
 \end{figure}
 Whitespace and comments are ignored.
-\section{Abstract Syntax Trees}
-Before writing the grammar, the AST's need to be defined, so that the parser can construct the syntax tree as it matches the tokens to the grammar.  They can be defined in a C header file.  Defining an AST is simple, as they just need to store the symbol that the current node is representing, and then pointers to two child nodes, left and right.\\
-\begin{tabbing}
-	\texttt{struct} \= \texttt{ast \{}\\
-	\> \texttt{int nodetype;}\\
-	\> \texttt{struct ast *l;}\\
-	\> \texttt{struct ast *r;}\\
-	\texttt{\}}
-\end{tabbing}
-Whilst the AST handles the tree, there needs to be a way to store the code.  For example, a structure can be created to store the relevant information that makes up an if statement: the test, true and false statements.  In Flex, there are no else blocks on if statements, so a pointer to a false structure wouldn't be necessary.\\*
-\\*
-When the grammar is being parsed, the parser needs to build the AST up, placing the code into relevant places into the tree.  Various C functions are used to build them up.  For example:\\
-\begin{tabbing}
-	\texttt{expr}\=\texttt{: expr TPLUS expr\quad\quad\quad\quad\quad\quad\{ \$\$ = newast(\$2, \$1, \$3); \}}\\
-	\> \texttt{\textbar \space expr TMINUS expr\quad\quad\quad\quad\quad\quad\{ \$\$ = newast(\$2, \$1, \$3); \}}\\
-	\> \texttt{\textbar \space TWRITE TLPAREN TSTRING TRPAREN\quad\{ \$\$ = newwrite(\$3); \}}\\
-	\> \texttt{;}
-\end{tabbing}
-The example above shows three expressions, with two different builder functions.  The \texttt{\$\$} symbols represent the current node in the tree.  The first function, \texttt{newast}, builds a new, simple node, and inserts it into the position of \texttt{\$\$}.  The function takes three arguments: the symbol that of the operator, the left expression and the right expression.  These are represented by \$2, \$1 and \$3 repsectively.
-
-The \texttt{newwrite} function represents a write statement in the source program, and only takes a single argument: the data to write.  Because the function is specific to the particular task, the function can write into the AST what it represents.  The data to write could either be a literal string, or an object, which means that the object needs to be parsed into a string when it is detected.  This can be done like so:\\
-\begin{center}
-\texttt{TWRITE TLPAREN ident TRPAREN\quad\quad\{ \$\$ = newwrite(\$<s>3); \}}
-\end{center}
-As the langauge in WinFlex is quite specific, functions can be written for the more specific features, such as questions and if-then statements:
-\begin{center}
-\texttt{TIF comp TTHEN expr\quad\quad\quad\{ \$\$ = newifthen(\$2, \$4); \}}
-\end{center}
 \section{Grammar}\label{sec:grammar}
 The grammar describes the syntax of the language.  It should start off with an abstract view of the program, then working it's way deeper into more detail about expressions and statements.  The overall program structure should involved a mixed combination of rules and questions, with an action at the end, to run the script.  The rule needs to allow any combination of rules and questions, but at least one of each has to exist.  This can be achieved by using multple rules and nesting them in the correct order.\\
 \\
@@ -823,6 +804,85 @@ The tests for the if statement are contained in a separate rule, \texttt{comp}:\
 \> \texttt{;}\\
 \end{tabbing}
 This allows comarisons to be made between two variables (\texttt{ident}), a variable value and a string and two numbers.  The final rule allows for a concatination of multiple comparisons, as shown in a previous example.
+\section{Abstract Syntax Trees}
+Before writing the grammar, the AST's need to be defined, so that the parser can construct the syntax tree as it matches the tokens to the grammar.  They can be defined in a C header file.  Defining an AST is simple, as they just need to store the symbol that the current node is representing, and then pointers to two child nodes, left and right.\\
+\begin{tabbing}
+	\texttt{struct} \= \texttt{ast \{}\\
+	\> \texttt{int nodetype;}\\
+	\> \texttt{struct ast *l;}\\
+	\> \texttt{struct ast *r;}\\
+	\texttt{\}}
+\end{tabbing}
+Whilst the AST handles the tree, there needs to be a way to store the code.  For example, a structure can be created to store the relevant information that makes up an if statement: the test, true and false statements.  In Flex, there are no else blocks on if statements, so a pointer to a false structure wouldn't be necessary.\\*
+\\*
+When the grammar is being parsed, the parser needs to build the AST up, placing the code into relevant places into the tree.  Various C functions are used to build them up.  For example:\\
+\begin{tabbing}
+	\texttt{expr}\=\texttt{: expr TPLUS expr\quad\quad\quad\quad\quad\quad\{ \$\$ = newast(\$2, \$1, \$3); \}}\\
+	\> \texttt{\textbar \space expr TMINUS expr\quad\quad\quad\quad\quad\quad\{ \$\$ = newast(\$2, \$1, \$3); \}}\\
+	\> \texttt{\textbar \space TWRITE TLPAREN TSTRING TRPAREN\quad\{ \$\$ = newwrite(\$3); \}}\\
+	\> \texttt{;}
+\end{tabbing}
+The example above shows three expressions, with two different builder functions.  The \texttt{\$\$} symbols represent the current node in the tree.  The first function, \texttt{newast}, builds a new, simple node, and inserts it into the position of \texttt{\$\$}.  The function takes three arguments: the symbol that of the operator, the left expression and the right expression.  These are represented by \$2, \$1 and \$3 repsectively.
+
+The \texttt{newwrite} function represents a write statement in the source program, and only takes a single argument: the data to write.  Because the function is specific to the particular task, the function can write into the AST what it represents.  The data to write could either be a literal string, or an object, which means that the object needs to be parsed into a string when it is detected.  This can be done like so:\\
+\begin{center}
+	\texttt{TWRITE TLPAREN ident TRPAREN\quad\quad\{ \$\$ = newwrite(\$<s>3); \}}
+\end{center}
+As the langauge in WinFlex is quite specific, functions can be written for the more specific features, such as questions and if-then statements:
+\begin{center}
+	\texttt{TIF comp TTHEN expr\quad\quad\quad\{ \$\$ = newifthen(\$2, \$4); \}}
+\end{center}
+This function represents the two stages of the if-then statement - the test and then true (\texttt{expr}).  Because the \texttt{comp} and \texttt{expr} break down further, the tree only needs to represent the block, child nodes will come out of the if-node representing the individual conditions and expressions.\\
+\\
+A function can be used to represent more abstract features, such as rules and question blocks, but without containing much of the detail, such as the bodies.
+\begin{tabbing}
+	\texttt{rule} \= \texttt{: TRULE ident stmts TSTOP\quad\quad\quad\{ \$\$ = newfunction('R', \$2, \$3); \}}\\
+	\> \texttt{;}\\
+	\\
+	\texttt{question} \= \texttt{: TQUESTION ident question\_body} \= \texttt{TSTOP}\\
+	\> \> \texttt{\{ \$\$ = newfunction('Q', \$2, \$3); \}}\\
+	\> \texttt{;}\\
+\end{tabbing}
+The first parameter specifies whether the node is a question or a rule.  When the tree is traversed, the compiler will know whether it is looking at a function of a rule.  The second parameter specifies the name of the rule or question, indiciated by \texttt{ident}.  The third parameter points to another rule that contains the more specific rules.\\
+\\
+The functions themsevles are of the type \texttt{ast}, as defined earlier in this section.  The \texttt{newast} function declaration may look similar to the declaration below:
+\begin{center}
+\texttt{struct ast * newast(int nodeType, struct ast * l, struct ast * r);}\\
+\end{center}
+Variables (objects, identifiers, \texttt{ident}) are recognised as symbols.  A symbol needs to have a name, and storage for numbers and strings.  It requires both because flex is not a strongly typed language, where varibles must be declared and have a data type set before being used.  Instead, flex uses variables simply by using them, and any data may be added, therefore, a variable must be capable of handling both.
+\begin{tabbing}
+	\texttt{struct} \= \texttt{symbol \{}\\
+	\> \texttt{char *name[VARNAME\_SIZE];}\\
+	\> \texttt{double d\_value;}\\
+	\> \texttt{char *c\_value[VARVALUE\_SIZE];}\\
+	\> \texttt{int isdouble;}\\
+	\> \texttt{struct symlist *syms;}\\
+	\texttt{\};}\\
+\end{tabbing}
+The above declaration for symbol has several parts.  The first parameter is the name of the symbol, which is identified in the source code.  It is of type char, and has a fixed length, defined at the top of header file.  The second argument, \texttt{d\_value}, allows the variable to store a number.  Any integers will be stored as a double.  The third argument allows the variable to store text, and the fourth, \texttt{isdouble} specifies the type the variable is storing, in the even that both \texttt{d\_value} and \texttt{c\_value} are both being used.  The last argument is a linked list of other symbols.  This can be useful for the \texttt{group} feature of WinFlex, as a group item is simply an identifier containing other identifiers.\\
+\\
+The declaration for a function can be seen below.  The arguments show the nodetype, the name of the rule or question, represented by a symbol, and an ast pointing to the body.
+\begin{center}
+\texttt{struct ast * newfunction(int nodeType, struct symbol *s, struct ast * body);}\\
+\end{center}
+WinFlex assigns the result of a question back to the name of the variable that represents the question.\\
+\\
+The \texttt{symlist} described in the \texttt{symbol} contains just two items:\\
+\begin{tabbing}
+	\texttt{struct} \= \texttt{symlist \{}\\
+	\> \texttt{struct symbol *sym;}\\
+	\> \texttt{struct symbol *next;}\\
+	\texttt{\};}\\
+\end{tabbing}
+Whilst the symlist can be used within a symbol, the symlist can also be used to store the global container of all variables within the source:\\
+\begin{center}
+	\texttt{struct symlist *newsymlist(struct symbol *sym, struct symlist *next);}\\
+\end{center}
+Finally, there needs to be an entry point in order to evaluate the syntax tree.  This is fired when the root of the grammar is found during the parse.  It will go through the syntax tree and translate it into workable code, the intermediate code generator.  This will be done through an \texttt{eval} function, which takes a single argument, an AST node.\\
+\begin{center}
+	\texttt{double eval(struct ast *);}\\
+\end{center}
+The function will traverse the tree, recursively calling itself as it gets to each new AST node.
 \chapter{Testing}
 Whilst the implementation is incomplete, it is worth testing to see if the compiler can recognise tokens and follow the grammar that flex uses.  The grammar stipulates that it requires a rule, a question and an action, thus these are the bare minimum required for a test.  The bare minimum to work should be those features found in the objectives, and then the features in section \ref{sec:design}.\\
 \\
@@ -959,6 +1019,9 @@ Because the compiler is simple a source program without a graphical user interfa
 Finally, the project is available on the github service.\\This can be found here: http://github.com/blackn1ght/MSc-Project.git
 \section{What could have been done better?}\label{sec:con:better}
 In hindsight, the project could have gone further based on a greater amount of research at the start.  Whilst there is a lot of material on creating a compiler, many of them go deep into the theoretical side, rather than anything practical that can be put into use, and then learn from that.\\
+\\
+The research into building compilers continuously provided answers to LLVM, the Low Level Virtual Machine discussed in section \ref{subsec:intermediate_code_gen}.  The switch from the C based code to C++ took some getting used to, and also attempting to hook into the LLVM functions.  Whilst using LLVM seemed like a good idea at the time, the lack of clear documentation or any practical examples seriously hindered development, and took a good chunk of time out of the development phase.
+\\
 \\
 Whilst AST's were put into place in the development, they weren't used in order to allow for a compliation.  If there had been more time, more research could have been carried out in how to properly build the AST's, and generate a working WinFlex program.
 
