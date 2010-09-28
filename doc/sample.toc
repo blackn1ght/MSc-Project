@@ -29,38 +29,40 @@
 \contentsline {paragraph}{Top-Down Parsing}{26}
 \contentsline {paragraph}{Bottom-Up Parsing}{27}
 \contentsline {subsection}{\numberline {3.6.3}Syntax Trees}{27}
-\contentsline {subsection}{\numberline {3.6.4}Intermediate Code Generation}{27}
-\contentsline {paragraph}{High-Level Representations}{27}
-\contentsline {paragraph}{Low-Level Representations}{27}
-\contentsline {subsection}{\numberline {3.6.5}Optimization}{28}
-\contentsline {subsection}{\numberline {3.6.6}Object Code Generation}{28}
-\contentsline {section}{\numberline {3.7}Linux}{28}
-\contentsline {subsection}{\numberline {3.7.1}What Is Linux?}{28}
-\contentsline {section}{\numberline {3.8}Flex}{30}
-\contentsline {section}{\numberline {3.9}Bison}{32}
-\contentsline {section}{\numberline {3.10}GCC}{35}
-\contentsline {section}{\numberline {3.11}Source Control}{36}
-\contentsline {chapter}{\numberline {4}Implementation}{37}
-\contentsline {section}{\numberline {4.1}Design}{37}
-\contentsline {paragraph}{Rule}{38}
-\contentsline {paragraph}{If and Then}{38}
-\contentsline {paragraph}{Question}{38}
-\contentsline {paragraph}{Input}{39}
-\contentsline {paragraph}{Action}{39}
-\contentsline {paragraph}{Ask}{39}
-\contentsline {paragraph}{Write}{39}
-\contentsline {paragraph}{Group}{40}
-\contentsline {section}{\numberline {4.2}Tokens}{42}
-\contentsline {section}{\numberline {4.3}Data Structures}{44}
-\contentsline {section}{\numberline {4.4}Grammar}{45}
-\contentsline {chapter}{\numberline {5}Testing}{51}
-\contentsline {section}{\numberline {5.1}Testing Results}{51}
-\contentsline {section}{\numberline {5.2}Testing Discussion}{52}
-\contentsline {subsection}{\numberline {5.2.1}Test 2}{52}
-\contentsline {subsection}{\numberline {5.2.2}Test 4}{53}
-\contentsline {subsection}{\numberline {5.2.3}Test 6}{54}
-\contentsline {subsection}{\numberline {5.2.4}Test 7}{54}
-\contentsline {chapter}{\numberline {6}Conclusion}{56}
-\contentsline {section}{\numberline {6.1}What has been discovered?}{56}
-\contentsline {section}{\numberline {6.2}What has been achieved?}{57}
-\contentsline {section}{\numberline {6.3}What could have been done better?}{60}
+\contentsline {subsection}{\numberline {3.6.4}Semantic Analysis}{28}
+\contentsline {subsection}{\numberline {3.6.5}Intermediate Code Generation}{28}
+\contentsline {paragraph}{High-Level Representations}{29}
+\contentsline {paragraph}{Low-Level Representations}{29}
+\contentsline {subsubsection}{Warren Abstract Machine}{29}
+\contentsline {subsection}{\numberline {3.6.6}Optimization}{29}
+\contentsline {subsection}{\numberline {3.6.7}Object Code Generation}{29}
+\contentsline {section}{\numberline {3.7}Linux}{29}
+\contentsline {subsection}{\numberline {3.7.1}What Is Linux?}{30}
+\contentsline {section}{\numberline {3.8}Flex}{31}
+\contentsline {section}{\numberline {3.9}Bison}{33}
+\contentsline {section}{\numberline {3.10}GCC}{36}
+\contentsline {section}{\numberline {3.11}Source Control}{37}
+\contentsline {chapter}{\numberline {4}Implementation}{38}
+\contentsline {section}{\numberline {4.1}Design}{38}
+\contentsline {paragraph}{Rule}{39}
+\contentsline {paragraph}{If and Then}{39}
+\contentsline {paragraph}{Question}{39}
+\contentsline {paragraph}{Input}{40}
+\contentsline {paragraph}{Action}{40}
+\contentsline {paragraph}{Ask}{40}
+\contentsline {paragraph}{Write}{41}
+\contentsline {paragraph}{Group}{41}
+\contentsline {section}{\numberline {4.2}Tokens}{43}
+\contentsline {section}{\numberline {4.3}Abstract Syntax Trees}{45}
+\contentsline {section}{\numberline {4.4}Grammar}{46}
+\contentsline {chapter}{\numberline {5}Testing}{52}
+\contentsline {section}{\numberline {5.1}Testing Results}{52}
+\contentsline {section}{\numberline {5.2}Testing Discussion}{53}
+\contentsline {subsection}{\numberline {5.2.1}Test 2}{53}
+\contentsline {subsection}{\numberline {5.2.2}Test 4}{54}
+\contentsline {subsection}{\numberline {5.2.3}Test 6}{55}
+\contentsline {subsection}{\numberline {5.2.4}Test 7}{55}
+\contentsline {chapter}{\numberline {6}Conclusion}{57}
+\contentsline {section}{\numberline {6.1}What has been discovered?}{57}
+\contentsline {section}{\numberline {6.2}What has been achieved?}{58}
+\contentsline {section}{\numberline {6.3}What could have been done better?}{61}
