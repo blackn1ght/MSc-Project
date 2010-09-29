@@ -2,7 +2,7 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: sample.aux
 The style file: plainnat.bst
 Database file #1: sample.bib
-I was expecting a `,' or a `}'---line 34 of file sample.bib
+I was expecting a `,' or a `}'---line 33 of file sample.bib
  :  
  :  year  = "2007",
 (Error may have been on previous line)
@@ -13,45 +13,45 @@ Warning--empty year in lpawinprolog
 Warning--empty year in lpawinprolog-flex
 Warning--empty year in compilers07
 Warning--empty year in compilers07
-You've used 13 entries,
+You've used 14 entries,
             2773 wiz_defined-function locations,
-            646 strings with 6035 characters,
-and the built_in function-call counts, 4020 in all, are:
-= -- 332
-> -- 170
-< -- 12
-+ -- 66
-- -- 51
-* -- 227
-:= -- 649
-add.period$ -- 40
-call.type$ -- 13
-change.case$ -- 51
-chr.to.int$ -- 11
-cite$ -- 32
-duplicate$ -- 217
-empty$ -- 392
-format.name$ -- 66
-if$ -- 832
+            651 strings with 6087 characters,
+and the built_in function-call counts, 4314 in all, are:
+= -- 358
+> -- 180
+< -- 13
++ -- 70
+- -- 54
+* -- 240
+:= -- 694
+add.period$ -- 43
+call.type$ -- 14
+change.case$ -- 55
+chr.to.int$ -- 12
+cite$ -- 34
+duplicate$ -- 232
+empty$ -- 424
+format.name$ -- 70
+if$ -- 896
 int.to.chr$ -- 3
 int.to.str$ -- 1
 missing$ -- 10
-newline$ -- 74
-num.names$ -- 52
-pop$ -- 159
+newline$ -- 79
+num.names$ -- 56
+pop$ -- 171
 preamble$ -- 1
-purify$ -- 43
+purify$ -- 46
 quote$ -- 0
-skip$ -- 150
+skip$ -- 163
 stack$ -- 0
-substring$ -- 26
-swap$ -- 15
+substring$ -- 28
+swap$ -- 16
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 118
+type$ -- 129
 warning$ -- 6
-while$ -- 39
+while$ -- 42
 width$ -- 0
-write$ -- 162
+write$ -- 174
 (There was 1 error message)

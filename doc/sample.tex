@@ -33,21 +33,23 @@ The aim of this project is to create a simple compiler for the expert systems la
 The problems outlined in the previous section help highlight the aims and objectives that this project can use.  Time is limited, so it wouldn't be wise to implement a full version of Flex, however a small subset of the language would be sufficient.
 \\
 \\
-This project aims to create a basic implementation of the flex toolkit, using open source software.  The software would be able to be installed on any linux machine, whilst providing the basic features required to teach students how to write expert systems.
+This project aims to create a basic compiler of the flex toolkit, using open source software.  The software would be able to be installed on any linux machine, whilst providing the basic features that can run a simple tutorial that help to teach students how to write expert systems.
+\clearpage
 \section{Objectives}\label{sec:objectives}
 The objectives of this project are to:
 \begin{itemize}
-\item Create a simple flex compiler that can work on the simple tutorials from a tutorial.
+\item Create a simple flex compiler that can work on the basic tutorials from a tutorial.
 	\begin{itemize}
+	\item Utilise forward chaining inference engine;
 	\item Recognise rules, questions and actions;
 	\item Recognise variables, assignments and comparisons;
-	\item Work with simple if-statements
-	\item Output variables and text using the write() statement.
+	\item Work with simple if-statements;
+	\item Output variables and text to the user to show results and what's going on.
 	\end{itemize}
 \item Create it for the Linux platform.
 	\begin{itemize}
-	\item Command line driven - feed the application a flex source file.
-	\item Not be coupled to a Desktop Environment (Gnome, KDE etc).
+	\item Command line driven - feed the application a flex source file;
+	\item Not be coupled to a Desktop Environment (Gnome, KDE etc);
 	\end{itemize}
 \item Keep the project open source.
 	\begin{itemize}
@@ -56,25 +58,25 @@ The objectives of this project are to:
 \end{itemize}
 \clearpage
 \section{Abbreviations}\label{sec:abbreviations}
-This project focuses on two technologies called Flex.  The project focuses on the expert systems language 'flex', which is a toolkit as part of WinProlog.  The other flex is the 'Fast Lexical Analyser', which takes an input source file and generates tokens from regular expressions.  To avoid confusion, the expert systems language Flex will be called 'WinFlex' from now on, because of it's assosciation with Win-Prolog.
+This project focuses on two technologies called Flex.  The project focuses on the expert systems language 'flex', which is a toolkit as part of WinProlog.  The other flex is the 'Fast Lexical Analyser', which takes an input source file and generates tokens from regular expressions.  To avoid confusion, the expert systems language Flex will be called 'WinFlex' from now on, because of its assosciation with Win-Prolog.
 \section{Project Contents}\label{sec:project_contents}
 The following sections will discuss the overall layout of how this paper will look.
 \subsection{Chapter 2: Literature Review}\label{sec:sub:chapter2}
-The literature review shall introduce the motiviation behind the choice of the title for this project.  This will cover the problems of the current software solution to help educate students about expert systems and WinFlex.  Artificial intelligence, expert systems, Prolog and WinProlog will also be discussed.  The literature review will also look to see if there has been any similar research, and if there is, discuss how the paper goes about researching and implementing their solution.
+The literature review shall introduce the motiviation behind the choice of the title for this project.  This will cover the problems of the current software solution to help educate students about expert systems and WinFlex.  Artificial intelligence, expert systems, Prolog and WinProlog will also be discussed.  The literature review will also look to see if there has been any similar research, and if there is, discuss how the author went about researching and implementing their solution.
 \subsection{Chapter 3: Research}\label{sec:sub:chapter3}
-The research chapter will look into what artificial intelligence is, expert systems and the various sections that make up a compiler.  The research shall also be looking into Linux as a development environment, including the  flex and bison packages, plus the GCC compiler.  Finally, a small section will discuss source control, which allows the code to be stored centrally, providing useful tools such as revision control, back up, multi-develoer collabortion and more.
+The research chapter will introduce Artificial Inteligence, expert systems and the various stages that make up a compiler.  The research shall also be looking into Linux as a development environment, including the  flex and bison packages, plus the GCC compiler.  Finally, a small section will discuss source control, which allows the code to be stored centrally, providing useful tools such as revision control, back up, multi-develoer collabortion and more.
 \subsection{Chapter 4: Implementation}\label{sec:sub:chapter4}
-The implementation chapter will discuss the design process of the compiler.  This shall cover details such as what feature should be built into the compiler, based on research into flex tutorials that were worked on in some modules.  This will involve creating the tokens for the parser, and thus, designing the grammar around the current flex implementation as close as possible.  Finally, data structures will be discussed, as they provide the backbone to storing data whilst the compiler works on the source code.
+The implementation chapter will discuss the design process of the compiler.  This shall cover details such as what features should be built into the compiler, based on research into WinFlex tutorials that were worked on in some modules.  This will involve creating the tokens for the parser, and thus, designing the grammar around the current WinFlex implementation as close as possible.  Finally, data structures will be discussed, more specifically, Abstract Syntax Trees, as they provide the backbone to storing data before turning the code into something meaningful for the machine to understand.
 \subsection{Chapter 5: Testing}\label{sec:chapter5}
 The testing chapter will provide an overview of the tests carried out.  The actual test files will be found in the appendix, but the expected results, description and actual result will be found here.  For any tests that fail, there will be a discussion of why it failed and how the problem can be fixed.
 \subsection{Chapter 6: Conclusion}\label{sec:sub:chapter6}
-The conclusion will discussed what was achieved and learnt.  It shall discuss whether the end product met the aims and objectives set out in the introduction and if anything went wrong, then it shall ask why it went wrong and what could have been done to prevent it if there were an opportunity to repeat the task.  Finally, the conclusion will discuss any work that could be carried out in future, or if there weren't the same time restranints.
+The conclusion will discuss what was achieved and learnt.  It shall discuss whether the end product met the aims and objectives set out in the introduction and if anything went wrong, then it shall ask why it went wrong and what could have been done to prevent it if there were an opportunity to repeat the task.  Finally, the conclusion will discuss any work that could be carried out in future, or if there weren't the same time restranints.
 \chapter{Literature Review}
 \section{Project Motivation}\label{sec:project_motivation}
 Before this paper begins, it is worth noting the motivation behind this project.  Certain modules on the 'Intelligent Computer Systems' course required the use of a propietary software package called WinProlog.  The application can do a wealth of tasks, however, the modules only focused on a niche feature of the software, a toolkit based on Prolog called Flex (abbreviated to WinFlex to avoid confusion with the Lexixcal Analyzer, Flex).  WinFlex allows professionals, engineers and students alike to quickly write a rule-based system using a language that is very close to the English language.
 \\*
 \\*
-Whilst flex achieved results, it was felt that the debugging features were sub-par and were often inaccurate, giving no helpful messages for a beginner to use to correct their mistakes.  Also, because of the restrictions of having a licence, it meant that the software could only be installed on certain machines, in a different department within the University campus, which students felt was restrictive and inconvienient.
+Whilst WinFlex achieved results, it was felt that the debugging features were sub-par and were often inaccurate, giving no helpful messages for a beginner to use to correct their mistakes.  Also, because of the restrictions of having a licence, it meant that the software could only be installed on certain machines, in a different department within the University campus, which students felt was restrictive and inconvienient.
 \\
 \\
 \\
@@ -85,31 +87,34 @@ Whilst flex achieved results, it was felt that the debugging features were sub-p
 		\caption{A simple flex program that is syntatically wrong, plus the resulting error.}\label{fig:flexfail}
 \end{figure}
 \\
-In figure \ref{fig:flexfail}, the line \texttt{input name} should have a semi-colon at the end, like \texttt{input name ;}, to let the compiler know that the line is finsihed, but the question isn't over.  Whilst this is a simple mistake, the flex compiler hasn't picked it up, and is only being discovered when trying to run the action \texttt{go}, where flex returns an error message \texttt{no}, with no indiciation what the error is, where it is or how to fix it.  If this were a large set of rules, finding such a basic mistake could take a long time to fix.
-\\*
-\\*
-The examples below show flex encountering a gramatically incorrect script, with the compiler displaying errors.
-\begin{figure}[h]
+In figure \ref{fig:flexfail}, the line \texttt{input name} should have a semi-colon at the end, like 
+\begin{center}
+\texttt{input name ;}\\
+\end{center}
+to let the compiler know that the line is finished, but the question isn't over.  Whilst this is a simple mistake, the WinFlex compiler hasn't picked it up, and is only being discovered when trying to run the action \texttt{go}, where WinFlex returns an error message \texttt{no}, with no indiciation what the error is, where it is or how to fix it.  If this were a large set of rules, finding such a basic mistake could take a long time to fix.\\
+\\
+The figures \ref{fig:flex_error1} and \ref{fig:flex_error2} show flex encountering a gramatically incorrect script, with the compiler displaying errors.
+\begin{figure}[H]
 	\centering
 		\includegraphics[scale=0.65]{flex_error1}
-		\caption{The compiler has detected an error in the grammar.}
+		\caption{The compiler has detected an error in the grammar.}\label{fig:flex_error1}
 \end{figure}
-%\\*
-%\\*
-What we see here is some random text talking about nothing much at all!
-\begin{figure}[ht]
+Whilst the compiler in WinProlog does try to track down the error, it's not very friendly to new users, as it doesn't let them know where the error is, or what is wrong.  There were situations where n tutorials and in courseworks, where by small, simple errors could have been easily fixed if it weren't for ambiguous language on the debugger.
+\begin{figure}[H]
 	\centering
 		\includegraphics[scale=0.65]{flex_error2}
-		\caption{The compiler error isn't very specific to where it is refering to, there are no line number or highlighting on the error.}
+		\caption{The compiler error isn't very specific to where it is refering to, there are no line number or highlighting on the error.}\label{fig:flex_error2}
 \end{figure}
-\\*
-Whilst the compiler in WinProlog does try to track down the error, it's not very friendly to new users, as it doesn't let them know where the error is, or what is wrong.  There were situations where n tutorials and in courseworks, where by small, simple errors could have been easily fixed if it weren't for ambiguous language on the debugger.
+Figure \ref{fig:flex_error2} shows an error message for the example code.  Even though most of the code is gramatically wrong, the compiler insists that the error is at the top, where the first rule is gramatically sound.
 \clearpage
 \section{Outline}\label{sec:outline}
-As described in chapter 1, the outline of this project is to create a compiler for the expert systems language, flex.  Whilst Flex is based on the Artificial Intelligence langauge Prolog, this basic compiler will be written in C, emulating the basic features of flex, mainly as a teaching tool, rather than a fully fledged toolkit.  However, because Flex is built on top of Prolog, there are many papers on writing Prolog compilers.
+As described in chapter 1, the outline of this project is to create a compiler for the expert systems language, WinFlex.  Whilst WinFlex is based on the Artificial Intelligence langauge Prolog, this basic compiler will be written in C, emulating the basic features of WinFlex, mainly as a teaching tool, rather than a fully fledged toolkit.
 
 \section{Previous Work}\label{sec:previous_work}
-Because the Flex toolkit is unique, there aren't many examples or previous work done on creating a compiler soley for Flex.  However, there are countless items of literature dedicated to writing compilers, all for different languages, but constructed in the same manor - using Flex and Bison.
+Because the WinFlex toolkit is unique, there aren't many examples or previous work done on creating a compiler primarily for the langauge.  However, there are countless items of literature dedicated to writing compilers, all for different languages, but constructed in the same manor - using flex, bison and gcc.
+
+\subsection{Paper 1}\label{subsec:paper1}
+The first paper to be looked at discusses an approach to designing a compiler for Pascal language.  Whilst it isn't the same language as WinFlex, it should have the same principles regarding compiler construction.  The paper has it's draw backs though, as it was written in 1979, the chances that compiler construction and design have changed is quite likely, or at least certain techniques may have changed.
 
 \chapter{Research}
 \section[Research]{Research}\label{sec:intro_to_research}
@@ -408,7 +413,7 @@ The semantic analyser checks the syntax tree and symbol table for consistency ag
 \\
 The \textit{semantic analyser} uses the syntax tree and the information in the symbol table to check the source program for semantic consistency with the langauge definition.  It also gathers type information and saves it in either the syntax tree or the symbol table, for subsequent use during intermediate-code generation. \citep{compilers07}\\
 \\
-The semantic analyser also has the job of checking data types in expressions.  For example, it will check that in a statement:\\
+The semantic analyser also has the job of checking data types in expressions.  For example, it will check that in a statement:
 \begin{center}
 	\texttt{a = b * c}\\
 \end{center}
@@ -953,12 +958,13 @@ One valuable tool that has been discovered from this project has been the use of
 \section{What has been achieved?}\label{sec:con:achieved}
 Whilst the project didn't finish what it was set out to achieve, it did meet some of the objectives set out in section \ref{sec:objectives}, which can be found below:\\
 \begin{itemize}
-\item Create a simple flex interpreter that can work on the simple tutorials from a tutorial.
+\item Create a simple flex interpreter that can work on the basic tutorials from a tutorial.
 	\begin{itemize}
+	\item Utilise forward chaining inference engine;
 	\item Recognise rules, questions and actions;
 	\item Recognise variables, assignments and comparisons;
-	\item Work with simple if-statements
-	\item Output variables and text using the write() statement.
+	\item Work with simple if-statements;
+	\item Output variables and text to the user to show results and what's going on.
 	\end{itemize}
 \item Create it for the Linux platform.
 	\begin{itemize}
@@ -1020,10 +1026,11 @@ Finally, the project is available on the github service.\\This can be found here
 \section{What could have been done better?}\label{sec:con:better}
 In hindsight, the project could have gone further based on a greater amount of research at the start.  Whilst there is a lot of material on creating a compiler, many of them go deep into the theoretical side, rather than anything practical that can be put into use, and then learn from that.\\
 \\
-The research into building compilers continuously provided answers to LLVM, the Low Level Virtual Machine discussed in section \ref{subsec:intermediate_code_gen}.  The switch from the C based code to C++ took some getting used to, and also attempting to hook into the LLVM functions.  Whilst using LLVM seemed like a good idea at the time, the lack of clear documentation or any practical examples seriously hindered development, and took a good chunk of time out of the development phase.
+The research into building compilers continuously provided answers to LLVM, the Low Level Virtual Machine discussed in section \ref{subsec:intermediate_code_gen}.  The switch from the C based code to C++ took some getting used to, and also attempting to hook into the LLVM functions.  Whilst using LLVM seemed like a good idea at the time, the lack of clear documentation or any practical examples seriously hindered development, and took a good chunk of time out of the development phase.\\
+If the project were to be repeated with a greater amount of time, research into LLVM would need to be carried out first, however, it does seem a powerful 
 \\
 \\
-Whilst AST's were put into place in the development, they weren't used in order to allow for a compliation.  If there had been more time, more research could have been carried out in how to properly build the AST's, and generate a working WinFlex program.
+Whilst AST's were put into place in the development, they weren't used in order to allow for a compliation.  A challenge was to get the variables to be used and declared at the same time, otherwise the compiler would complain that it could not find the symbol.  If there had been more time, more research could have been carried out in how to properly build the AST's, and generate a working WinFlex program.
 
 
 \bibliographystyle{plainnat}
