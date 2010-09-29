@@ -5,6 +5,7 @@
 \usepackage{natbib}
 \usepackage{float}
 \usepackage{subfig}
+\usepackage{appendix}
 
 \bibpunct{[}{]}{,}{a}{,}{,}
 
@@ -545,26 +546,25 @@ The sample code below is an extract from the book Flex \& Bison:
 	\caption{A word count program written in flex}\label{fig:flexwc}
 	\citep{flexandbison09}
 \end{figure}
-The small flex program in figure \ref{fig:flexwc} counts the characters, words and lines in a given file.  It works similar to the \texttt{wc} GNU program in unix based systems.  The program is separated into three sections, by the use of the \texttt{\%\%} characters.  The first section declares any variables, such as \texttt{chars}, \texttt{words}, \texttt{lines}.  
-
-The second section is the heart of the lexical analyser, and is where the patterns are matched to create tokens.  In this example, there are three patterns to match: a whole word, a new line, and any character at all (decipted by the \texttt{.} character).  When each pattern is matched, the variable is incremented.
-
-The third section looks like a C program, which contains a \texttt{main} function and two lines of code.  The first line, \texttt{yylex();}, call the analyser to run on a text file that has been passed as an argument.  The second line, \texttt{printf}, outputs the values of the variables, after the lexer has been run.
+The small flex program in figure \ref{fig:flexwc} counts the characters, words and lines in a given file.  It works similar to the GNU program '\texttt{wc}' in unix based systems.  The program is separated into three sections, by the use of the \texttt{\%\%} characters.  The first section declares any variables, such as \texttt{chars}, \texttt{words}, \texttt{lines}.\\
+\\
+The second section is the heart of the lexical analyser and is where the patterns are matched to create tokens.  In this example, there are three patterns to match: a whole word, a new line, and any character at all (decipted by the \texttt{.} character).  When each pattern is matched, the relevant variable is incremented.\\
+\\
+The third is C code, which contains a \texttt{main} function and two lines of code.  The first line, \texttt{yylex();}, call the analyser to run on a text file that has been passed as an argument.  The second line, \texttt{printf}, outputs the values of the variables, after the lexer has been run.
 \\*
 \\*
 The example in figure \ref{fig:flexwc} doesn't generate any tokens, as it doesn't make use of a syntactic analyser (Bison), however, they can be generated like so:
-\\*
-\\*
-\texttt{"if"\quad\quad return IF;}\\
+\begin{center}
+	\texttt{"if"\quad\quad return IF;}
+\end{center}
 Where IF is the token to return.  Tokens can also be created for values and numbers.  The value is stored into yylval, which is passed to the parser, along with a token, so that the parser knows the type.
-\\*
-\\*
-\texttt{[0-9]+\quad\quad yylval.d = atof(yytext); return NUMBER;}
+\begin{center}
+	\texttt{[0-9]+\quad\quad yylval.d = atof(yytext); return NUMBER;}
+\end{center}
 \section{Bison}\label{sec:bison}
-Bison is the syntactic analyser which works hand in hand with Flex.  Bison originally came from Yacc (Yet Another Compiler Compiler), which was developed in the mid 1970's.  This version of Yacc was limited through it's licencing (Unix licence), which spured the development of Berkeley Yacc.  The Berkeley version was much faster, and was also under a less restrictive licence, allowing it to become the most popular version.  Richard Stallman, founder of the Free Software Foundation, then in turn created a GNU edition to be part of the GNU project, called Bison.\\*
-\\*
-Bison uses two parser methods: LALR parser (Look Ahead LR), which is based on the LR parser, and GLR (Generalised Left to Right), however Bison prefers to use LALR(1), as it is faster and easier to use than the more powerful GLR method.
+Bison is the syntactic analyser which works hand in hand with Flex.  Bison originally came from Yacc (Yet Another Compiler Compiler), which was developed in the mid 1970's.  This version of Yacc was limited through it's licencing (Unix licence), which spured the development of Berkeley Yacc.  The Berkeley version was much faster, and was also under a less restrictive licence, allowing it to become the most popular version.  Richard Stallman, founder of the Free Software Foundation, then in turn created a GNU edition to be part of the GNU project, called Bison.\\
 \\
+Bison uses two parser methods: LALR parser (Look Ahead LR), which is based on the LR parser, and GLR (Generalised Left to Right), however Bison prefers to use LALR(1), as it is faster and easier to use than the more powerful GLR method.
 General LR parsers are called LR(\textit{k}) parsers; this has an interpretation similar to the LL(\textit{k}) parsers: the \textit{L} is for \textit{L}eft-to-right scan of tokens, the \textit{R} is for the \textit{R}ightmost derivation, and the \textit{k} is for the \textit{k}-character lookahead.  Use of more than one character of lookahead puts an undesireable burden on the lexical analyser and results in very large parsing tables. \citep{compilerconstruction92}
 \\*
 \\*
@@ -617,10 +617,10 @@ Bison uses BNF, as described in an earlier chapter.  Like Flex, a Bison file is 
 	\end{tabbing}
 	\caption{A simple calculator built in Bison}\label{fig:bison_example}
 \end{figure}
-The first section contains the declarations, such as importing external libraries (\texttt{stdio.h}) and declaring tokens that are generated by flex.
-
-The second section contains the actual context-free BNF grammar.  The above example features action code, which is what is executed when the grammar is matched by the parser.  The \texttt{\$\$} symbol represents the value of the symbol on the left hand side, such as \texttt{exp}, \texttt{factor} and \texttt{term}.  The \texttt{\$n} values represent the token position in the grammar.  So, for \texttt{factor} multiply rule, \texttt{\$1} represents \texttt{factor} and \texttt{\$3} represents term.
-
+The first section contains the declarations, such as importing external libraries (\texttt{stdio.h}) and declaring tokens that are generated by flex.\\
+\\
+The second section contains the actual context-free BNF grammar.  The above example features action code, which is what is executed when the grammar is matched by the parser.  The \texttt{\$\$} symbol represents the value of the symbol on the left hand side, such as \texttt{exp}, \texttt{factor} and \texttt{term}.  The \texttt{\$n} values represent the token position in the grammar.  So, for \texttt{factor} multiply rule, \texttt{\$1} represents \texttt{factor} and \texttt{\$3} represents term.\\
+\\
 The final section, which is optional, contains the C code.  Because there are no additional C files, the bison file has a main function, which calls the parser via \texttt{yyparse()}, and also a custom version of \texttt{yyerror()}, which prints an error message when an error is encountered by the parser.
 \section{GCC}\label{fig:gcc}
 GCC (GNU Compiler Collection) is a compiler originally written for C, but now extends to C++, Java, Ada and other languages.  It comes bundled with the \texttt{build-essential} meta package.  Bison generates the parser in a c file (\texttt{name.tab.c}), which needs to be compiled together along with any other c files that accompany the flex and bison files.
@@ -635,12 +635,12 @@ This chapter looks into the details of implementation.
 \section{Design}\label{sec:design}
 Before starting the implementation, it is important to decide exactly \textit{what} the compiler will be able to handle.  It would be a far stretch to be able to replicate all the capabilities of the flex compiler, largely due to time constraints.  A list of capabilities would roughly translate into the tokens that the lexical analyser would need to generate.  A good area to start would be to look into the tutorial material on the relevant modules, and look into implementing some of the basics from there.  One of the core certainties is that the compiler will only deal with forward chaining rules, rather than backwards chaining.  Idealy, the compiler would be able to do either, with a command line switch determining which method of chaining to use, however time restrains apply.\\*
 \\*
-The module 'Neural Networks and Expert Systems' had some examples for introducing the flex toolkit.  As they were teaching material, to introduce people into the langauge, the examples were straight forward and didn't involve anything complicated.  The tutorial "Chip Shop Flex" contains most of the basic features in required to make a useful expert system.
+The module 'Neural Networks and Expert Systems' had some examples for introducing the WinFlex toolkit.  As they were teaching material, to introduce people into the langauge, the examples were straight forward and didn't involve anything complicated.  The tutorial "Chip Shop Flex" contains most of the basic features in required to make a useful expert system.
 \\
 \\
-By their nature, expert systems are about rules, questions and decisions.  Such features are at the absolute core of flex, and thus, should be included without a rationale: \texttt{rule}, \texttt{question}, \texttt{action}, \texttt{if}, \texttt{then}, \texttt{input}, \texttt{write}.\\*
+By their nature, expert systems are about rules, questions and decisions.  Such features are at the absolute core of WinFlex, and thus, should be included without a rationale: \texttt{rule}, \texttt{question}, \texttt{action}, \texttt{if}, \texttt{then}, \texttt{input}, \texttt{write}.\\*
 \\
-The keywords below are explained, along with a usage of how they are used.  Square ([]) brackets show optional code, \textbar \space means OR (name OR number), and text in \textit{italics} shows where raw text or variables.
+The keywords below are explained, along with a usage of how they are used.  Square ([ ]) brackets show optional code, \textbar \space means OR (name OR number), and text in \textit{italics} shows where raw text or variables.
 \paragraph{Rule} is possibly the most important keyword in the flex program, rules are a core feature of an expert system.  A rule contains if statements and other expressions, such as assigning values to variables, performing mathematical equations, writing output to the screen and more.  Without rules, the program would be useless.\\
 \begin{tabbing}
 	Usage: rule \= \textit{identifier}\\
@@ -665,14 +665,18 @@ Usage: if \textit{tests} then \textit{expressions}
 \paragraph{Ask} allows a rule to 'ask a question'\\
 Usage: ask \textit{identifier}\\
 \paragraph{Write} does the job of printing program output.  Variable values and raw text can be printed.  Text cannot be concatinated within a write statement, but can be done by having multiple write statements.  The \texttt{nl} keyword outputs a new line.\\
+\\
 Usage: write(\textit{string} \textbar \space \textit{identifier})\\
+\\
 The punctuation (\texttt{;}, \texttt{.}) are part of the flex language, and help the compiler to distinguish end of lines or rules.\\
 \\
 The next task it is to decide which other features of the langauge should be included.  As described in the paragraph regarding the question and input, there is a method to allow the user to choose from a list of options from a list.  These paragraphs discussed the method of choosing the items, but didn't look into where these items are declared.
 \paragraph{Group} is the keyword that is used at the very top of the flex program, and can be used as many times in succession.  The group keyword is used in the example below:
+\begin{center}
 \texttt{gTemperature: freezing, cold, mild, warm, hot}\\
+\end{center}
+The above code would be found at the top of the flex source code.  It is used in the following code:
 \begin{tabbing}
-The above code would be found at the top of the flex source code.  It is used in the following code:\\
 \texttt{question} \= \texttt{temperature}\\
 \> \texttt{How warm is it outside? ;}\\
 \> \texttt{choose from gTemperature ;}\\
@@ -756,12 +760,10 @@ Comparison operators will be handled differently, as it would make the grammar e
 		\caption{A table for comparison operators}\label{fig:cmp_table}
 	\end{center}
 \end{figure}
-Whitespace and comments are ignored.
 \section{Grammar}\label{sec:grammar}
 The grammar describes the syntax of the language.  It should start off with an abstract view of the program, then working it's way deeper into more detail about expressions and statements.  The overall program structure should involved a mixed combination of rules and questions, with an action at the end, to run the script.  The rule needs to allow any combination of rules and questions, but at least one of each has to exist.  This can be achieved by using multple rules and nesting them in the correct order.\\
 \\
 Firstly, a rule needs to represent the entire program.  This can be simply:\\
-\\
 \begin{tabbing}
 	\texttt{flexes:} \= \texttt{script\quad\quad\{ \}}\\
 	\> \texttt{;}\\
@@ -787,7 +789,6 @@ The \texttt{script} rule then contains two non-temrinals.  The first, \texttt{pr
 The above grammar shows the breakdown of how the code should be structured.  The \texttt{programs} rule is possibly the most important; it describes that there can either be a rule or question, or, there can be an instance of itself (rules and questions), along with a rule and question.  It's this logic that allows there to be multiple rules and questions in any particular order within the flex program.\\
 \\
 The next rule represents an entire question block.  Because a question is structured in particular way, a single rule can encompass the majority of the question.  A question consists of two compulsary parts: the question itself and a way to catch an answer from the user, whilst it is optional to include a \texttt{because} clause.\\
-\\
 \begin{tabbing}
 	\texttt{question:} \= \texttt{TQUESTION ident question\_block TSTOP}\\
 	\> \texttt{;}\\
@@ -805,7 +806,6 @@ The \texttt{question} rule provides an overview description of the question - th
 The \texttt{question\_block} itself handles the two required lines, plus the optional because clause.  The \texttt{TSTRING} token represents a string of characters within quotation marks, followed by \texttt{TQEND}, which tells the compiler that the first line has ended.  The second park, \texttt{input}, is another rule that handles the different data types that the input can handle, such as strings, numbers and integers.  This of course is terminated with the \texttt{TQEND} token, and finally, the \texttt{TBECAUSE} and \texttt{TSTRING} represent the because statement repsectively.  There is no \texttt{TDOT} on the end of the \texttt{because} statement, as the \texttt{question} rule handles it.\\
 \\
 Next, the grammar needs to support rules.  The \texttt{rule} statement is similar to the \texttt{question}:\\
-\\
 \begin{tabbing}
 \texttt{rule:} \= \texttt{TRULE ident stmts TSTOP}\\
 \> \texttt{;}\\
@@ -830,15 +830,15 @@ The \texttt{stmts} rule acts like a link to other rules, similar to how the \tex
 	\> \texttt{\textbar \space TWRITE TLPAREN TSTRING TRPAREN}\\
 	\> \texttt{;}\\
 \end{tabbing}
-The \texttt{stmts} rule simply allows one or more instances of the \texttt{expr} rule, by either having just a single \texttt{expr}, or having itself (which could be mutliple times), followed by the \texttt{expr} rule.  In short, the rule specifies that there can either be a single statement, or an infinite number of statements.  The \texttt{expr} rule contains many of the little tasks that make up a flex program.  The first rule is an if statement, that simply allows for a simple comparison, and then an expression in the true statement.  The grammar allows the if statement to have several tests, such as:\\
-\\
-\texttt{IF sky IS "blue" AND clouds IS "none" THEN \textit{expr}}\\
-\\
+The \texttt{stmts} rule simply allows one or more instances of the \texttt{expr} rule, by either having just a single \texttt{expr}, or having itself (which could be mutliple times), followed by the \texttt{expr} rule.  In short, the rule specifies that there can either be a single statement, or an infinite number of statements.  The \texttt{expr} rule contains many of the little tasks that make up a flex program.  The first rule is an if statement that simply allows for a simple comparison and then an expression in the true statement.  The grammar allows the if statement to have several tests, such as:\begin{center}
+\texttt{IF sky IS "blue" AND clouds IS "none" THEN \textit{expr}}
+\end{center}
 through the use of the \texttt{TAND expr} rule.  This can allow if statements to be nested, as the IF statement is part of \texttt{expr}. Likewise, there can be multiple \texttt{expr} statements after the then, such as:\\
 \\
-\texttt{IF sky IS "blue" AND clouds IS "none" THEN day becomes "sunny" AND message becomes "take sun glasses!"}\\
+\texttt{IF sky IS "blue" AND clouds IS "none"\\
+THEN day becomes "sunny" AND message becomes "take sun glasses!"}\\
 \\
-The \texttt{TASK ident} expression allows flex to call upon questions, and the \texttt{TLPAREN expr TRPAREN} simply represents any expression wrapped in parenthesis.
+The \texttt{TASK ident} expression allows WinFlex to call upon questions, and the \texttt{TLPAREN expr TRPAREN} simply represents any expression wrapped in parenthesis.
 The tests for the if statement are contained in a separate rule, \texttt{comp}:\\
 \begin{tabbing}
 \texttt{comp:} \= \texttt{ident CMP ident}\\
@@ -857,28 +857,29 @@ Before writing the grammar, the AST's need to be defined, so that the parser can
 	\> \texttt{struct ast *r;}\\
 	\texttt{\}}
 \end{tabbing}
-Whilst the AST handles the tree, there needs to be a way to store the code.  For example, a structure can be created to store the relevant information that makes up an if statement: the test, true and false statements.  In Flex, there are no else blocks on if statements, so a pointer to a false structure wouldn't be necessary.\\*
+Whilst the AST handles the tree, there needs to be a way to store the code.  For example, a structure can be created to store the relevant information that makes up an if statement: the test, true and false statements.  In WinFlex, there are no else blocks on if statements, so a pointer to a false structure wouldn't be necessary.\\*
 \\*
-When the grammar is being parsed, the parser needs to build the AST up, placing the code into relevant places into the tree.  Various C functions are used to build them up.  For example:\\
+When the grammar is being parsed, the parser needs to build the AST up, placing the code into relevant places into the tree.  Various C functions are used to build them up.  For example:
 \begin{tabbing}
 	\texttt{expr}\=\texttt{: expr TPLUS expr\quad\quad\quad\quad\quad\quad\{ \$\$ = newast(\$2, \$1, \$3); \}}\\
 	\> \texttt{\textbar \space expr TMINUS expr\quad\quad\quad\quad\quad\quad\{ \$\$ = newast(\$2, \$1, \$3); \}}\\
 	\> \texttt{\textbar \space TWRITE TLPAREN TSTRING TRPAREN\quad\{ \$\$ = newwrite(\$3); \}}\\
 	\> \texttt{;}
 \end{tabbing}
-The example above shows three expressions, with two different builder functions.  The \texttt{\$\$} symbols represent the current node in the tree.  The first function, \texttt{newast}, builds a new, simple node, and inserts it into the position of \texttt{\$\$}.  The function takes three arguments: the symbol that of the operator, the left expression and the right expression.  These are represented by \$2, \$1 and \$3 repsectively.
+The example above shows three expressions, with two different builder functions in the action code.  The \texttt{\$\$} symbols represent the current node in the tree.  The first function, \texttt{newast}, builds a new, simple node, and inserts it into the position of \texttt{\$\$}.  The function takes three arguments: the symbol that of the operator, the left expression and the right expression.  These are represented by \$2, \$1 and \$3 repsectively.
 
 The \texttt{newwrite} function represents a write statement in the source program, and only takes a single argument: the data to write.  Because the function is specific to the particular task, the function can write into the AST what it represents.  The data to write could either be a literal string, or an object, which means that the object needs to be parsed into a string when it is detected.  This can be done like so:\\
 \begin{center}
 	\texttt{TWRITE TLPAREN ident TRPAREN\quad\quad\{ \$\$ = newwrite(\$<s>3); \}}
 \end{center}
-As the langauge in WinFlex is quite specific, functions can be written for the more specific features, such as questions and if-then statements:
+As the langauge in WinFlex is quite specific, functions can be written for the more specific features, such as questions and if-then statements:\\
 \begin{center}
 	\texttt{TIF comp TTHEN expr\quad\quad\quad\{ \$\$ = newifthen(\$2, \$4); \}}
 \end{center}
 This function represents the two stages of the if-then statement - the test and then true (\texttt{expr}).  Because the \texttt{comp} and \texttt{expr} break down further, the tree only needs to represent the block, child nodes will come out of the if-node representing the individual conditions and expressions.\\
 \\
 A function can be used to represent more abstract features, such as rules and question blocks, but without containing much of the detail, such as the bodies.
+\clearpage
 \begin{tabbing}
 	\texttt{rule} \= \texttt{: TRULE ident stmts TSTOP\quad\quad\quad\{ \$\$ = newfunction('R', \$2, \$3); \}}\\
 	\> \texttt{;}\\
@@ -893,7 +894,7 @@ The functions themsevles are of the type \texttt{ast}, as defined earlier in thi
 \begin{center}
 \texttt{struct ast * newast(int nodeType, struct ast * l, struct ast * r);}\\
 \end{center}
-Variables (objects, identifiers, \texttt{ident}) are recognised as symbols.  A symbol needs to have a name, and storage for numbers and strings.  It requires both because flex is not a strongly typed language, where varibles must be declared and have a data type set before being used.  Instead, flex uses variables simply by using them, and any data may be added, therefore, a variable must be capable of handling both.
+Variables (objects, identifiers, \texttt{ident}) are recognised as symbols.  A symbol needs to have a name, and storage for numbers and strings.  It requires both because WinFlex is not a strongly typed language, where varibles must be declared and have a data type set before being used.  Instead, WinFlex uses variables simply by using them, and any data may be added, therefore, a variable must be capable of handling both.
 \begin{tabbing}
 	\texttt{struct} \= \texttt{symbol \{}\\
 	\> \texttt{char *name[VARNAME\_SIZE];}\\
@@ -915,7 +916,7 @@ The \texttt{symlist} described in the \texttt{symbol} contains just two items:\\
 \begin{tabbing}
 	\texttt{struct} \= \texttt{symlist \{}\\
 	\> \texttt{struct symbol *sym;}\\
-	\> \texttt{struct symbol *next;}\\
+	\> \texttt{struct symlist *next;}\\
 	\texttt{\};}\\
 \end{tabbing}
 Whilst the symlist can be used within a symbol, the symlist can also be used to store the global container of all variables within the source:\\
@@ -931,7 +932,7 @@ The function will traverse the tree, recursively calling itself as it gets to ea
 Whilst the implementation is incomplete, it is worth testing to see if the compiler can recognise tokens and follow the grammar that flex uses.  The grammar stipulates that it requires a rule, a question and an action, thus these are the bare minimum required for a test.  The bare minimum to work should be those features found in the objectives, and then the features in section \ref{sec:design}.\\
 \\
 \section{Testing Results}\label{sec:testing_results}
-The table below shows the results from the testing.  The R/F field ('[R]un' or '[F]ail') represents the \textit{expected} result.  For tests that failed, see section \ref{sub:sub:sec:test2}.
+The table below shows the results from the testing.  The R/F field ('[R]un' or '[F]ail') represents the \textit{expected} result.  For tests that failed, see section \ref{sec:testing_discussion}.
 \begin{figure}[H]
 	\begin{tabular}{| l | l | p{270pt} | p{110pt} |}
 		\hline
@@ -993,7 +994,9 @@ The implementation took many turns as more research was carried out.  At one sta
 The depth and complexity of the project has meant that there was plenty to learn, as nearly everything has been new.  It has been interesting to learn how source code is read by a compiler: separating each 'word' out into tokens, discarding whitespace and comments, and then matching them against a grammar.  The fascinating part is the parse tree, where the tokens are placed into a tree according to the grammar.
 \\
 \\
-One valuable tool that has been discovered from this project has been the use of regular expressions.  Regular expressions are extremely useful for text analysis, especially for validating the formatting of text in forms before processing.
+One valuable tool that has been discovered from this project has been the use of regular expressions.  Regular expressions are extremely useful for text analysis, especially for validating the formatting of text in forms before processing.\\
+\\
+Another interesting observation is the fact that compilers haven't changed a great deal in terms of their design.  Ever since the late 1970's, they've retained the same basic design.
 \section{What has been achieved?}\label{sec:con:achieved}
 Whilst the project didn't finish what it was set out to achieve, it did meet some of the objectives set out in section \ref{sec:objectives}, which can be found below:\\
 \begin{itemize}
@@ -1074,6 +1077,11 @@ Whilst AST's were put into place in the development, they weren't used in order 
 
 \bibliographystyle{plainnat}
 \bibliography{MSc-Dissertation}
+\clearpage
+\appendix
+\appendixpage
+\addappheadtotoc
+Insert code dumpage here, or maybe not.. who knows?
 \end{document}
 
 
