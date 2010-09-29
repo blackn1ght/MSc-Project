@@ -1,0 +1,89 @@
+\begin{thebibliography}{15}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Allison()]{thehouseofwindsor}
+Lloyd Allison.
+\newblock Prolog - the house of windsor.
+\newblock
+  http://www.csse.monash.edu.au/~lloyd/tildeLogic/Prolog.toy/Examples/windsor-%
+small/.
+
+\bibitem[Berkeley(1997)]{whatisai}
+Istvan~S.N. Berkeley.
+\newblock What is artificial intelligence?
+\newblock
+  http://www.ucs.louisiana.edu/~isb9112/dept/phil341/wisai/WhatisAI.html, 1997.
+
+\bibitem[Estier()]{whatisbnfnotation}
+Th. Estier.
+\newblock What is bnf notation?
+\newblock
+  http://www.cui.unige.ch/db-research/Enseignement/analyseinfo/AboutBNF.html.
+\newblock CUI - Univeristy of Geneva.
+
+\bibitem[Lattner(2010)]{llvm10}
+Chris Lattner.
+\newblock Llvm overview.
+\newblock http://llvm.org/, 2010.
+
+\bibitem[Levine(2009)]{flexandbison09}
+John~R. Levine.
+\newblock \emph{Flex \& Bison}.
+\newblock O'Reilly Media, 2009.
+
+\bibitem[LPA({\natexlab{a}})]{lpawinprolog}
+LPA.
+\newblock Lpa win-prolog 4.9.
+\newblock http://www.lpa.co.uk/win.htm, {\natexlab{a}}.
+
+\bibitem[LPA({\natexlab{b}})]{lpawinprolog-flex}
+LPA.
+\newblock Flex toolkit.
+\newblock http://www.lpa.co.uk/flx.htm, {\natexlab{b}}.
+
+\bibitem[Nikolopoulos(1997)]{expertsystems98}
+Chris Nikolopoulos.
+\newblock \emph{Expert Systems}.
+\newblock CRC Press; 1 edition, 1997.
+
+\bibitem[Parsons(1992)]{compilerconstruction92}
+Thomas~W. Parsons.
+\newblock \emph{Compiler Construction}.
+\newblock W.H. Freeman and Company, 1992.
+
+\bibitem[Roach(2009{\natexlab{a}})]{flexsystems09}
+Paul Roach.
+\newblock Techniques handout 3.
+\newblock Module CS4S22, Lecture Note, 2009{\natexlab{a}}.
+
+\bibitem[Roach(2009{\natexlab{b}})]{forwardchaning09}
+Paul Roach.
+\newblock Forward chaining programs.
+\newblock Module CS4S22, Techniques handout 3, 2009{\natexlab{b}}.
+
+\bibitem[Rudmik and Lee(1979)]{compilercodegeneration79}
+A.~Rudmik and E.S. Lee.
+\newblock Compiler design for efficient code generation and program
+  optimization.
+\newblock \emph{ACM Portal}, 1979.
+
+\bibitem[Smith(2007)]{quickguidetogpl3}
+Brett Smith.
+\newblock A quick guide to gplv3.
+\newblock http://www.gnu.org/licenses/quick-guide-gplv3.html, 2007.
+
+\bibitem[V.Aho et~al.()V.Aho, Lam, Sethi, and Ullman]{compilers07}
+Alfred V.Aho, Monica~S. Lam, Ravi Sethi, and Jeffrey~D. Ullman.
+\newblock \emph{Compilers - Principles\, Techniques\, \& Tools}.
+\newblock Addison Wesley.
+
+\bibitem[Wilhelm and Maurer(1995)]{compilerdesign95}
+Reinhard Wilhelm and Dieter Maurer.
+\newblock \emph{Compiler Design}.
+\newblock Addison Wesley, 1995.
+
+\end{thebibliography}

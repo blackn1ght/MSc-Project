@@ -1,0 +1,57 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: MSc-Dissertation.aux
+The style file: plainnat.bst
+Database file #1: MSc-Dissertation.bib
+I was expecting a `,' or a `}'---line 33 of file MSc-Dissertation.bib
+ :  
+ :  year  = "2007",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--empty year in thehouseofwindsor
+Warning--empty year in whatisbnfnotation
+Warning--empty year in lpawinprolog
+Warning--empty year in lpawinprolog-flex
+Warning--empty year in compilers07
+Warning--empty year in compilers07
+You've used 15 entries,
+            2773 wiz_defined-function locations,
+            656 strings with 6237 characters,
+and the built_in function-call counts, 4677 in all, are:
+= -- 390
+> -- 201
+< -- 14
++ -- 77
+- -- 60
+* -- 263
+:= -- 752
+add.period$ -- 46
+call.type$ -- 15
+change.case$ -- 60
+chr.to.int$ -- 13
+cite$ -- 36
+duplicate$ -- 251
+empty$ -- 454
+format.name$ -- 79
+if$ -- 972
+int.to.chr$ -- 3
+int.to.str$ -- 1
+missing$ -- 11
+newline$ -- 84
+num.names$ -- 60
+pop$ -- 181
+preamble$ -- 1
+purify$ -- 50
+quote$ -- 0
+skip$ -- 179
+stack$ -- 0
+substring$ -- 30
+swap$ -- 17
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 140
+warning$ -- 6
+while$ -- 45
+width$ -- 0
+write$ -- 186
+(There was 1 error message)
