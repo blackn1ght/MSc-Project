@@ -78,4 +78,3 @@
 \contentsline {section}{\numberline {6.1}What has been discovered?}{65}
 \contentsline {section}{\numberline {6.2}What has been achieved?}{66}
 \contentsline {section}{\numberline {6.3}What could have been done better?}{69}
-\contentsline {chapter}{Appendices}{74}

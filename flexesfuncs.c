@@ -7,7 +7,6 @@
 #include <stdarg.h>
 #include <string.h>
 #include <math.h>
-//#include "bst.h"
 #include "flexes.h"
 #include "flexes.tab.h"
 

@@ -6,7 +6,6 @@
 \usepackage{float}
 \usepackage{subfig}
 \usepackage{appendix}
-\usepackage{pdfpages}
 
 \bibpunct{[}{]}{,}{a}{,}{,}
 
@@ -14,11 +13,13 @@
 
 \title{Developing a Compiler for the Expert Systems Language, Flex}
 \author{05017742 - Thomas Cowell\\
-		\texttt{MSc Intelligent Computer Systems, 2009-2010}}
+		\texttt{MSc Intelligent Computer Systems, 2009-2010}\\
+		\\
+		1st Supervisor: Gauis Mulley\\
+		2nd Supervior: Keith Verheyden}
 
 \maketitle
 
-\includepdf[pages=-]{Declaration.pdf}
 
 \begin{abstract}
 The aim of this project is to create a simple compiler for the expert systems language, Flex.  Flex is an expert systems language that focuses on using plain English to make it accessible for non-technical users, and to aid building rapid rule based systems.  The project shall investigate methods and tools for developing a compiler.
@@ -125,6 +126,7 @@ Because the WinFlex toolkit is unique, there aren't many examples or previous wo
 The first paper to be looked at discusses an approach to designing a compiler for Pascal language.  Whilst it isn't the same language as WinFlex, it should have the same principles regarding compiler construction.  The paper has it's draw backs though, as it was written in 1979, the chances that compiler construction and design have changed is quite likely, or at least certain techniques may have changed.\\
 \\
 The paper discusses "passes" of the compiler, different stages that the compiler goes through in order to take the source code and turn it into a native program.  The following quote from the paper looks briefly into the several passes that the Pascal compiler goes through to take the source program and turn it into a native machine runable application.
+\textit{
 \paragraph{Pass1} performs the lexical and syntactical analysis, generating as output a standardized high level control flow graph.
 \paragraph{Pass2} analyzes the constant, type, and variable declarations and maps the program identifiers into unique name indicies according to PASCAL scope rules.
 \paragraph{Pass3} traverses the control flow graph and checks the program for semantic correctness.  In the process of performing the semantic analysis, simple transformations are performed on the flow graph in instances where the graph generated in pass1 does not represent teh semantics of the program.
@@ -132,7 +134,7 @@ The paper discusses "passes" of the compiler, different stages that the compiler
 \paragraph{Pass5} performs global machine and lanaguage independent optimizing transformations on the intermediate code.
 \paragraph{Pass6} performs a "live-dead" variable analysis and encodes this information in the flow graph to be used by the register allocator in pass7.
 \paragraph{Pass7} translates the intermediate code into machine specific object code.
-\paragraph{Pass8} performs machine dependent peephole optimizing transformations on the object code. \citep{compilercodegeneration79}\\
+\paragraph{Pass8} performs machine dependent peephole optimizing transformations on the object code.} \citep{compilercodegeneration79}\\
 \\
 Passes 1 to 4 represent the stages of lexical analysis, parsing the grammar, building the syntax up into a syntax tree and then checking the data types on expressions, making alterations to some data types where deemed necessary, and finally, generating the intermediate code.
 \\
@@ -146,7 +148,7 @@ Before any implementation can begin, research needs to be conducted in order to 
 \section{Artificial Intelligence}\label{sec:AI}
 Artificial Intelligence (AI) is a term for machines that can appear to act as if they are 'thinking' for themselves - that is, to emulate the way the human mind works.\\
 \\
-Roughly speaking, Artificial Intelligence is the study of man-made computational devices and systems which can be made to act in a manner which we would be inclined to call intelligent. \citep{whatisai}
+\textit{Roughly speaking, Artificial Intelligence is the study of man-made computational devices and systems which can be made to act in a manner which we would be inclined to call intelligent.} \citep{whatisai}
 \\
 \\
 Interest in AI began when the British computer scientist Alan Turing stated, that if a machine can pass a series of questions, and trick the questioner into thinking that the machine was infact human, then the machine could be classed as having intelligence.  This test has since become known as the 'Turing Test', and is still used today as an acid test to test the capability of an AI implementation.\\
@@ -159,7 +161,7 @@ Expert Systems fall into the category of AI, because they emulate the roll of an
 In the modern world where information is highly valuable and where time is of the essence, many experts have turned to computing to help provide answers for them that may otherwise take a while to reach through their own expertees, or where a human expert may forget all the approaches into a decision making process.  Expert Systems provide an easier way for professionals to reach conclusions through a series of questions, usually linking to a knowledge base.  For example, a doctor may use an expert system to reach a diagnosis for a patient where the illness or problem may not be readily obvious.  The system would ask a question where the doctor would answer with the symptoms, and then the expert system would continue asking more questions, based on the previous answers, until a conclusion is reached.
 \\*
 \\*
-Expert system development entials the conversion of information about a bounded problem domain into knowledge, which is then represented in a format suitable for computer manipulation.  The created depository of knowledge, known as the knowledge base, can then by used by various deductive reasoning techniques to derive solutions \citep{expertsystems98}.
+\textit{Expert system development entials the conversion of information about a bounded problem domain into knowledge, which is then represented in a format suitable for computer manipulation.  The created depository of knowledge, known as the knowledge base, can then by used by various deductive reasoning techniques to derive solutions.} \citep{expertsystems98}.
 \\*
 \\*
 From this, it is obvious that the usefulness of the expert system is only as good as the underlying data - the knowledge base.  Using the doctors example from the previous paragraph, the system would be of no use if the knowledge base had minimal content, whilst in the reverse situation, it would be extremely useful to have a large knowledge base.  Doctors from around the world could contribute answers as new illnesses and cures are discovered, which in turn would improve the accuracy and usefulness of the expert system.
@@ -206,7 +208,7 @@ There are some notable disadvantages to expert systems.  An important pitfall to
 WinProlog is a propietary software package, developed by Logic Programming Associates Ltd.  LPA describe Win-Prolog below:
 \\*
 \\*
-WIN-PROLOG is the leading Prolog compiler system for Windows-based PCs. Prolog is an established and powerful AI language which provides a high-level and productive environment based on logical inference.\citep{lpawinprolog}
+\textit{WIN-PROLOG is the leading Prolog compiler system for Windows-based PCs. Prolog is an established and powerful AI language which provides a high-level and productive environment based on logical inference.}\citep{lpawinprolog}
 \\*
 \\*
 One of the features of Win-Prolog is Flex, an expert systems toolkit built on top of Prolog.
@@ -215,24 +217,24 @@ One of the features of Win-Prolog is Flex, an expert systems toolkit built on to
 The 'WinFlex Tutorial' describes WinFlex as "Flex is a software system specifically designed to aid the development and delivery of Expert Systems."
 \\*
 \\*
-To appreciate both the power and limitations of Expert System approaches to reaching expert conclusions, it is necessary to construct and experiment with expert systems.  In this module, the Flex Expert System Shell will be used.  Flex describes knowledge in terms of \textit{production rules} (that is, \textit{if-then} statements), which has proved the most popular approach to encapsulation expert knowledge.  Such rules, despite appearing simple, enable relatively complex connections to be made between individual pieces of 'knowledge', thereby solving apparently difficult problems.\citep{flexsystems09}.
+\textit{To appreciate both the power and limitations of Expert System approaches to reaching expert conclusions, it is necessary to construct and experiment with expert systems.  In this module, the Flex Expert System Shell will be used.  Flex describes knowledge in terms of \texttt{production rules} (that is, \texttt{if-then} statements), which has proved the most popular approach to encapsulation expert knowledge.  Such rules, despite appearing simple, enable relatively complex connections to be made between individual pieces of 'knowledge', thereby solving apparently difficult problems.}\citep{flexsystems09}.
 \\*
 \\*
 The advantages of WinFlex is that it's easy to understand, as it's very close to the English language.  A non-programmer could look at it and understand the system within several minutes, where as a traditional Prolog script may need some prior understanding of programming to be able to understand what is going on.
 \\*
 \\*
-Flex expert system toolkit, an expressive and flexible rule-based development system for building and delivering scalable and flexible expert systems and business rules applications. Flex provides a comprehensive and versatile set of facilities for both programmers and non-programmers to construct reliable and maintainable applications.\citep{lpawinprolog-flex}.
+\textit{Flex expert system toolkit, an expressive and flexible rule-based development system for building and delivering scalable and flexible expert systems and business rules applications. Flex provides a comprehensive and versatile set of facilities for both programmers and non-programmers to construct reliable and maintainable applications.} \citep{lpawinprolog-flex}.
 \\*
 \\*
 WinFlex is capable of working with the knowledge base in two distinct ways: Forward and Backward chaining.  The differences are described below.
 \subsection{Forward Chaining}\label{subsec:forward_chaining}
 Forward chaining is a method of reasoning in expert systems.  In laymens terms, forward chaining looks at what the system knows, and asks questions to get more information in order to reach a conclusion by using if-then statements to determine the value of objects, through a series of rules.
 \clearpage
-If a rule relies on knowing the value of an object (\textit{i.e.} because it is used in a condition), one of the following three cases applies:
+\textit{If a rule relies on knowing the value of an object (\textit{i.e.} because it is used in a condition), one of the following three cases applies:}
 \begin{itemize}
-	\item the object has already been instantiated;
-	\item the object has not yet been instantiated, but the inference engine can find a question to ask which will determine its value - this causes WinFlex to ask the question;
-	\item the object has not yet been instantiated, but the inference engine can find another rule which might determine its value. \citep{forwardchaning09}
+	\item \textit{the object has already been instantiated;}
+	\item \textit{the object has not yet been instantiated, but the inference engine can find a question to ask which will determine its value - this causes WinFlex to ask the question;}
+	\item \textit{the object has not yet been instantiated, but the inference engine can find another rule which might determine its value.} \citep{forwardchaning09}
 \end{itemize}
 Basically, the flow of the program is determined by whether or not objects are instantiated (created and have a value) or not.  The inference engine will try its best to obtain a value, from either another rule or by asking a question.\\
 \\
@@ -313,16 +315,16 @@ In laymens terms, a compiler takes human readable source code and translates it 
 \\
 Programming languages are notations for describing computations to people and to machines.  The world as we know it depends on programming langauges, because all the software running on all the computers was written in some programming langauge.  But, before a program can be run, it first must be translated into a form in which it can be executed by a computer.
 
-The software systems that do this translation are called \textit{compilers}.\citep{compilers07}
+"The software systems that do this translation are called \textit{compilers}." \citep{compilers07}
 \\*
 \\*
 This quote gives a brief overview of what a compiler does.  It translates the human readable program into a format that the computer can understand, i.e. instructions.  Whilst this sounds simple, the actual process is reasonably complicated, and done in several phases:\\
 \begin{itemize}
-	\item Lexical Analysis
-	\item Syntactical Analysis
-	\item Intermediate Code Generation
-	\item Optimization
-	\item Object Code Generation
+	\item \textit{Lexical Analysis}
+	\item \textit{Syntactical Analysis}
+	\item \textit{Intermediate Code Generation}
+	\item \textit{Optimization}
+	\item \textit{Object Code Generation}
 \end{itemize}\citep{compilerconstruction92}
 \subsection{Lexical Analysis}\label{subsec:lexical_analysis}
 The first task of the compiler is to read the source code that the developer has written, and breaks it up into meaningful chunks called tokens.  These tokens are defined in a lexical file, in which the lexical scanner will process.  For example, take the following flex code:\\
@@ -343,7 +345,7 @@ The lexical analyser is capable of removing characters that aren't relevant to t
 Regular Expressions, often identified or shortned to 'regex', allows developers to match patterns of text.  It is extremely powerful for recognising patterns in text, and seeing as a programming language is made up patterns, is used in the lexical analysis process for matching expressions to create tokens.
 \\*
 \\*
-A regular expression is a pattern description using a metalanguage, a language that you can use to describe what you want the pattern to match.  Flex's regular expression language is essentially POSIX-extended regular expressions (which is not surprising considering their shared Unix heritage). \citep{flexandbison09}
+\textit{A regular expression is a pattern description using a metalanguage, a language that you can use to describe what you want the pattern to match.  Flex's regular expression language is essentially POSIX-extended regular expressions (which is not surprising considering their shared Unix heritage).} \citep{flexandbison09}
 \\*
 \\*
 Regular expressions are a powerful way of matching complicated patterns of strings.  It uses a series of special characters that allow the user [of regular expressions] to create a query.
@@ -391,19 +393,19 @@ The code above can be broken down into tokens.
 \end{figure}
 Figure \ref{fig:whilegraph} shows a parse tree of the simple \texttt{while} code sample.  The code is broken down into two main parts - the evaluation, and the block.  These are then further broken down further down the tree.\\
 \\
-The syntactic analyzer, or \textit{parser}, is the heart of the front end of the compiler.  The parser's main task is analyzing the structure of the program and its component statements and checking these for errors.  It frequently controls the lexical analyzer, which provides tokens in response to the parser's requests, and it may also supervise the operation of the intermediate code generator.\citep{compilerconstruction92}
+\textit{The syntactic analyzer, or \textit{parser}, is the heart of the front end of the compiler.  The parser's main task is analyzing the structure of the program and its component statements and checking these for errors.  It frequently controls the lexical analyzer, which provides tokens in response to the parser's requests, and it may also supervise the operation of the intermediate code generator.} \citep{compilerconstruction92}
 \\*
 \\*
 A programming langauge follows a strict set of rules that form it, much like the English langauge has rules to string certain words together to form meaningful and sensible sentences.  The parsers job is to put the tokens into an order that follows the grammar, and put the tokens into a syntax tree, following the rules of the grammar.  For example, the grammar specifies that an identifier, or an expression, must come after the \texttt{if} keyword, followed by a comparison of another identifier or expression.
 \subsubsection{Grammar}\label{subsubsec:grammar}
 For the parser to operate, there needs to be a way for the syntactic analyser to convert the tokens into the parser tree.  The grammar fulfills this role by using a BNF, or EBNF.  It originally started as BNF (Backus-Naur Form), as created by John Backus and Peter Naur to describe the syntax of a specific language.\\*
 \\*
-John Backus and Peter Naur introduced for the first time a formal notation to describe the syntax of a given langauge (This was for the description of the ALGOL 60 programming langauge. \citep{whatisbnfnotation}
+\textit{John Backus and Peter Naur introduced for the first time a formal notation to describe the syntax of a given langauge (This was for the description of the ALGOL 60 programming langauge.} \citep{whatisbnfnotation}
 \\*
 \\*
 The grammar is the important area of the parser, as it defines how the langauge should look and work.  Most langauges use "context free grammars", where the grammar is built up of small chunks, which can be used in themselves in a recursive fashion.\\*
 \\*
-Context-free grammars are used to describe the syntactic structure of programs of a programming language.  This shows how programs are composed from subprograms, or, more precisely, which elementary constructs there are and how composite constructs can be built from other constructs. \citep{compilerdesign95}\\*
+\textit{Context-free grammars are used to describe the syntactic structure of programs of a programming language.  This shows how programs are composed from subprograms, or, more precisely, which elementary constructs there are and how composite constructs can be built from other constructs.} \citep{compilerdesign95}\\*
 \\*
 Take the following EBNF grammar for example:\\*
 \begin{figure}[H]
@@ -427,7 +429,7 @@ Parsing is the process of constructing the syntax tree from the grammar.  There 
 \paragraph{Top-Down Parsing}
 The top-down parser begins with the start symbol in the grammar, and with the use of the token stream, tries to predict which is the next route to take to get to the end result.\\
 \\
-The top-down parser must start at the root of the tree and determine, from the token stream, how to grow the parse tree that results in the observed tokens.  It must do this from nothing but knowledge of the incoming tokens and of the productions in the grammar.  Furthermore, as a practical matter, it must scan the incoming tokens from left to right. \citep{compilerconstruction92}
+\textit{The top-down parser must start at the root of the tree and determine, from the token stream, how to grow the parse tree that results in the observed tokens.  It must do this from nothing but knowledge of the incoming tokens and of the productions in the grammar.  Furthermore, as a practical matter, it must scan the incoming tokens from left to right.} \citep{compilerconstruction92}
 \\
 This quote gives a basic overview of how the top-down parsing process works.
 \paragraph{Bottom-Up Parsing}
@@ -435,7 +437,7 @@ A bottom-up parser attempts to perform the parsing the opposite way of top-down,
 \subsection{Syntax Trees}\label{subsec:syntax_trees}
 Data structures are programming constructs that allow the storage of related data.  They are advantageous as they are quick to traverse and easier to manage than a flat storage system.  For the context of a compiler, they are useful for storing the logic of the code in a tree.  This is where syntax trees are useful.\\*
 \\*
-One of the most powerful data structures used in compilers is an \textit{abstract syntax tree} (AST). ... In most real grammars, there are rules that exist to manage grouping but that add no meaning to the program.  An AST is basically a parse tree that omits the nodes for the uninteresting rules. \citep{flexandbison09}\\
+\textit{One of the most powerful data structures used in compilers is an \textbf{abstract syntax tree} (AST). ... In most real grammars, there are rules that exist to manage grouping but that add no meaning to the program.  An AST is basically a parse tree that omits the nodes for the uninteresting rules.} \citep{flexandbison09}\\
 \\
 So while syntax trees are similar to parse trees, they differ in that syntax trees only store the programming constructs, whilst the parse tree represents rules in the grammar that may simply group other rules together, thus creating a smaller, lighter data structure.\\
 \\
@@ -443,7 +445,7 @@ So while syntax trees are similar to parse trees, they differ in that syntax tre
 \subsection{Semantic Analysis}\label{subsec:syntax_trees}
 The semantic analyser checks the syntax tree and symbol table for consistency against the source program.\\
 \\
-The \textit{semantic analyser} uses the syntax tree and the information in the symbol table to check the source program for semantic consistency with the langauge definition.  It also gathers type information and saves it in either the syntax tree or the symbol table, for subsequent use during intermediate-code generation. \citep{compilers07}\\
+\textit{The \textbf{semantic analyser} uses the syntax tree and the information in the symbol table to check the source program for semantic consistency with the langauge definition.  It also gathers type information and saves it in either the syntax tree or the symbol table, for subsequent use during intermediate-code generation.} \citep{compilers07}\\
 \\
 The semantic analyser also has the job of checking data types in expressions.  For example, it will check that in a statement:
 \begin{center}
@@ -461,14 +463,14 @@ The Warren Abstract Machine (WAM) is a compiler specifically for Prolog.
 \subsubsection{LLVM}\label{subsubsec:llvm}
 LLVM (Low-Level Virtual Machine) is a framework that helps to create the intermediate code for a compiler.  It is unrelated to the actual Virtual Machines that run full desktops on top of another desktop.  One of the main sub-projects of LLVM is:\\
 \\
-The LLVM Core libraries provide a modern source- and target-independent optimizer, along with code generation support for many popular CPUs (as well as some less common ones!) These libraries are built around a well specified code representation known as the LLVM intermediate representation ("LLVM IR"). The LLVM Core libraries are well documented, and it is particularly easy to invent your own language (or port an existing compiler) to use LLVM as a optimizer and code generator. \citep{llvm10}
+\textit{The LLVM Core libraries provide a modern source- and target-independent optimizer, along with code generation support for many popular CPUs (as well as some less common ones!) These libraries are built around a well specified code representation known as the LLVM intermediate representation ("LLVM IR"). The LLVM Core libraries are well documented, and it is particularly easy to invent your own language (or port an existing compiler) to use LLVM as a optimizer and code generator.} \citep{llvm10}
 \\
 \\
 In short, LLVM can provide a way of optimizing and generating the object code for a wide range of processor archiectures.  Whilst LLVM is specifically designed for C++, there is a project, called Clang, that provides a C based (C, C++, Objective-C) front end (the lexical analysis and parsing phase), making it even easier to generate the AST's and feed it into LLVM.
 \subsection{Optimization}\label{subsec:optimization}
 The intermediate code generation stage produces a lot of code that is over-complicated, which can in turn slow down the speed of the compiled code.  The optimisation process removes the uncessary code and helps to make the object code more efficient.  Not all compilers contain an optimisation processes - some compilers with the intent to teach programming may not have an optimisation module built in, as it doesn't fit the requirements of the user.  However, for more practical situations, the optimiser is essential, and could make a significant difference when compiling a large project.\\
 \\
-A compiler for use in teaching programming does not need to produce efficient code.  This is because the bulk of a student's time will be spent in debugging; the program will normally be re-compiled every time it is run.  Once the program is to all appearances correct, the student will hand it in and never run it again. \citep{compilerconstruction92}\\
+\textit{A compiler for use in teaching programming does not need to produce efficient code.  This is because the bulk of a student's time will be spent in debugging; the program will normally be re-compiled every time it is run.  Once the program is to all appearances correct, the student will hand it in and never run it again.} \citep{compilerconstruction92}\\
 \\
 The advantage of optimisation can be to help reduce resource usage on both the CPU and memory, and even battery life on programs that will be used on mobile devices, as the programs will use less instructions to perform the same task.\\
 \\
@@ -483,7 +485,7 @@ One of the main aims of this project was to create an open-source alternative to
 \subsection{What Is Linux?}\label{subsec:what_is_linux}
 Linux is the core of an operating system, but is not itself a fully fledged system.  The linux kernel provides all the drivers for a machine, and also helps manage devices such as RAM and hard drives.  Distributions such as Ubuntu and Fedora use Linux at their core, but it is the combination of many other packages, such as a desktop environment (Gnome, KDE) that make up the distribution.  Most linux distributions are licenced under the GPL licence.\\
 \\
-Developers who write software can release it under the terms of the GNU GPL.  When they do, it will be free software and stay free software, no matter who changes or distributes the program.  We call this copyleft: the software is copyrighted, but instead of using those rights to restrict users like proprietary softare does, we use them to ensure that every user has freedom. \citep{quickguidetogpl3}
+\textit{Developers who write software can release it under the terms of the GNU GPL.  When they do, it will be free software and stay free software, no matter who changes or distributes the program.  We call this copyleft: the software is copyrighted, but instead of using those rights to restrict users like proprietary softare does, we use them to ensure that every user has freedom.} \citep{quickguidetogpl3}
 \\
 \\
 Not only is this useful to consider when choosing the developer tools, but it is also a good licence to release the implemented compiler with, as one of the objectives is for the project to be open source.\\
@@ -509,7 +511,7 @@ Flex is a lexical analyser, which takes an input, i.e. the source code, and toke
 \\*
 There are several incarnations of lexical analysis programs, but the most popular is Flex, which originally dirived from yacc and lex.  Lex was written in 1975 by Mike Lesk and Eric Schmidt (now CEO of Google Corporation)
 
-Flex and Bison are tools for building programs that handle structured input.  They were originally tools for building compilers, but they have proven to be useful in many other areas. \citep{flexandbison09}.
+\textit{Flex and Bison are tools for building programs that handle structured input.  They were originally tools for building compilers, but they have proven to be useful in many other areas.} \citep{flexandbison09}.
 \\*
 \\*
 Flex was chosen due to it being a popular lexical analyser.  This has the advantage of their being lots of support and documentation for it, and it's also easily available from the Ubuntu repositories.\\*
@@ -567,8 +569,8 @@ Where IF is the token to return.  Tokens can also be created for values and numb
 \section{Bison}\label{sec:bison}
 Bison is the syntactic analyser which works hand in hand with Flex.  Bison originally came from Yacc (Yet Another Compiler Compiler), which was developed in the mid 1970's.  This version of Yacc was limited through it's licencing (Unix licence), which spured the development of Berkeley Yacc.  The Berkeley version was much faster, and was also under a less restrictive licence, allowing it to become the most popular version.  Richard Stallman, founder of the Free Software Foundation, then in turn created a GNU edition to be part of the GNU project, called Bison.\\
 \\
-Bison uses two parser methods: LALR parser (Look Ahead LR), which is based on the LR parser, and GLR (Generalised Left to Right), however Bison prefers to use LALR(1), as it is faster and easier to use than the more powerful GLR method.
-General LR parsers are called LR(\textit{k}) parsers; this has an interpretation similar to the LL(\textit{k}) parsers: the \textit{L} is for \textit{L}eft-to-right scan of tokens, the \textit{R} is for the \textit{R}ightmost derivation, and the \textit{k} is for the \textit{k}-character lookahead.  Use of more than one character of lookahead puts an undesireable burden on the lexical analyser and results in very large parsing tables. \citep{compilerconstruction92}
+\textit{Bison uses two parser methods: LALR parser (Look Ahead LR), which is based on the LR parser, and GLR (Generalised Left to Right), however Bison prefers to use LALR(1), as it is faster and easier to use than the more powerful GLR method.
+General LR parsers are called LR(\textbf{k}) parsers; this has an interpretation similar to the LL(\textbf{k}) parsers: the \textbf{L} is for \textbf{L}eft-to-right scan of tokens, the \textbf{R} is for the \textbf{R}ightmost derivation, and the \textbf{k} is for the \textbf{k}-character lookahead.  Use of more than one character of lookahead puts an undesireable burden on the lexical analyser and results in very large parsing tables.} \citep{compilerconstruction92}
 \\*
 \\*
 Bison uses BNF, as described in an earlier chapter.  Like Flex, a Bison file is split up into three sections, where the third section is optional.  Below is an example from Flex \& Bison that shows the structure of a Bison file:\\*
@@ -1084,7 +1086,6 @@ Whilst AST's were put into place in the development, they weren't used in order 
 \appendix
 \appendixpage
 \addappheadtotoc
-Insert code dumpage here, or maybe not.. who knows?
 \end{document}
 
 
